@@ -132,7 +132,7 @@ public class PlayerCar : MonoBehaviour
             roll.y -= 360;
         }
 
-        roll.y = MathKoji.GetCloser(roll.y, handle / handleMaxPower * bodyRollMax, rollSensitivity);
+        roll.y = MathKoji.GetCloser(roll.y, (handle / handleMaxPower) * bodyRollMax, rollSensitivity);
         body.transform.localEulerAngles = roll;
     }
 }
