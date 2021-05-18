@@ -8,13 +8,13 @@ using UnityEngine;
 public class RoadObject : MonoBehaviour
 {
     /// <summary>
-    /// 自身が削除されるタイミング
+    /// 自身が削除される位置
     /// </summary>
     [SerializeField]
     float deadPos;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         Road.current.Join(transform);
     }
@@ -24,8 +24,21 @@ public class RoadObject : MonoBehaviour
     {
         if (transform.position.z < deadPos)
         {
-            Road.current.Leave(transform);
-            Destroy(this);
+            Death();
         }
+    }
+
+    /// <summary>
+    /// 自身を消滅させる
+    /// </summary>
+    protected virtual void Death()
+    {
+        Destroy(this.gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        //道のリストから自身を削除
+        Road.current.Leave(transform);
     }
 }

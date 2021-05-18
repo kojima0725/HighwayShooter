@@ -8,12 +8,19 @@ using UnityEngine;
 /// </summary>
 public class Road : MonoBehaviour
 {
+    /// <summary>
+    /// シングルトン
+    /// </summary>
     public static Road current;
-
     private void Awake()
     {
         current = this;
     }
+
+
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
 
     /// <summary>
     /// 速度
@@ -24,7 +31,11 @@ public class Road : MonoBehaviour
     /// <summary>
     /// 後ろに流していくオブジェクト達
     /// </summary>
-    readonly List<Transform> roads = new List<Transform>();
+    readonly List<Transform> roadObjects = new List<Transform>();
+
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
 
 
     /// <summary>
@@ -33,7 +44,7 @@ public class Road : MonoBehaviour
     /// <param name="obj"></param>
     public void Join(Transform obj)
     {
-        roads.Add(obj);
+        roadObjects.Add(obj);
     }
 
 
@@ -43,7 +54,30 @@ public class Road : MonoBehaviour
     /// <param name="obj"></param>
     public void Leave(Transform obj)
     {
-        roads.Remove(obj);
+        roadObjects.Remove(obj);
+    }
+
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
+    ///////////////////////////////////////////////////
+
+    private void Update()
+    {
+        MoveObjects();
+    }
+
+    /// <summary>
+    /// 所属しているオブジェクトを後ろに受け流していく
+    /// </summary>
+    private void MoveObjects()
+    {
+        float dist = speed * Time.deltaTime;
+        foreach (var item in roadObjects)
+        {
+            Vector3 pos = item.position;
+            pos.z -= dist;
+            item.position = pos;
+        }
     }
 
 }
