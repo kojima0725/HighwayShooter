@@ -13,14 +13,19 @@ public class RoadObject : MonoBehaviour
     [SerializeField]
     float deadPos;
 
+    protected virtual void Awake()
+    {
+        
+    }
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         Road.current.Join(transform);
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (transform.position.z < deadPos)
         {

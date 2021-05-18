@@ -63,6 +63,10 @@ public class Road : MonoBehaviour
 
     private void Update()
     {
+    }
+
+    private void LateUpdate()
+    {
         MoveObjects();
     }
 
