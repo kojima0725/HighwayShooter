@@ -14,11 +14,18 @@ public class KInputManager : MonoBehaviour
     /// </summary>
     public static float GetCarMoveInput()
     {
+        float a = Input.GetAxis("LStickH");
+        if (a != 0)
+        {
+            return a;
+        }
+
+        //ジョイスティック入力がない場合はキーボード入力を考慮する
         if (Input.GetKey(KeyCode.A))
         {
             return -1f;
         }
-        else if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             return 1f;
         }
