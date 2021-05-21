@@ -36,7 +36,6 @@ public class RoadChip : RoadObject
     protected override void Start()
     {
         base.Start();
-        SonCheck();
     }
 
     /// <summary>
@@ -61,5 +60,11 @@ public class RoadChip : RoadObject
     {
         base.Update();
         SonCheck();
+    }
+
+    protected override void Death()
+    {
+        SonCheck();
+        base.Death();
     }
 }

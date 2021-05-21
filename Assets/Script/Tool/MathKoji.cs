@@ -48,4 +48,14 @@ public static class MathKoji
             return current;
         }
     }
+
+    /// <summary>
+    /// 時速キロメートルを秒速メートルに変換して返す
+    /// </summary>
+    /// <param name="kmH">時速(キロメートル)</param>
+    /// <returns>秒速(メートル)</returns>
+    public static float KmHToMH(float kmH)
+    {
+        return kmH * 10 / 36;
+    }
 }

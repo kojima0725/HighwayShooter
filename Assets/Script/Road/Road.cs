@@ -23,10 +23,15 @@ public class Road : MonoBehaviour
     ///////////////////////////////////////////////////
 
     /// <summary>
-    /// 速度
+    /// 速度(時速何キロメートルか)
     /// </summary>
     [SerializeField]
-    float speed;
+    float speedKmH;
+
+    /// <summary>
+    /// 速度(秒速何メートルか)
+    /// </summary>
+    float speedMS;
 
     /// <summary>
     /// 後ろに流していくオブジェクト達
@@ -63,6 +68,8 @@ public class Road : MonoBehaviour
 
     private void Update()
     {
+        //速度計算
+        speedMS = speedKmH * 10 / 36;
     }
 
     private void LateUpdate()
@@ -75,7 +82,7 @@ public class Road : MonoBehaviour
     /// </summary>
     private void MoveObjects()
     {
-        float dist = speed * Time.deltaTime;
+        float dist = speedMS * Time.deltaTime;
         foreach (var item in roadObjects)
         {
             Vector3 pos = item.position;
@@ -83,5 +90,7 @@ public class Road : MonoBehaviour
             item.position = pos;
         }
     }
+
+
 
 }

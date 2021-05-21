@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deadPos: -50
   end: {fileID: 430224688842992787}
-  far: 100
+  far: 300
   chip: {fileID: 430224689477448099}
 --- !u!1 &1424411031604655460
 GameObject:
