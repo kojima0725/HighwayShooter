@@ -737,6 +737,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398c8e55902310a4d9d3ba5b687b4d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxObjects: 1000
 --- !u!4 &1383892034
 Transform:
   m_ObjectHideFlags: 0
@@ -783,7 +784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reticle: {fileID: 567762943}
-  reticleSpeed: 5
+  reticleSpeed: 10
   debugMode: 1
   debugText: {fileID: 1767400409}
 --- !u!4 &1525640205
@@ -885,6 +886,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1383892034}
     m_Modifications:
+    - target: {fileID: 430224689477448097, guid: b1cb29b8ec0994948853adda98750216,
+        type: 3}
+      propertyPath: deadPos
+      value: -100
+      objectReference: {fileID: 0}
     - target: {fileID: 430224689477448098, guid: b1cb29b8ec0994948853adda98750216,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1591,7 +1597,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 7753495587682878181}
-  speed: 100
+  speed: 300
   rollSensitivity: 90
   handleInputSensitivity: 5
   debugMode: 1

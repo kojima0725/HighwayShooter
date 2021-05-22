@@ -46,7 +46,7 @@ public class RoadObject : MonoBehaviour
     /// <summary>
     /// 自身を消滅させる
     /// </summary>
-    protected virtual void Death()
+    public virtual void Death()
     {
         Destroy(this.gameObject);
     }

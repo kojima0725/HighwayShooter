@@ -23,6 +23,12 @@ public class Road : MonoBehaviour
     ///////////////////////////////////////////////////
 
     /// <summary>
+    /// 許容するオブジェクトの最大値
+    /// </summary>
+    [SerializeField]
+    int maxObjects;
+
+    /// <summary>
     /// 速度(時速何キロメートルか)
     /// </summary>
     float speedKmH = 0;
@@ -89,6 +95,9 @@ public class Road : MonoBehaviour
     {
         //速度計算
         speedMS = MathKoji.KmHToMS(speedKmH);
+        //生成物が多すぎる場合は消す
+        RemoveMax();
+
     }
 
     private void LateUpdate()
@@ -110,6 +119,19 @@ public class Road : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 出現オブジェクトの上限に達したときに、対象を削除していく
+    /// </summary>
+    void RemoveMax()
+    {
+        int counter = 0;
+        while (roadObjects.Count > maxObjects && counter < 100)
+        {
+            roadObjects[0].GetComponent<RoadObject>().Death();
+            counter++;
+        }
+    }
 
 
 }

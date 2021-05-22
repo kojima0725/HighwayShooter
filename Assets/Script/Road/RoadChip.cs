@@ -52,6 +52,8 @@ public class RoadChip : RoadObject
             //自身を複製
             GameObject son = Instantiate(chip, this.transform.parent);
             son.transform.position = end.position;
+            son.transform.rotation = end.rotation;
+            son.transform.Rotate(new Vector3(0,2f,0));
             sonIsMaked = true;
         }
     }
@@ -62,7 +64,7 @@ public class RoadChip : RoadObject
         SonCheck();
     }
 
-    protected override void Death()
+    public override void Death()
     {
         SonCheck();
         base.Death();
