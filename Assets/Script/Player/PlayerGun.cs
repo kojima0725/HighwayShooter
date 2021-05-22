@@ -54,8 +54,7 @@ public class PlayerGun : MonoBehaviour
         Vector3 move = new Vector2(KInputManager.GetGunMoveInputX(), KInputManager.GetGunMoveInputY());
         move.x *= reticleSpeed;
         move.y *= reticleSpeed;
-        //上下反転の必要あり
-        move.y = -move.y;
+
         move.z = 0;
 
         reticleTransform.position += move;

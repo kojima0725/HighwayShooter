@@ -65,7 +65,7 @@ public class KInputManager : MonoBehaviour
         float a = Input.GetAxis("RStickV");
         if (a != 0)
         {
-            return a;
+            return -a;
         }
 
         //ジョイスティック入力がない場合はキーボードの矢印入力を受け付ける
