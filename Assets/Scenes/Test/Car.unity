@@ -215,7 +215,7 @@ RectTransform:
   - {fileID: 567762945}
   - {fileID: 1767400411}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -392,7 +392,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &875336627
 GameObject:
@@ -438,7 +438,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &963194225
 GameObject:
@@ -520,8 +520,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.77, z: -4.28}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_Father: {fileID: 7753495587682655941}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 8.54, y: 0, z: 0}
 --- !u!1 &997244237
 GameObject:
@@ -744,14 +744,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1383892032}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 195046937}
   - {fileID: 1207261804}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1525640203
 GameObject:
@@ -798,7 +798,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1767400408
 GameObject:
@@ -1499,6 +1499,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3696438196710421743}
+  - {fileID: 963194228}
   m_Father: {fileID: 9074548646729650608}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1591,11 +1592,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 7753495587682878181}
   speed: 100
-  bodyRollMax: 45
-  rollSensitivity: 200
-  handleMaxPower: 15
-  handleSensitivity: 20
-  handleInputSensitivity: 20
+  rollSensitivity: 90
+  handleInputSensitivity: 5
   debugMode: 1
   hundleTxt: {fileID: 997244239}
 --- !u!4 &9074548646729650608
@@ -1611,7 +1609,7 @@ Transform:
   m_Children:
   - {fileID: 7753495587682655941}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9214120908261726404
 GameObject:

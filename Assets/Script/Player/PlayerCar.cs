@@ -25,38 +25,21 @@ public class PlayerCar : MonoBehaviour
     #region ハンドル関連
 
     /// <summary>
-    /// 車体の傾きの最大値
-    /// </summary>
-    [SerializeField]
-    float bodyRollMax = 45f;
-    /// <summary>
     /// 車体を傾ける感度;
     /// </summary>
     [SerializeField]
     float rollSensitivity;
-    /// <summary>
-    /// ハンドルの力
-    /// </summary>
-    [SerializeField]
-    float handleMaxPower;
-    /// <summary>
-    /// ハンドルの感度
-    /// </summary>
-    [SerializeField]
-    float handleSensitivity;
+    
     /// <summary>
     /// ハンドルの入力感度(入力にどれだけ素直に反応するか)
     /// </summary>
     [SerializeField]
     float handleInputSensitivity;
+
     /// <summary>
-    /// 車のハンドルをどちらに回しているか
+    /// 車のハンドルの入力状態
     /// </summary>
     float handleInput;
-    /// <summary>
-    /// ハンドルの状態
-    /// </summary>
-    float handle;
 
     #endregion
     /////////////////////////////////////
@@ -79,13 +62,12 @@ public class PlayerCar : MonoBehaviour
     void Update()
     {
         GetInput();
-        MoveHandle();
         RollBody();
         MoveCar();
 
         if (debugMode)
         {
-            hundleTxt.text = "ハンドルは" + handle;
+            hundleTxt.text = "ハンドルは" + handleInput;
         }
     }
 
@@ -98,33 +80,18 @@ public class PlayerCar : MonoBehaviour
         //Debug.Log(holizontalPower);
     }
 
-    /// <summary>
-    /// ハンドルを回す
-    /// </summary>
-    private void MoveHandle()
-    {
-        handle += handleInput * handleSensitivity * Time.deltaTime;
-        if (handle > handleMaxPower)
-        {
-            handle = handleMaxPower;
-        }
-        else if (handle < -handleMaxPower)
-        {
-            handle = -handleMaxPower;
-        }
-    }
 
     /// <summary>
-    /// 車を左右に動かす
+    /// 車を動かす(道を後ろに流す)
     /// </summary>
     private void MoveCar()
     {
-        Vector3 positon = transform.position;
+        //Vector3 positon = transform.position;
 
-        positon.x += handle * Time.deltaTime;
+        //positon.x += handle * Time.deltaTime;
 
 
-        transform.position = positon;
+        //transform.position = positon;
 
         Road.current.SetCarSpeed(speed);
         
@@ -137,12 +104,10 @@ public class PlayerCar : MonoBehaviour
     {
         var roll = body.transform.localEulerAngles;
 
-        if (roll.y > 180)
-        {
-            roll.y -= 360;
-        }
+        roll.y += handleInput * rollSensitivity * Time.deltaTime;
 
-        roll.y = MathKoji.GetCloser(roll.y, (handle / handleMaxPower) * bodyRollMax, rollSensitivity);
         body.transform.localEulerAngles = roll;
+
+        Road.current.SetMoveAxis(-body.transform.forward);
     }
 }

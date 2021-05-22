@@ -33,6 +33,11 @@ public class Road : MonoBehaviour
     float speedMS;
 
     /// <summary>
+    /// 移動方向
+    /// </summary>
+    Vector3 moveAxis = new Vector3(0,0,-1);
+
+    /// <summary>
     /// 後ろに流していくオブジェクト達
     /// </summary>
     readonly List<Transform> roadObjects = new List<Transform>();
@@ -61,10 +66,19 @@ public class Road : MonoBehaviour
         roadObjects.Remove(obj);
     }
 
+    /// <summary>
+    /// 道路のスピードをセットする
+    /// </summary>
+    /// <param name="KmH"></param>
     public void SetCarSpeed(float KmH)
     {
         speedKmH = KmH;
         speedMS = MathKoji.KmHToMS(speedKmH);
+    }
+
+    public void SetMoveAxis(Vector3 axis)
+    {
+        moveAxis = axis.normalized;
     }
 
     ///////////////////////////////////////////////////
@@ -87,11 +101,11 @@ public class Road : MonoBehaviour
     /// </summary>
     private void MoveObjects()
     {
-        float dist = speedMS * Time.deltaTime;
+        Vector3 dist = moveAxis * speedMS * Time.deltaTime;
         foreach (var item in roadObjects)
         {
             Vector3 pos = item.position;
-            pos.z -= dist;
+            pos += dist;
             item.position = pos;
         }
     }
