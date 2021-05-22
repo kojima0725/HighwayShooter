@@ -31,4 +31,52 @@ public class KInputManager : MonoBehaviour
         }
         return 0f;
     }
+
+    /// <summary>
+    /// 銃の移動入力を取得する(水平方向)
+    /// </summary>
+    /// <returns></returns>
+    public static float GetGunMoveInputX()
+    {
+        float a = Input.GetAxis("RStickH");
+        if (a != 0)
+        {
+            return a;
+        }
+
+        //ジョイスティック入力がない場合はキーボードの矢印入力を受け付ける
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            return -1f;
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            return 1f;
+        }
+        return 0f;
+    }
+
+    /// <summary>
+    /// 銃の移動入力を取得する(上下方向)
+    /// </summary>
+    /// <returns></returns>
+    public static float GetGunMoveInputY()
+    {
+        float a = Input.GetAxis("RStickV");
+        if (a != 0)
+        {
+            return a;
+        }
+
+        //ジョイスティック入力がない場合はキーボードの矢印入力を受け付ける
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            return -1f;
+        }
+        if (Input.GetKey(KeyCode.UpArrow))
+        {
+            return 1f;
+        }
+        return 0f;
+    }
 }
