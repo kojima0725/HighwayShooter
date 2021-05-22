@@ -14,8 +14,17 @@ public class PlayerGun : MonoBehaviour
     [SerializeField]
     Image reticle;
 
+    /// <summary>
+    /// レティクルの移動速度
+    /// </summary>
     [SerializeField]
     float reticleSpeed;
+
+    /// <summary>
+    /// レティクルのトランスフォーム
+    /// </summary>
+    RectTransform reticleTransform;
+
 
 
     [SerializeField]
@@ -23,12 +32,17 @@ public class PlayerGun : MonoBehaviour
     [SerializeField]
     Text debugText;
 
+    private void Awake()
+    {
+        reticleTransform = reticle.rectTransform;
+    }
+
     private void Update()
     {
         MoveReticle();
         if (debugMode)
         {
-            debugText.text = "X:" + reticle.rectTransform.position.x.ToString("000000") + "Y:" + reticle.rectTransform.position.y.ToString("000000");
+            debugText.text = "X:" + reticleTransform.position.x.ToString("000000") + "Y:" + reticleTransform.position.y.ToString("000000");
         }
     }
 
@@ -44,6 +58,39 @@ public class PlayerGun : MonoBehaviour
         move.y = -move.y;
         move.z = 0;
 
-        reticle.rectTransform.position += move;
+        reticleTransform.position += move;
+
+        DoNotGoToOutSide();
+    }
+
+
+    /// <summary>
+    /// レティクルが画面外に出ないようにする
+    /// </summary>
+    private void DoNotGoToOutSide()
+    {
+        int width = Screen.width;
+        int height = Screen.height;
+        Vector3 pos = reticleTransform.position;
+
+        if (pos.x > width)
+        {
+            pos.x = width;
+        }
+        else if (pos.x < 0)
+        {
+            pos.x = 0;
+        }
+
+        if (pos.y > height)
+        {
+            pos.y = height;
+        }
+        else if (pos.y < 0)
+        {
+            pos.y = 0;
+        }
+
+        reticleTransform.position = pos;
     }
 }
