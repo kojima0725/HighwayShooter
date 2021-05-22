@@ -16,46 +16,53 @@ public class PlayerCar : MonoBehaviour
     [SerializeField]
     GameObject body;
 
+    [SerializeField]
+    float speed;
+
+    /////////////////////////////////////
+    /////////////////////////////////////
+    /////////////////////////////////////
+    #region ハンドル関連
+
     /// <summary>
     /// 車体の傾きの最大値
     /// </summary>
     [SerializeField]
     float bodyRollMax = 45f;
-
     /// <summary>
     /// 車体を傾ける感度;
     /// </summary>
     [SerializeField]
     float rollSensitivity;
-
     /// <summary>
     /// ハンドルの力
     /// </summary>
     [SerializeField]
     float handleMaxPower;
-
     /// <summary>
     /// ハンドルの感度
     /// </summary>
     [SerializeField]
     float handleSensitivity;
-
     /// <summary>
     /// ハンドルの入力感度(入力にどれだけ素直に反応するか)
     /// </summary>
     [SerializeField]
     float handleInputSensitivity;
-    
     /// <summary>
     /// 車のハンドルをどちらに回しているか
     /// </summary>
     float handleInput;
-
-
     /// <summary>
     /// ハンドルの状態
     /// </summary>
     float handle;
+
+    #endregion
+    /////////////////////////////////////
+    /////////////////////////////////////
+    /////////////////////////////////////
+    
 
     /// <summary>
     /// デバッグモードかどうか
@@ -75,6 +82,7 @@ public class PlayerCar : MonoBehaviour
         MoveHandle();
         RollBody();
         MoveCar();
+
         if (debugMode)
         {
             hundleTxt.text = "ハンドルは" + handle;
@@ -118,6 +126,8 @@ public class PlayerCar : MonoBehaviour
 
         transform.position = positon;
 
+        Road.current.SetCarSpeed(speed);
+        
     }
 
     /// <summary>

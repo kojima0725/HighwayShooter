@@ -25,8 +25,7 @@ public class Road : MonoBehaviour
     /// <summary>
     /// 速度(時速何キロメートルか)
     /// </summary>
-    [SerializeField]
-    float speedKmH;
+    float speedKmH = 0;
 
     /// <summary>
     /// 速度(秒速何メートルか)
@@ -60,6 +59,12 @@ public class Road : MonoBehaviour
     public void Leave(Transform obj)
     {
         roadObjects.Remove(obj);
+    }
+
+    public void SetCarSpeed(float KmH)
+    {
+        speedKmH = KmH;
+        speedMS = MathKoji.KmHToMS(speedKmH);
     }
 
     ///////////////////////////////////////////////////
