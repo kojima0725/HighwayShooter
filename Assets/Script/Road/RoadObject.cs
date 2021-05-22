@@ -7,11 +7,6 @@ using UnityEngine;
 /// </summary>
 public class RoadObject : MonoBehaviour
 {
-    /// <summary>
-    /// 自身が削除される位置
-    /// </summary>
-    [SerializeField]
-    float deadPos;
 
     bool joined = false;
 
@@ -37,10 +32,7 @@ public class RoadObject : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (transform.position.z < deadPos)
-        {
-            Death();
-        }
+        
     }
 
     /// <summary>

@@ -41,13 +41,13 @@ public class RoadChip : RoadObject
     /// <summary>
     /// 道路を生成する必要があるか確認し、その場合は生成を行う
     /// </summary>
-    private void SonCheck()
+    private void SonCheck(bool onDeath = false)
     {
         if (sonIsMaked)
         {
             return;
         }
-        if (transform.position.z < far)
+        if (transform.position.z < far || onDeath)
         {
             //自身を複製
             GameObject son = Instantiate(chip, this.transform.parent);
@@ -66,7 +66,7 @@ public class RoadChip : RoadObject
 
     public override void Death()
     {
-        SonCheck();
+        SonCheck(true);
         base.Death();
     }
 }

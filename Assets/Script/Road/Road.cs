@@ -82,9 +82,22 @@ public class Road : MonoBehaviour
         speedMS = MathKoji.KmHToMS(speedKmH);
     }
 
+    /// <summary>
+    /// 世界の移動方向を設定する
+    /// </summary>
+    /// <param name="axis"></param>
     public void SetMoveAxis(Vector3 axis)
     {
         moveAxis = axis.normalized;
+    }
+
+    /// <summary>
+    /// 世界の移動方向を確認する
+    /// </summary>
+    /// <returns></returns>
+    public Vector3 GetMoveAxis()
+    {
+        return moveAxis;
     }
 
     ///////////////////////////////////////////////////
