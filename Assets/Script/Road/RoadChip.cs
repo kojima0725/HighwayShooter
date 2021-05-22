@@ -9,19 +9,23 @@ using UnityEngine;
 public class RoadChip : RoadObject
 {
     /// <summary>
+    /// 道の長さ
+    /// </summary>
+    private const int MaxLength = 15;
+    
+    /// <summary>
+    /// 現在の道の長さ
+    /// </summary>
+    static int length = 0;
+
+    /// <summary>
     /// 自身の最後端の位置
     /// </summary>
     [SerializeField]
     private Transform end;
 
     /// <summary>
-    /// 自身の最奥の位置
-    /// </summary>
-    [SerializeField]
-    float far;
-
-    /// <summary>
-    /// マップチップ
+    /// マップチップ(自分自身のプレハブ)
     /// </summary>
     [SerializeField]
     GameObject chip;
@@ -30,12 +34,19 @@ public class RoadChip : RoadObject
 
     protected override void Awake()
     {
+        length++;
         base.Awake();
     }
 
     protected override void Start()
     {
         base.Start();
+    }
+
+    protected override void Join()
+    {
+        Road.current.Join(transform, true);
+        joined = true;
     }
 
     /// <summary>
@@ -47,15 +58,24 @@ public class RoadChip : RoadObject
         {
             return;
         }
-        if (transform.position.z < far || onDeath)
+        if (length < MaxLength || onDeath)
         {
-            //自身を複製
-            GameObject son = Instantiate(chip, this.transform.parent);
-            son.transform.position = end.position;
-            son.transform.rotation = end.rotation;
-            son.transform.Rotate(new Vector3(0,2f,0));
-            sonIsMaked = true;
+            MakeSon();
         }
+    }
+
+
+    /// <summary>
+    /// 自身を複製する
+    /// </summary>
+    private void MakeSon()
+    {
+        //自身を複製
+        GameObject son = Instantiate(chip, this.transform.parent);
+        son.transform.position = end.position;
+        son.transform.rotation = end.rotation;
+        son.transform.Rotate(new Vector3(0, 2f, 0));
+        sonIsMaked = true;
     }
 
     protected override void Update()
@@ -68,5 +88,12 @@ public class RoadChip : RoadObject
     {
         SonCheck(true);
         base.Death();
+    }
+
+    protected override void OnDestroy()
+    {
+        length--;
+        //道のリストから自身を削除
+        Road.current.Leave(transform, true);
     }
 }

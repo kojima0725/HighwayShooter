@@ -7,15 +7,16 @@ using UnityEngine;
 /// </summary>
 public class RoadObject : MonoBehaviour
 {
-
-    bool joined = false;
+    /// <summary>
+    /// Roadスクリプトに参加したかどうか
+    /// </summary>
+    protected bool joined = false;
 
     protected virtual void Awake()
     {
         if (Road.current)
         {
-            Road.current.Join(transform);
-            joined = true;
+            Join();
         }
     }
 
@@ -24,10 +25,16 @@ public class RoadObject : MonoBehaviour
     {
         if (!joined)
         {
-            Road.current.Join(transform);
-            joined = true;
+            Join();
         }
     }
+
+    protected virtual void Join()
+    {
+        Road.current.Join(transform);
+        joined = true;
+    }
+
 
     // Update is called once per frame
     protected virtual void Update()
@@ -43,7 +50,7 @@ public class RoadObject : MonoBehaviour
         Destroy(this.gameObject);
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         //道のリストから自身を削除
         Road.current.Leave(transform);

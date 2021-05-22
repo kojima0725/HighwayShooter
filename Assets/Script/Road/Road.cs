@@ -17,11 +17,6 @@ public class Road : MonoBehaviour
         current = this;
     }
 
-
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
-
     /// <summary>
     /// 許容するオブジェクトの最大値
     /// </summary>
@@ -48,18 +43,28 @@ public class Road : MonoBehaviour
     /// </summary>
     readonly List<Transform> roadObjects = new List<Transform>();
 
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
+    /// <summary>
+    /// 道本体は別物として扱う
+    /// </summary>
+    readonly List<Transform> roadChips = new List<Transform>();
+
+    #region public関数
 
 
     /// <summary>
     /// 後ろに流すオブジェクトを登録する
     /// </summary>
     /// <param name="obj"></param>
-    public void Join(Transform obj)
+    public void Join(Transform obj, bool roadChip = false)
     {
-        roadObjects.Add(obj);
+        if (roadChip)
+        {
+            roadChips.Add(obj);
+        }
+        else
+        {
+            roadObjects.Add(obj);
+        }
     }
 
 
@@ -67,9 +72,16 @@ public class Road : MonoBehaviour
     /// 後ろに流すオブジェクトを解除する
     /// </summary>
     /// <param name="obj"></param>
-    public void Leave(Transform obj)
+    public void Leave(Transform obj, bool roadChip = false)
     {
-        roadObjects.Remove(obj);
+        if (roadChip)
+        {
+            roadChips.Remove(obj);
+        }
+        else
+        {
+            roadObjects.Remove(obj);
+        }
     }
 
     /// <summary>
@@ -100,17 +112,14 @@ public class Road : MonoBehaviour
         return moveAxis;
     }
 
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
-    ///////////////////////////////////////////////////
+    #endregion
+
+    #region プライベート関数
 
     private void Update()
     {
         //速度計算
         speedMS = MathKoji.KmHToMS(speedKmH);
-        //生成物が多すぎる場合は消す
-        RemoveMax();
-
     }
 
     private void LateUpdate()
@@ -130,21 +139,14 @@ public class Road : MonoBehaviour
             pos += dist;
             item.position = pos;
         }
-    }
-
-
-    /// <summary>
-    /// 出現オブジェクトの上限に達したときに、対象を削除していく
-    /// </summary>
-    void RemoveMax()
-    {
-        int counter = 0;
-        while (roadObjects.Count > maxObjects && counter < 100)
+        foreach (var item in roadChips)
         {
-            roadObjects[0].GetComponent<RoadObject>().Death();
-            counter++;
+            Vector3 pos = item.position;
+            pos += dist;
+            item.position = pos;
         }
     }
 
+    #endregion
 
 }
