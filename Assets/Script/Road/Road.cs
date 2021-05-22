@@ -69,7 +69,7 @@ public class Road : MonoBehaviour
     private void Update()
     {
         //速度計算
-        speedMS = speedKmH * 10 / 36;
+        speedMS = MathKoji.KmHToMS(speedKmH);
     }
 
     private void LateUpdate()
