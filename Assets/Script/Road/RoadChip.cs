@@ -11,7 +11,7 @@ public class RoadChip : RoadObject
     /// <summary>
     /// 道の長さ
     /// </summary>
-    private const int MaxLength = 15;
+    private const int MaxLength = 100;
     
     /// <summary>
     /// 現在の道の長さ
@@ -71,7 +71,7 @@ public class RoadChip : RoadObject
     private void MakeSon()
     {
         //自身を複製
-        GameObject son = Instantiate(chip, this.transform.parent);
+        GameObject son = Instantiate(chip, Road.current.transform);
         son.transform.position = end.position;
         son.transform.rotation = end.rotation;
         son.transform.Rotate(new Vector3(0, 2f, 0));
