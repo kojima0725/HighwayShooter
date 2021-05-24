@@ -8,15 +8,6 @@ using UnityEngine;
 /// </summary>
 public class RoadChip : RoadObject
 {
-    /// <summary>
-    /// 道の長さ
-    /// </summary>
-    private const int MaxLength = 100;
-    
-    /// <summary>
-    /// 現在の道の長さ
-    /// </summary>
-    static int length = 0;
 
     /// <summary>
     /// 自身の最後端の位置
@@ -32,9 +23,17 @@ public class RoadChip : RoadObject
 
     bool sonIsMaked = false;
 
+    /// <summary>
+    /// 道の終端の位置を渡す
+    /// </summary>
+    /// <returns></returns>
+    public Transform GetEnd()
+    {
+        return end;
+    }
+
     protected override void Awake()
     {
-        length++;
         base.Awake();
     }
 
@@ -45,55 +44,38 @@ public class RoadChip : RoadObject
 
     protected override void Join()
     {
-        Road.current.Join(transform, true);
+        Road.current.Join(this);
         joined = true;
     }
 
-    /// <summary>
-    /// 道路を生成する必要があるか確認し、その場合は生成を行う
-    /// </summary>
-    private void SonCheck(bool onDeath = false)
-    {
-        if (sonIsMaked)
-        {
-            return;
-        }
-        if (length < MaxLength || onDeath)
-        {
-            MakeSon();
-        }
-    }
-
 
     /// <summary>
-    /// 自身を複製する
+    /// 自身を複製してつなげる
     /// </summary>
-    private void MakeSon()
+    /// <param name="rotate">どれぐらい道を曲げるか</param>
+    public void MakeSon(Vector3 rotate)
     {
         //自身を複製
         GameObject son = Instantiate(chip, Road.current.transform);
         son.transform.position = end.position;
         son.transform.rotation = end.rotation;
-        son.transform.Rotate(new Vector3(0, 2f, 0));
+        son.transform.Rotate(rotate);
         sonIsMaked = true;
     }
 
     protected override void Update()
     {
         base.Update();
-        SonCheck();
     }
 
     public override void Death()
     {
-        SonCheck(true);
         base.Death();
     }
 
     protected override void OnDestroy()
     {
-        length--;
         //道のリストから自身を削除
-        Road.current.Leave(transform, true);
+        Road.current.Leave(this);
     }
 }

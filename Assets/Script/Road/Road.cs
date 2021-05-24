@@ -15,6 +15,8 @@ public class Road : MonoBehaviour
     private void Awake()
     {
         current = this;
+        //速度計算
+        speedMS = MathKoji.KmHToMS(speedKmH);
     }
 
     /// <summary>
@@ -46,7 +48,7 @@ public class Road : MonoBehaviour
     /// <summary>
     /// 道本体は別物として扱う
     /// </summary>
-    readonly List<Transform> roadChips = new List<Transform>();
+    readonly List<RoadChip> roadChips = new List<RoadChip>();
 
     #region public関数
 
@@ -55,16 +57,14 @@ public class Road : MonoBehaviour
     /// 後ろに流すオブジェクトを登録する
     /// </summary>
     /// <param name="obj"></param>
-    public void Join(Transform obj, bool roadChip = false)
+    public void Join(Transform obj)
     {
-        if (roadChip)
-        {
-            roadChips.Add(obj);
-        }
-        else
-        {
-            roadObjects.Add(obj);
-        }
+        roadObjects.Add(obj);
+    }
+
+    public void Join(RoadChip chip)
+    {
+        roadChips.Add(chip);
     }
 
 
@@ -72,16 +72,14 @@ public class Road : MonoBehaviour
     /// 後ろに流すオブジェクトを解除する
     /// </summary>
     /// <param name="obj"></param>
-    public void Leave(Transform obj, bool roadChip = false)
+    public void Leave(Transform obj)
     {
-        if (roadChip)
-        {
-            roadChips.Remove(obj);
-        }
-        else
-        {
-            roadObjects.Remove(obj);
-        }
+        roadObjects.Remove(obj);
+    }
+
+    public void Leave(RoadChip chip)
+    {
+        roadChips.Remove(chip);
     }
 
     /// <summary>
@@ -115,11 +113,10 @@ public class Road : MonoBehaviour
     #endregion
 
     #region プライベート関数
-
+    
     private void Update()
     {
-        //速度計算
-        speedMS = MathKoji.KmHToMS(speedKmH);
+        
     }
 
     private void LateUpdate()
@@ -141,9 +138,9 @@ public class Road : MonoBehaviour
         }
         foreach (var item in roadChips)
         {
-            Vector3 pos = item.position;
+            Vector3 pos = item.transform.position;
             pos += dist;
-            item.position = pos;
+            item.transform.position = pos;
         }
     }
 
