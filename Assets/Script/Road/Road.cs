@@ -139,10 +139,16 @@ public class Road : MonoBehaviour
     /// </summary>
     private void MakeNewRoads()
     {
+        int count = 100;
         //生成距離が限界に達するまで、道路を生成する
         while (sqrObjDistance > roadMaker.GetLatestRoadChip().transform.position.sqrMagnitude)
         {
             roadChips.Insert(0, roadMaker.MakeRoad());
+            count--;
+            if (count == 0)
+            {
+                break;
+            }
         }
     }
 
