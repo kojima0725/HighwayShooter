@@ -20,6 +20,9 @@ public class RoadMaker : MonoBehaviour
     [SerializeField]
     RoadChip firstRoadChip;
 
+    [SerializeField]
+    float rotateBAKA;
+
     /// <summary>
     /// 最後に生成された道路
     /// </summary>
@@ -59,6 +62,9 @@ public class RoadMaker : MonoBehaviour
         RoadChip maked = Instantiate(roadChipPrefab, this.transform);
         //道路の終端につなげる
         maked.transform.position = latestRoadChip.GetEnd().position;
+        maked.transform.rotation = latestRoadChip.GetEnd().rotation;
+        //道路が曲がる
+        maked.transform.Rotate(new Vector3(0,rotateBAKA,0));
         //作った道路が終端となる
         latestRoadChip = maked;
 

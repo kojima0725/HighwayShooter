@@ -105,7 +105,8 @@ public class Road : MonoBehaviour
 
     private void Update()
     {
-        MakeRoads();
+        MakeNewRoads();
+        DestroyOldRoads();
     }
 
     private void LateUpdate()
@@ -136,12 +137,27 @@ public class Road : MonoBehaviour
     /// <summary>
     /// 道をどんどん生成していく
     /// </summary>
-    private void MakeRoads()
+    private void MakeNewRoads()
     {
         //生成距離が限界に達するまで、道路を生成する
         while (sqrObjDistance > roadMaker.GetLatestRoadChip().transform.position.sqrMagnitude)
         {
             roadChips.Insert(0, roadMaker.MakeRoad());
+        }
+    }
+
+    /// <summary>
+    /// 生存距離を超えた道路を削除していく
+    /// </summary>
+    private void DestroyOldRoads()
+    {
+        RoadChip a;
+        a = roadChips.Last();
+        while (sqrObjDistance < a.transform.position.sqrMagnitude)
+        {
+            roadChips.RemoveAt(roadChips.Count - 1);
+            Destroy(a.gameObject);
+            a = roadChips.Last();
         }
     }
 
