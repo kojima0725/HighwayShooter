@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
 /// <summary>
-/// 自身に所属しているRoadObjectを後ろに流していく
+/// 道路及び世界を後ろに流していく
 /// </summary>
 public class Road : MonoBehaviour
 {
@@ -12,29 +13,40 @@ public class Road : MonoBehaviour
     /// シングルトン
     /// </summary>
     public static Road current;
-    private void Awake()
-    {
-        current = this;
-        //速度計算
-        speedMS = MathKoji.KmHToMS(speedKmH);
-    }
 
-    #region 移動速度及び方向関連
+    /// <summary>
+    /// 道路生成機
+    /// </summary>
+    [SerializeField]
+    private RoadMaker roadMaker;
+
+    /// <summary>
+    /// 生成物の生存距離
+    /// </summary>
+    [SerializeField]
+    private float objDistance;
+
+    /// <summary>
+    /// 生成物の生存距離(二乗)
+    /// </summary>
+    private float sqrObjDistance;
+
+    #region 移動速度及び方向関連のメンバ変数
 
     /// <summary>
     /// 速度(時速何キロメートルか)
     /// </summary>
-    float speedKmH = 0;
+    private float speedKmH = 0;
 
     /// <summary>
     /// 速度(秒速何メートルか)
     /// </summary>
-    float speedMS;
+    private float speedMS;
 
     /// <summary>
     /// 移動方向
     /// </summary>
-    Vector3 moveAxis = new Vector3(0,0,-1);
+    private Vector3 moveAxis = new Vector3(0,0,-1);
 
     #endregion
 
@@ -49,43 +61,7 @@ public class Road : MonoBehaviour
     /// </summary>
     readonly List<RoadChip> roadChips = new List<RoadChip>();
 
-  
 
-
-
-
-    /// <summary>
-    /// 後ろに流すオブジェクトをリストに追加する
-    /// </summary>
-    /// <param name="obj"></param>
-    private void Join(Transform obj)
-    {
-        roadObjects.Add(obj);
-    }
-
-    /// <summary>
-    /// 道路をリストに追加する
-    /// </summary>
-    /// <param name="chip"></param>
-    private void Join(RoadChip chip)
-    {
-        roadChips.Add(chip);
-    }
-
-
-    /// <summary>
-    /// 後ろに流すオブジェクトを解除する
-    /// </summary>
-    /// <param name="obj"></param>
-    public void Leave(Transform obj)
-    {
-        roadObjects.Remove(obj);
-    }
-
-    public void Leave(RoadChip chip)
-    {
-        roadChips.Remove(chip);
-    }
 
     /// <summary>
     /// 道路のスピードをセットする
@@ -116,12 +92,20 @@ public class Road : MonoBehaviour
     }
 
 
+    private void Awake()
+    {
+        //自身をどこからでもアクセスできるように設定
+        current = this;
+        //最初の道路を設定しておく
+        roadChips.Add(roadMaker.GetFirstRoadChip());
+        //距離計算用のメンバ変数の設定
+        sqrObjDistance = objDistance * objDistance;
+    }
 
 
-    
     private void Update()
     {
-        
+        MakeRoads();
     }
 
     private void LateUpdate()
@@ -130,7 +114,7 @@ public class Road : MonoBehaviour
     }
 
     /// <summary>
-    /// 所属しているオブジェクトを後ろに受け流していく
+    /// 所属しているオブジェクトを後ろに流していく
     /// </summary>
     private void MoveObjects()
     {
@@ -146,6 +130,18 @@ public class Road : MonoBehaviour
             Vector3 pos = item.transform.position;
             pos += dist;
             item.transform.position = pos;
+        }
+    }
+
+    /// <summary>
+    /// 道をどんどん生成していく
+    /// </summary>
+    private void MakeRoads()
+    {
+        //生成距離が限界に達するまで、道路を生成する
+        while (sqrObjDistance > roadMaker.GetLatestRoadChip().transform.position.sqrMagnitude)
+        {
+            roadChips.Insert(0, roadMaker.MakeRoad());
         }
     }
 

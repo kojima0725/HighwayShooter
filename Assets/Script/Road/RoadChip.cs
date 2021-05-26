@@ -15,13 +15,6 @@ public class RoadChip : MonoBehaviour
     [SerializeField]
     private Transform end;
 
-    /// <summary>
-    /// マップチップ(自分自身のプレハブ)
-    /// </summary>
-    [SerializeField]
-    GameObject chip;
-
-    bool sonIsMaked = false;
 
     /// <summary>
     /// 道の終端の位置を渡す

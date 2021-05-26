@@ -704,6 +704,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1383892034}
   - component: {fileID: 1383892033}
+  - component: {fileID: 1383892035}
   m_Layer: 0
   m_Name: Road
   m_TagString: Untagged
@@ -723,7 +724,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 398c8e55902310a4d9d3ba5b687b4d7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxObjects: 1000
+  roadMaker: {fileID: 1383892035}
+  objDistance: 500
 --- !u!4 &1383892034
 Transform:
   m_ObjectHideFlags: 0
@@ -740,6 +742,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1383892035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383892032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38e92b9441371bf4a9a658e05264c39f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadChipPrefab: {fileID: 430224689477448097, guid: b1cb29b8ec0994948853adda98750216,
+    type: 3}
+  firstRoadChip: {fileID: 430224689349517244}
 --- !u!1 &1525640203
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +956,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b1cb29b8ec0994948853adda98750216, type: 3}
+--- !u!114 &430224689349517244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 430224689477448097, guid: b1cb29b8ec0994948853adda98750216,
+    type: 3}
+  m_PrefabInstance: {fileID: 430224689349517243}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4efe07311c1624fa2b43c86ed925a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &1107726407391686728
 MeshRenderer:
   m_ObjectHideFlags: 0
