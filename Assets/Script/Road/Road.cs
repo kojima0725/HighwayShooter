@@ -19,11 +19,7 @@ public class Road : MonoBehaviour
         speedMS = MathKoji.KmHToMS(speedKmH);
     }
 
-    /// <summary>
-    /// 許容するオブジェクトの最大値
-    /// </summary>
-    [SerializeField]
-    int maxObjects;
+    #region 移動速度及び方向関連
 
     /// <summary>
     /// 速度(時速何キロメートルか)
@@ -40,6 +36,9 @@ public class Road : MonoBehaviour
     /// </summary>
     Vector3 moveAxis = new Vector3(0,0,-1);
 
+    #endregion
+
+
     /// <summary>
     /// 後ろに流していくオブジェクト達
     /// </summary>
@@ -50,19 +49,25 @@ public class Road : MonoBehaviour
     /// </summary>
     readonly List<RoadChip> roadChips = new List<RoadChip>();
 
-    #region public関数
+  
+
+
 
 
     /// <summary>
-    /// 後ろに流すオブジェクトを登録する
+    /// 後ろに流すオブジェクトをリストに追加する
     /// </summary>
     /// <param name="obj"></param>
-    public void Join(Transform obj)
+    private void Join(Transform obj)
     {
         roadObjects.Add(obj);
     }
 
-    public void Join(RoadChip chip)
+    /// <summary>
+    /// 道路をリストに追加する
+    /// </summary>
+    /// <param name="chip"></param>
+    private void Join(RoadChip chip)
     {
         roadChips.Add(chip);
     }
@@ -110,9 +115,9 @@ public class Road : MonoBehaviour
         return moveAxis;
     }
 
-    #endregion
 
-    #region プライベート関数
+
+
     
     private void Update()
     {
@@ -144,6 +149,5 @@ public class Road : MonoBehaviour
         }
     }
 
-    #endregion
 
 }

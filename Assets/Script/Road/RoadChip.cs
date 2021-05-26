@@ -6,7 +6,7 @@ using UnityEngine;
 /// 道路本体、自動で生成され続ける
 /// RoadObjectを継承している
 /// </summary>
-public class RoadChip : RoadObject
+public class RoadChip : MonoBehaviour
 {
 
     /// <summary>
@@ -30,52 +30,5 @@ public class RoadChip : RoadObject
     public Transform GetEnd()
     {
         return end;
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
-    protected override void Start()
-    {
-        base.Start();
-    }
-
-    protected override void Join()
-    {
-        Road.current.Join(this);
-        joined = true;
-    }
-
-
-    /// <summary>
-    /// 自身を複製してつなげる
-    /// </summary>
-    /// <param name="rotate">どれぐらい道を曲げるか</param>
-    public void MakeSon(Vector3 rotate)
-    {
-        //自身を複製
-        GameObject son = Instantiate(chip, Road.current.transform);
-        son.transform.position = end.position;
-        son.transform.rotation = end.rotation;
-        son.transform.Rotate(rotate);
-        sonIsMaked = true;
-    }
-
-    protected override void Update()
-    {
-        base.Update();
-    }
-
-    public override void Death()
-    {
-        base.Death();
-    }
-
-    protected override void OnDestroy()
-    {
-        //道のリストから自身を削除
-        Road.current.Leave(this);
     }
 }
