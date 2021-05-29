@@ -28,6 +28,11 @@ public class RoadMaker : MonoBehaviour
     private RoadChip firstRoadChip;
 
     /// <summary>
+    /// 一番最初に生成されていた道路からどれぐらい違う方向を向いているか
+    /// </summary>
+    private float currentAngle;
+
+    /// <summary>
     /// ロードチップの各ステータス
     /// </summary>
     private RoadData roadData;

@@ -23,6 +23,11 @@ public class RoadData : ScriptableObject
     /// </summary>
     [SerializeField]
     private float limitDistance;
+    /// <summary>
+    /// カーブのキツさの最大値
+    /// </summary>
+    [SerializeField]
+    private float curveMax;
 
     public float Length
     {
@@ -37,5 +42,10 @@ public class RoadData : ScriptableObject
     public float LimitDistance
     {
         get => limitDistance;
+    }
+
+    public float CurveMax
+    {
+        get => curveMax;
     }
 }

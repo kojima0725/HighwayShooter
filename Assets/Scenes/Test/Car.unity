@@ -1626,8 +1626,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 7753495587682878181}
   speed: 300
-  rollSensitivity: 90
-  handleInputSensitivity: 5
+  rollSensitivity: 45
+  handleInputSensitivity: 10
   debugMode: 1
   hundleTxt: {fileID: 997244239}
 --- !u!4 &9074548646729650608

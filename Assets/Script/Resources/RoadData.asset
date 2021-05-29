@@ -15,3 +15,4 @@ MonoBehaviour:
   length: 10
   width: 20
   limitDistance: 500
+  curveMax: 2
