@@ -93,7 +93,7 @@ public class PlayerCar : MonoBehaviour
 
         //transform.position = positon;
 
-        Road.current.SetCarSpeed(speed);
+        World.current.SetCarSpeed(speed);
         
     }
 
@@ -108,6 +108,6 @@ public class PlayerCar : MonoBehaviour
 
         body.transform.localEulerAngles = roll;
 
-        Road.current.SetMoveAxis(-body.transform.forward);
+        World.current.SetMoveAxis(-body.transform.forward);
     }
 }
