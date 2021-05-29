@@ -7,6 +7,7 @@ using UnityEngine;
 /// <summary>
 /// 道路及び世界を後ろに流していく
 /// </summary>
+[RequireComponent(typeof(RoadMaker))]
 public class Road : MonoBehaviour
 {
     /// <summary>

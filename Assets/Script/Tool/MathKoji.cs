@@ -58,4 +58,27 @@ public static class MathKoji
     {
         return kmH * 10 / 36;
     }
+
+    /// <summary>
+    /// 子のすべてのレイヤーを変える
+    /// </summary>
+    /// <param name="obj">変えるオブジェ</param>
+    public static void SetLayer(GameObject obj, int setLayer)
+    {
+        obj.layer = setLayer;
+        foreach (Transform transform in obj.transform)
+        {
+            SetLayer(transform.gameObject, setLayer);
+        }
+    }
+
+    /// <summary>
+    /// 確率生成器(UnityEngine.Random)を使用
+    /// </summary>
+    /// <param name="percent">trueの確率(0～100)</param>
+    /// <returns>当たった場合true</returns>
+    public static bool RandomBool(int percent)
+    {
+        return UnityEngine.Random.Range(1, 101) <= percent;
+    }
 }
