@@ -73,7 +73,7 @@ public static class MathKoji
     }
 
     /// <summary>
-    /// 確率生成器(UnityEngine.Random)を使用
+    /// 確率生成器(UnityEngine.Randomを使用)
     /// </summary>
     /// <param name="percent">trueの確率(0～100)</param>
     /// <returns>当たった場合true</returns>

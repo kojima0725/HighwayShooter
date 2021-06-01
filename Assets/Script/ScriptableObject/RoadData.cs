@@ -8,44 +8,36 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RoadData", menuName = "ScriptableObjects/CreateRoadData")]
 public class RoadData : ScriptableObject
 {
+    
+    [SerializeField]
+    private float length;
+ 
+    [SerializeField]
+    private float width;
+    
+    [SerializeField]
+    private float limitDistance;
+
     /// <summary>
     /// ロードチップの長さ
     /// </summary>
-    [SerializeField]
-    private float length;
-    /// <summary>
-    /// ロードチップの幅
-    /// </summary>
-    [SerializeField]
-    private float width;
-    /// <summary>
-    /// 道路の生成限界
-    /// </summary>
-    [SerializeField]
-    private float limitDistance;
-    /// <summary>
-    /// カーブのキツさの最大値
-    /// </summary>
-    [SerializeField]
-    private float curveMax;
-
     public float Length
     {
         get => length;
     }
-
+    /// <summary>
+    /// ロードチップの幅
+    /// </summary>
     public float Width
     {
         get => width;
     }
-
+    /// <summary>
+    /// 道路の生成限界
+    /// </summary>
     public float LimitDistance
     {
         get => limitDistance;
     }
 
-    public float CurveMax
-    {
-        get => curveMax;
-    }
 }
