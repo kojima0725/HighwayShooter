@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e9a8fceef5cbc14eba5ebd9b55b45ee, type: 3}
   m_Name: RoadDesignDocument
   m_EditorClassIdentifier: 
-  straightLengthMax: 600
+  straightLengthMax: 200
   straightLengthMin: 50
   curveMax: 100
   curveMin: 20
-  curveStrengthMax: 4
+  curveStrengthMax: 7
   curveStrengthMin: 0.5
