@@ -14,6 +14,16 @@ public class RoadChip : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Transform end;
+    /// <summary>
+    /// 右側のガードレール
+    /// </summary>
+    [SerializeField]
+    private Transform guardrailLeft;
+    /// <summary>
+    /// 左側のガードレール
+    /// </summary>
+    [SerializeField]
+    private Transform guardrailRight;
 
     /// <summary>
     /// メッシュフィルター
@@ -64,6 +74,13 @@ public class RoadChip : MonoBehaviour
         mesh.RecalculateNormals();
 
         meshFilter.mesh = mesh;
+
+        //ガードレールの設置
+        float halfLength = length / 2;
+        guardrailLeft.localPosition = new Vector3(-halfWidth, 0, halfLength);
+        guardrailLeft.localScale = new Vector3(1, 1, length);
+        guardrailRight.localPosition = new Vector3(halfWidth, 0, halfLength);
+        guardrailRight.localScale = new Vector3(1, 1, length);
 
         //自身を曲げる
         this.transform.Rotate(rotate);
