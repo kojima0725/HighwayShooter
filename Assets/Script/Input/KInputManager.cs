@@ -103,9 +103,9 @@ public class KInputManager : MonoBehaviour
     /// ブレーキの入力を取得する
     /// </summary>
     /// <returns></returns>
-    public static float GetCerBrakeInput()
+    public static float GetCarBrakeInput()
     {
-        if (Input.GetKey("LB"))
+        if (Input.GetButton("LB"))
         {
             return 1f;
         }

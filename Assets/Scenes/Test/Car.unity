@@ -1541,9 +1541,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 7753495587682878181}
-  speed: 250
+  speed: 0
   rollSensitivity: 45
   handleInputSensitivity: 5
+  maxSpeed: 300
+  accelerationPower: 10
+  brakePower: 25
   debugMode: 1
   hundleTxt: {fileID: 997244239}
 --- !u!4 &9074548646729650608
