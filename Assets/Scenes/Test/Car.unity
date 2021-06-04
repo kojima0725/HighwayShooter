@@ -706,7 +706,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reticle: {fileID: 567762943}
-  reticleSpeed: 10
+  reticleSpeed: 20
   debugMode: 1
   debugText: {fileID: 1767400409}
 --- !u!4 &1525640205
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   body: {fileID: 7753495587682878181}
   speed: 250
   rollSensitivity: 45
-  handleInputSensitivity: 10
+  handleInputSensitivity: 5
   debugMode: 1
   hundleTxt: {fileID: 997244239}
 --- !u!4 &9074548646729650608
