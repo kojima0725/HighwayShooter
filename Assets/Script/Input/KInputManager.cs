@@ -79,4 +79,42 @@ public class KInputManager : MonoBehaviour
         }
         return 0f;
     }
+
+    /// <summary>
+    /// アクセルの入力を取得する
+    /// </summary>
+    /// <returns></returns>
+    public static float GetCerAcceleratorInput()
+    {
+        float a = Input.GetAxis("LT");
+        if (a != 0)
+        {
+            return a;
+        }
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            return 1f;
+        }
+        return 0f;
+    }
+
+    /// <summary>
+    /// ブレーキの入力を取得する
+    /// </summary>
+    /// <returns></returns>
+    public static float GetCerBrakeInput()
+    {
+        if (Input.GetKey("LB"))
+        {
+            return 1f;
+        }
+
+        if (Input.GetKey(KeyCode.S))
+        {
+            return 1f;
+        }
+
+        return 0f;
+    }
 }
