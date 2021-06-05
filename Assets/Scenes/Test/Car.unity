@@ -1558,10 +1558,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 7753495587682878181}
-  speed: 1000
+  speed: 300
   rollSensitivity: 45
   handleInputSensitivity: 5
-  maxSpeed: 1000
+  maxSpeed: 300
   accelerationPower: 10
   brakePower: 25
   debugMode: 1
