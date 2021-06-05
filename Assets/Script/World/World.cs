@@ -74,6 +74,14 @@ public class World : MonoBehaviour
 
     #endregion
 
+    /// <summary>
+    /// 世界をずらす
+    /// </summary>
+    /// <param name="move">ずらす座標</param>
+    public void SwipeWorld(Vector3 move)
+    {
+        MoveWorlds(move);
+    }
 
     private void Awake()
     {
@@ -86,36 +94,31 @@ public class World : MonoBehaviour
 
     private void LateUpdate()
     {
-        MoveObjects(WorldObjects);
-        MoveObjects(roadChips);
+        //車の速度、方向に応じて世界を移動させる
+        MoveWorlds(moveAxis * speedMS, true);
     }
 
 
 
 
     /// <summary>
-    /// 生成物を移動させる
+    /// 世界を移動させる
     /// </summary>
-    /// <param name="transforms"></param>
-    public void MoveObjects(List<Transform> transforms)
+    /// <param name="dist">移動量</param>
+    /// <param name="time">時間を考慮するか</param>
+    private void MoveWorlds(Vector3 dist, bool time = false)
     {
-        Vector3 dist = moveAxis * speedMS * Time.deltaTime;
+        if (time)
+        {
+            dist *= Time.deltaTime;
+        }
         foreach (var item in WorldObjects)
         {
             Vector3 pos = item.position;
             pos += dist;
             item.position = pos;
         }
-    }
-
-    /// <summary>
-    /// ロードチップを移動させる
-    /// </summary>
-    /// <param name="chips"></param>
-    public void MoveObjects(List<RoadChip> chips)
-    {
-        Vector3 dist = moveAxis * speedMS * Time.deltaTime;
-        foreach (var item in chips)
+        foreach (var item in roadChips)
         {
             Vector3 pos = item.transform.position;
             pos += dist;

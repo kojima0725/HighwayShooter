@@ -87,6 +87,11 @@ public class PlayerCar : MonoBehaviour
         RollBody();
         //アクセル、ブレーキ関連の処理
         ChangeCarSpeed();
+        //車の座標修正
+        SwipeCarAndWorld();
+
+        //世界に自身の移動状況を通達する
+        MoveWorld();
 
         if (debugMode)
         {
@@ -113,14 +118,12 @@ public class PlayerCar : MonoBehaviour
         if (0 != input)
         {
             speed = MathKoji.GetCloser(speed,0f,brakePower * input);
-            World.current.SetCarSpeed(speed);
             return;
         }
         input = KInputManager.GetCerAcceleratorInput();
         if (0 != input)
         {
             speed = MathKoji.GetCloser(speed, maxSpeed, brakePower * input);
-            World.current.SetCarSpeed(speed);
             return;
         }
         
@@ -136,7 +139,27 @@ public class PlayerCar : MonoBehaviour
         roll.y += handleInput * rollSensitivity * Time.deltaTime;
 
         body.transform.localEulerAngles = roll;
+    }
 
-        World.current.SetMoveAxis(-body.transform.forward);
+    /// <summary>
+    /// 車のずれた座標を修正し、世界もそれに対応させる
+    /// </summary>
+    private void SwipeCarAndWorld()
+    {
+        Vector3 swipe = -body.transform.localPosition;
+        World.current?.SwipeWorld(swipe);
+        body.transform.localPosition = Vector3.zero;
+    }
+
+    /// <summary>
+    /// 世界に自身の移動状況を伝える
+    /// </summary>
+    private void MoveWorld()
+    {
+        if (World.current)
+        {
+            World.current.SetCarSpeed(speed);
+            World.current.SetMoveAxis(-body.transform.forward);
+        }
     }
 }
