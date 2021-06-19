@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   length: 10
   width: 20
+  lane: 4
   limitDistance: 1500

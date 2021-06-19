@@ -14,9 +14,13 @@ public class RoadData : ScriptableObject
  
     [SerializeField]
     private float width;
+
+    [SerializeField]
+    private int lane;
     
     [SerializeField]
     private float limitDistance;
+
 
     /// <summary>
     /// ロードチップの長さ
@@ -31,6 +35,13 @@ public class RoadData : ScriptableObject
     public float Width
     {
         get => width;
+    }
+    /// <summary>
+    /// 車線数
+    /// </summary>
+    public int Lane
+    {
+        get => lane;
     }
     /// <summary>
     /// 道路の生成限界

@@ -70,7 +70,7 @@ public class RoadMaker : MonoBehaviour
         //はじめにあった道路を最新の道路として設定
         latestRoadChip = firstRoadChip;
         //はじめにあった道路を初期化
-        latestRoadChip.Init(Vector3.zero, roadData.Length, roadData.Width);
+        latestRoadChip.Init(Vector3.zero, roadData.Length, roadData.Width, roadData.Lane);
         //ゲーム開始直後は直線の道路を生成する
         currentRoadType = RoadType.Straight;
         //直線道路は100メートル作る
@@ -109,10 +109,10 @@ public class RoadMaker : MonoBehaviour
         //道路の終端につなげる
         maked.transform.position = latestRoadChip.GetEnd().position;
         maked.transform.rotation = latestRoadChip.GetEnd().rotation;
-        //道路を初期化(曲げる)
-        maked.Init(new Vector3(0,chipRotate,0), roadData.Length, roadData.Width);
-
-
+        //道路を初期化(曲げる,ケツを設定する)
+        maked.Init(new Vector3(0,chipRotate,0), roadData.Length, roadData.Width, roadData.Lane);
+        //一個昔のロードチップに次をセットする
+        latestRoadChip.SetNext(maked);
         //作った道路が終端となる
         latestRoadChip = maked;
 
