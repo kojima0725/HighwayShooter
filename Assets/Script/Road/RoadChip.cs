@@ -168,9 +168,9 @@ public class RoadChip : MonoBehaviour
         //レーン作成
         lanes = new Transform[lane];
 
-        float halfLaneWidth = halfWidth / lane;
+        float halfLaneWidth = halfWidth / (lane + 1);
         float LaneWidth = halfLaneWidth * 2;
-        float pos = halfWidth - halfLaneWidth;
+        float pos = halfWidth - LaneWidth;
 
         for (int i = 0; i < lane; i++)
         {
@@ -181,5 +181,8 @@ public class RoadChip : MonoBehaviour
 
             pos -= LaneWidth;
         }
+
+        //テクスチャの幅をレーンに合わせる
+        GetComponent<MeshRenderer>().material.mainTextureScale = new Vector2(lane + 1, 1);
     }
 }
