@@ -128,6 +128,13 @@ public class RoadChip : MonoBehaviour
         vertices[3] = new Vector3(halfWidth, 0, length);
 
         mesh.vertices = vertices;
+        //uv設定
+        mesh.uv = new Vector2[] {
+        new Vector2 (0, 0),
+        new Vector2 (1, 0),
+        new Vector2 (0, 1),
+        new Vector2 (1, 1),
+        };
 
         mesh.triangles = new int[] { 0, 2, 1, 1, 2, 3 };
 
