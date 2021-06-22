@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 /// <summary>
@@ -97,7 +98,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         if (cars.Count == 0)
         {
             //車が一台もいない場合はとりあえずスポーン
-            Spawn(road.GetRoadChips()[0], Random.Range(0,roadData.Lane), carData.SpeedMS);
+            Spawn(road.GetRoadChips().Last(), Random.Range(0,roadData.Lane), carData.SpeedMS);
         }
     }
 
@@ -120,8 +121,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     /// <param name="car">削除対象</param>
     private void DestroyBooking(NomalCar car)
     {
-        cars.Remove(car);
-        Destroy(car.gameObject);
+        destroyBookingCars.Add(car);
     }
 
     /// <summary>
