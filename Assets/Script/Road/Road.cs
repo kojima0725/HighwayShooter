@@ -59,11 +59,6 @@ public class Road : MonoBehaviour, ICanGetTransforms
         world.JoinWorld(this);
     }
 
-    private void Start()
-    {
-        //world.JoinWorld(this);
-    }
-
 
     private void Update()
     {
