@@ -54,10 +54,7 @@ public static class MathKoji
     /// </summary>
     /// <param name="kmH">時速(キロメートル)</param>
     /// <returns>秒速(メートル)</returns>
-    public static float KmHToMS(float kmH)
-    {
-        return kmH * 10 / 36;
-    }
+    public static float KmHToMS(float kmH) => kmH * 10 / 36;
 
     /// <summary>
     /// 子のすべてのレイヤーを変える

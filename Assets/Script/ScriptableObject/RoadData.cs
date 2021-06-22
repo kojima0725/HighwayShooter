@@ -25,30 +25,21 @@ public class RoadData : ScriptableObject
     /// <summary>
     /// ロードチップの長さ
     /// </summary>
-    public float Length
-    {
-        get => length;
-    }
+    public float Length => length;
+
     /// <summary>
     /// ロードチップの幅
     /// </summary>
-    public float Width
-    {
-        get => width;
-    }
+    public float Width => width;
+
     /// <summary>
     /// 車線数
     /// </summary>
-    public int Lane
-    {
-        get => lane;
-    }
+    public int Lane => lane;
+
     /// <summary>
     /// 道路の生成限界
     /// </summary>
-    public float LimitDistance
-    {
-        get => limitDistance;
-    }
+    public float LimitDistance => limitDistance;
 
 }

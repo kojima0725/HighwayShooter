@@ -46,38 +46,26 @@ public class RoadChip : MonoBehaviour
     /// 道の終端の位置を渡す
     /// </summary>
     /// <returns></returns>
-    public Transform GetEnd()
-    {
-        return end;
-    }
+    public Transform GetEnd() => end;
 
     /// <summary>
     /// 自身の次のロードチップを設定する
     /// </summary>
     /// <param name="chip"></param>
-    public void SetNext(RoadChip chip)
-    {
-        nextChip = chip;
-    }
-    
+    public void SetNext(RoadChip chip) => nextChip = chip;
+
     /// <summary>
     /// 次のロードチップを渡す(ない場合はnull)
     /// </summary>
     /// <returns></returns>
-    public RoadChip GetNext()
-    {
-        return nextChip;
-    }
+    public RoadChip GetNext() => nextChip;
 
     /// <summary>
     /// 指定されたレーンの位置を返す
     /// </summary>
     /// <param name="lane">レーンの番号(0～)</param>
     /// <returns></returns>
-    public Transform GetLanePos(int lane)
-    {
-        return lanes[lane % lanes.Length];
-    }
+    public Transform GetLanePos(int lane) => lanes[lane % lanes.Length];
 
     /// <summary>
     /// 道路の初期化(メッシュの設置、各種調整)

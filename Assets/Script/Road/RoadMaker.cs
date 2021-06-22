@@ -81,19 +81,13 @@ public class RoadMaker : MonoBehaviour
     /// シーン開始時にはじめに存在していた道路を渡す
     /// </summary>
     /// <returns></returns>
-    public RoadChip GetFirstRoadChip()
-    {
-        return firstRoadChip;
-    }
+    public RoadChip GetFirstRoadChip() => firstRoadChip;
 
     /// <summary>
     /// 最後に生成された道路を渡す
     /// </summary>
     /// <returns></returns>
-    public RoadChip GetLatestRoadChip()
-    {
-        return latestRoadChip;
-    }
+    public RoadChip GetLatestRoadChip() => latestRoadChip;
 
     /// <summary>
     /// 道路を生成する

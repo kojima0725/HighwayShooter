@@ -58,19 +58,13 @@ public class World : MonoBehaviour
     /// 世界の移動方向を設定する
     /// </summary>
     /// <param name="axis"></param>
-    public void SetMoveAxis(Vector3 axis)
-    {
-        moveAxis = axis.normalized;
-    }
+    public void SetMoveAxis(Vector3 axis) => moveAxis = axis.normalized;
 
     /// <summary>
     /// 世界の移動方向を確認する
     /// </summary>
     /// <returns></returns>
-    public Vector3 GetMoveAxis()
-    {
-        return moveAxis;
-    }
+    public Vector3 GetMoveAxis() => moveAxis;
 
     #endregion
 
@@ -78,10 +72,7 @@ public class World : MonoBehaviour
     /// 世界をずらす
     /// </summary>
     /// <param name="move">ずらす座標</param>
-    public void SwipeWorld(Vector3 move)
-    {
-        MoveWorlds(move);
-    }
+    public void SwipeWorld(Vector3 move) => MoveWorlds(move);
 
     private void Awake()
     {
