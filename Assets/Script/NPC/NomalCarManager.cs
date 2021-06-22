@@ -33,9 +33,4 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         }
     }
 
-    private void Start()
-    {
-        world.JoinWorld(this);
-    }
-
 }

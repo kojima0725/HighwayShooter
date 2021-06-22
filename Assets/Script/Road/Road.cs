@@ -55,11 +55,13 @@ public class Road : MonoBehaviour, ICanGetTransforms
         //距離計算用のメンバ変数の設定
         float limit = data.LimitDistance;
         sqrObjDistance = limit * limit;
+
+        world.JoinWorld(this);
     }
 
     private void Start()
     {
-        world.JoinWorld(this);
+        //world.JoinWorld(this);
     }
 
 
