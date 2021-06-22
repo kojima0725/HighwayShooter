@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a571b6695905ea34dac32eccc21be518, type: 3}
   m_Name: NomalCarData
   m_EditorClassIdentifier: 
-  speedKmH: 0
-  carSpawnLength: 0
-  betweenMax: 0
-  betweenMin: 0
+  speedKmH: 500
+  carSpawnLength: 100
+  betweenMax: 50
+  betweenMin: 5
