@@ -41,6 +41,8 @@ public class RoadChip : MonoBehaviour
     /// </summary>
     private RoadChip nextChip = null;
 
+    private RoadChip prevChip = null;
+
 
     /// <summary>
     /// 道の終端の位置を渡す
@@ -59,6 +61,18 @@ public class RoadChip : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public RoadChip GetNext() => nextChip;
+
+    /// <summary>
+    /// 自身の一個前のロードチップを設定する
+    /// </summary>
+    /// <param name="chip"></param>
+    public void SetPrev(RoadChip chip) => prevChip = chip;
+
+    /// <summary>
+    /// 一個前のロードチップを渡す(ない場合はnull)
+    /// </summary>
+    /// <returns></returns>
+    public RoadChip GetPrev() => prevChip;
 
     /// <summary>
     /// 指定されたレーンの位置を返す
@@ -148,7 +162,7 @@ public class RoadChip : MonoBehaviour
     }
 
     /// <summary>
-    /// 車線を作る
+    /// レーンを作る
     /// </summary>
     /// <param name="lane"></param>
     private void MakeLanes(int lane, float halfWidth, float length)
@@ -165,7 +179,8 @@ public class RoadChip : MonoBehaviour
             Transform laneTransform = new GameObject().transform;
             laneTransform.parent = this.transform;
             laneTransform.localPosition = new Vector3(pos,0,length);
-            lanes[i] = transform;
+            laneTransform.localRotation = Quaternion.identity;
+            lanes[i] = laneTransform;
 
             pos -= LaneWidth;
         }

@@ -721,7 +721,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   road: {fileID: 1383892033}
   world: {fileID: 1383892036}
-  nomalCarContainer: {fileID: 0}
+  nomalCarContainer: {fileID: 59213341}
+  npcCarPrefab: {fileID: 2915093056513027541, guid: 55337cf6cc16e684b81eb57e5fe9b541,
+    type: 3}
 --- !u!1 &1525640203
 GameObject:
   m_ObjectHideFlags: 0

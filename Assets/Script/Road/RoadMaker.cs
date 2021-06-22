@@ -107,6 +107,8 @@ public class RoadMaker : MonoBehaviour
         maked.Init(new Vector3(0,chipRotate,0), roadData.Length, roadData.Width, roadData.Lane);
         //一個昔のロードチップに次をセットする
         latestRoadChip.SetNext(maked);
+        //作ったロードチップに一個前をセットする
+        maked.SetPrev(latestRoadChip);
         //作った道路が終端となる
         latestRoadChip = maked;
 
