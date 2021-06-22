@@ -25,7 +25,7 @@ public class Road : MonoBehaviour
     /// <summary>
     /// ロードチップ達
     /// </summary>
-    readonly List<RoadChip> roadChips = new();
+    readonly List<RoadChip> roadChips = new List<RoadChip>();
 
 
     public List<RoadChip> GetRoadChips() => roadChips;

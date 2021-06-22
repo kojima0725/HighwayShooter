@@ -31,43 +31,30 @@ public class RoadDesignDocument : ScriptableObject
     /// <summary>
     /// 直線距離の最大値
     /// </summary>
-    public float StraightLengthMax
-    {
-        get => straightLengthMax;
-    }
+    public float StraightLengthMax => straightLengthMax;
+
     /// <summary>
     /// 直線距離の最小値
     /// </summary>
-    public float StraightLengthMin
-    {
-        get => straightLengthMin;
-    }
+    public float StraightLengthMin => straightLengthMin;
+
     /// <summary>
     /// カーブの最大値
     /// </summary>
-    public float CurveMax
-    {
-        get => curveMax;
-    }
+    public float CurveMax => curveMax;
+
     /// <summary>
     /// カーブの最小値
     /// </summary>
-    public float CurveMin
-    {
-        get => curveMin;
-    }
+    public float CurveMin => curveMin;
+
     /// <summary>
     /// カーブのキツさの最大値
     /// </summary>
-    public float CurveStrengthMax
-    {
-        get => curveStrengthMax;
-    }
+    public float CurveStrengthMax => curveStrengthMax;
+
     /// <summary>
     /// カーブのキツさの最小値
     /// </summary>
-    public float CurveStrengthMin
-    {
-        get => curveStrengthMin;
-    }
+    public float CurveStrengthMin => curveStrengthMin;
 }
