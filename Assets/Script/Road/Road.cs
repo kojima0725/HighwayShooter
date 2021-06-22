@@ -8,13 +8,16 @@ using UnityEngine;
 /// 道路及び世界を後ろに流していく
 /// </summary>
 [RequireComponent(typeof(RoadMaker))]
-public class Road : MonoBehaviour
+public class Road : MonoBehaviour, ICanGetTransforms
 {
     /// <summary>
     /// 道路生成機
     /// </summary>
     [SerializeField]
     private RoadMaker roadMaker;
+
+    [SerializeField]
+    private World world;
 
 
     /// <summary>
@@ -27,18 +30,36 @@ public class Road : MonoBehaviour
     /// </summary>
     readonly List<RoadChip> roadChips = new List<RoadChip>();
 
-
+    /// <summary>
+    /// ロードチップのリストを返す(リストの先頭が道路の先頭、リスト末尾が道路の末端)
+    /// </summary>
+    /// <returns></returns>
     public List<RoadChip> GetRoadChips() => roadChips;
+
+    
+    public IEnumerable<Transform> Transforms()
+    {
+        foreach (var item in roadChips)
+        {
+            yield return item.transform;
+        }
+    }
 
 
     private void Awake()
     {
         //最初の道路を設定しておく
         roadChips.Add(roadMaker.GetFirstRoadChip());
+        //道路のデータを読み込み
         RoadData data = Resources.Load("RoadData") as RoadData;
-        float limit = data.LimitDistance;
         //距離計算用のメンバ変数の設定
+        float limit = data.LimitDistance;
         sqrObjDistance = limit * limit;
+    }
+
+    private void Start()
+    {
+        world.JoinWorld(this);
     }
 
 

@@ -57,7 +57,7 @@ public class PlayerGun : MonoBehaviour
 
         move.z = 0;
 
-        reticleTransform.position += move;
+        reticleTransform.position += move * Time.deltaTime;
 
         DoNotGoToOutSide();
     }

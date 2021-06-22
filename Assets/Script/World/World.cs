@@ -3,6 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
+/// 複数のトランスフォームを取得可能
+/// </summary>
+public interface ICanGetTransforms
+{
+    /// <summary>
+    /// 複数のトランスフォームを取得する
+    /// </summary>
+    /// <returns></returns>
+    IEnumerable<Transform> Transforms();
+}
+
+/// <summary>
 /// プレイヤーの動きによって動かされるオブジェクトたちを管理する
 /// </summary>
 [RequireComponent(typeof(Road))]
@@ -14,18 +26,10 @@ public class World : MonoBehaviour
     public static World current;
 
     /// <summary>
-    /// 道路
-    /// </summary>
-    [SerializeField]
-    private Road road;
-
-
-    /// <summary>
     /// 後ろに流していくオブジェクト達
     /// </summary>
-    readonly List<Transform> WorldObjects = new List<Transform>();
+    readonly List<ICanGetTransforms> worldObjectLists = new List<ICanGetTransforms>();
 
-    private List<RoadChip> roadChips;
 
     #region 移動速度及び方向関連の変数及び関数
 
@@ -69,6 +73,17 @@ public class World : MonoBehaviour
     #endregion
 
     /// <summary>
+    /// 動かすオブジェクトのリストを世界に登録する
+    /// </summary>
+    /// <param name="list"></param>
+    /// <returns></returns>
+    public void JoinWorld<T>(T a)
+        where T : ICanGetTransforms
+    {
+        worldObjectLists.Add(a);
+    }
+
+    /// <summary>
     /// 世界をずらす
     /// </summary>
     /// <param name="move">ずらす座標</param>
@@ -77,10 +92,6 @@ public class World : MonoBehaviour
     private void Awake()
     {
         current = this;
-        if (road)
-        {
-            roadChips = road.GetRoadChips();
-        }
     }
 
     private void LateUpdate()
@@ -103,17 +114,14 @@ public class World : MonoBehaviour
         {
             dist *= Time.deltaTime;
         }
-        foreach (var item in WorldObjects)
+        foreach (var item in worldObjectLists)
         {
-            Vector3 pos = item.position;
-            pos += dist;
-            item.position = pos;
-        }
-        foreach (var item in roadChips)
-        {
-            Vector3 pos = item.transform.position;
-            pos += dist;
-            item.transform.position = pos;
+            foreach (var obj in item.Transforms())
+            {
+                Vector3 pos = obj.transform.position;
+                pos += dist;
+                obj.transform.position = pos;
+            }
         }
     }
 }
