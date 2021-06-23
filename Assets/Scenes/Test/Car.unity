@@ -1606,7 +1606,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 7753495587682878181}
-  speed: 0
+  speed: 250
   rollSensitivity: 45
   handleInputSensitivity: 5
   maxSpeed: 300

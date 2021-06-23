@@ -25,6 +25,10 @@ public class NomalCar : MonoBehaviour
     /// </summary>
     public event Action<NomalCar> OnRoadIsNull;
 
+    public RoadChip CurrentRoadChip => currentRoadChip;
+
+    public int Lane => lane;
+
     public void Init(RoadChip spawnPoint, int lane, float speedMS)
     {
         //各種ステータスを設定
@@ -43,7 +47,7 @@ public class NomalCar : MonoBehaviour
     /// </summary>
     /// <param name="hasDistance">移動距離を指定するか</param>
     /// <param name="distance">指定する移動距離</param>
-    public void Move(bool hasDistance = false,float distance = float.NaN)
+    public void Move(bool hasDistance = false, float distance = float.NaN, bool back = false)
     {
 
         if (!currentRoadChip)
@@ -72,7 +76,7 @@ public class NomalCar : MonoBehaviour
             {
                 this.transform.position = moveTo.position;
                 moveDistance -= Mathf.Sqrt(sqrLength);
-                currentRoadChip = currentRoadChip.GetNext();
+                currentRoadChip = back ? currentRoadChip.GetPrev() : currentRoadChip.GetNext();
                 if (!currentRoadChip)
                 {
                     //次がない場合は削除

@@ -100,6 +100,87 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
             //車が一台もいない場合はとりあえずスポーン
             Spawn(road.GetRoadChips().Last(), Random.Range(0,roadData.Lane), carData.SpeedMS);
         }
+
+        SpawnCarsInFront();
+        SpawnCarsInBack();
+    }
+
+    /// <summary>
+    /// 道路の前方の空いてる部分に車を生成していく
+    /// </summary>
+    private void SpawnCarsInFront()
+    {
+        int count = 0;
+        NomalCar car = cars.Last();
+        RoadChip chip = car.CurrentRoadChip;
+        while (true)
+        {
+            while (count != toSpawnCount && chip)
+            {
+                chip = chip.GetNext();
+                count++;
+            }
+            if (count == toSpawnCount)
+            {
+                //一個前の車とレーンがかぶらないようにレーンを決定
+                int spawnLane = Random.Range(0,roadData.Lane - 1);
+                if (spawnLane >= car.Lane)
+                {
+                    spawnLane++;
+                }
+                //車をスポーン
+                car = Spawn(car.CurrentRoadChip, spawnLane, carData.SpeedMS);
+                //所定の位置まで移動
+                car.Move(true, Random.Range(carData.BetweenMin, carData.BetweenMax));
+                //各数値をリセット
+                count = 0;
+                chip = car.CurrentRoadChip;
+            }
+            else
+            {
+                //生成限界に達したのでreturn
+                break;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 道路の後方の開いてる部分に車を生成していく
+    /// </summary>
+    private void SpawnCarsInBack()
+    {
+        int count = 0;
+        NomalCar car = cars.First();
+        RoadChip chip = car.CurrentRoadChip;
+        while (true)
+        {
+            while (count != toSpawnCount && chip)
+            {
+                chip = chip.GetPrev();
+                count++;
+            }
+            if (count == toSpawnCount)
+            {
+                //一個前の車とレーンがかぶらないようにレーンを決定
+                int spawnLane = Random.Range(0, roadData.Lane - 1);
+                if (spawnLane >= car.Lane)
+                {
+                    spawnLane++;
+                }
+                //車をスポーン
+                car = Spawn(car.CurrentRoadChip, spawnLane, carData.SpeedMS, true);
+                //所定の位置まで移動
+                car.Move(true, Random.Range(carData.BetweenMin, carData.BetweenMax), true);
+                //各数値をリセット
+                count = 0;
+                chip = car.CurrentRoadChip;
+            }
+            else
+            {
+                //生成限界に達したのでreturn
+                break;
+            }
+        }
     }
 
     /// <summary>
@@ -107,12 +188,20 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     /// </summary>
     /// <param name="spawnPoint"></param>
     /// <param name="lane"></param>
-    private void Spawn(RoadChip spawnPoint, int lane, float speedMS)
+    private NomalCar Spawn(RoadChip spawnPoint, int lane, float speedMS, bool insert = false)
     {
         NomalCar maked = Instantiate(npcCarPrefab, nomalCarContainer);
         maked.Init(spawnPoint, lane, speedMS);
-        cars.Add(maked);
+        if (insert)
+        {
+            cars.Insert(0,maked);
+        }
+        else
+        {
+            cars.Add(maked);
+        }
         maked.OnRoadIsNull += DestroyBooking;
+        return maked;
     }
 
     /// <summary>
