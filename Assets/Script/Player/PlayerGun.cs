@@ -35,6 +35,7 @@ public class PlayerGun : MonoBehaviour
     private void Awake()
     {
         reticleTransform = reticle.rectTransform;
+        reticleTransform.position = new Vector3((float)Screen.width / 2, (float)Screen.height / 2);
     }
 
     private void Update()
@@ -42,8 +43,21 @@ public class PlayerGun : MonoBehaviour
         MoveReticle();
         if (debugMode)
         {
-            debugText.text = "X:" + reticleTransform.position.x.ToString("000000") + "Y:" + reticleTransform.position.y.ToString("000000");
+            debugText.text = $"X:{GetReticlePos().x} Y:{GetReticlePos().y}";
         }
+    }
+
+    /// <summary>
+    /// レティクルが画面のどのあたりにあるかの情報を返す
+    /// 画面の中心がVector2.zeroとなる
+    /// </summary>
+    /// <returns>Vector2(各パラメータは-1～1の間)</returns>
+    public Vector2 GetReticlePos()
+    {
+        Vector2 a = new Vector2();
+        a.x = (reticleTransform.position.x / Screen.width - 0.5f) * 2;
+        a.y = (reticleTransform.position.y / Screen.height - 0.5f) * 2;
+        return a;
     }
 
     /// <summary>
@@ -57,7 +71,8 @@ public class PlayerGun : MonoBehaviour
 
         move.z = 0;
 
-        reticleTransform.position += move * Time.deltaTime;
+        //レティクル移動(時間、スクリーン解像度を考慮)
+        reticleTransform.position += move * Time.deltaTime * Screen.height;
 
         DoNotGoToOutSide();
     }
