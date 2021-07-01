@@ -735,7 +735,7 @@ GameObject:
   - component: {fileID: 1525640205}
   - component: {fileID: 1525640204}
   m_Layer: 0
-  m_Name: GUN
+  m_Name: PlayerGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1658,8 +1658,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e5ef97dc9809c488694b0f618b05f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
-  gun: {fileID: 0}
+  camera: {fileID: 963194228}
+  gun: {fileID: 1525640204}
+  rotateX: 45
+  rotateY: 15
 --- !u!4 &9074548646729650608
 Transform:
   m_ObjectHideFlags: 0
