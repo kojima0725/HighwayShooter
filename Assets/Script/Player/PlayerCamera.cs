@@ -8,7 +8,7 @@ public class PlayerCamera : MonoBehaviour
     /// 操作対象のカメラ
     /// </summary>
     [SerializeField]
-    private Transform camera;
+    private Transform MoveCamera;
 
     /// <summary>
     /// プレイヤーの銃
@@ -26,7 +26,7 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
-        baseRotation = camera.localRotation;
+        baseRotation = MoveCamera.localRotation;
     }
 
     private void Update()
@@ -41,7 +41,7 @@ public class PlayerCamera : MonoBehaviour
         float y = rotateY * pos.y;
         Quaternion rotate = Quaternion.Euler(-y,x,0);
         Quaternion after = baseRotation * rotate;
-        camera.localRotation = after;
+        MoveCamera.localRotation = after;
     }
 
 }

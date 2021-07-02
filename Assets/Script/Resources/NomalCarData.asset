@@ -15,4 +15,4 @@ MonoBehaviour:
   speedKmH: 180
   carSpawnLength: 250
   betweenMax: 50
-  betweenMin: 5
+  betweenMin: 10

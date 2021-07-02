@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   camera: {fileID: 963194228}
   gun: {fileID: 1525640204}
-  rotateX: 45
+  rotateX: 15
   rotateY: 5
 --- !u!4 &9074548646729650608
 Transform:
