@@ -5,7 +5,7 @@ using System.Linq;
 
 
 /// <summary>
-/// 道路上の一般車の生成、削除等を管理する
+/// 道路上の一般車の生成、移動、削除を管理する
 /// </summary>
 [RequireComponent(typeof(Road))]
 public class NomalCarManager : MonoBehaviour, ICanGetTransforms
