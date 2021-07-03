@@ -62,6 +62,8 @@ public class RoadMaker : MonoBehaviour
     /// </summary>
     private RoadChip latestRoadChip;
 
+    private bool IsCurveToRight;
+
     private void Awake()
     {
         //各すクリプタブルオブジェクトのロード
@@ -205,6 +207,11 @@ public class RoadMaker : MonoBehaviour
         if (currentAngle > 0)
         {
             chipRotate = -chipRotate;
+            IsCurveToRight = false;
+        }
+        else
+        {
+            IsCurveToRight = true;
         }
     }
     /// <summary>
@@ -238,6 +245,8 @@ public class RoadMaker : MonoBehaviour
                    roadData.Lane, latestRoadChip);
         //中心点を設定
         maked.Center = center;
+        //中心点がどちら側にあるかを設定
+        maked.IsCenterInRight = IsCurveToRight;
         //一個昔のロードチップに次をセットする
         latestRoadChip.Next = maked;
         //作った道路が終端となる

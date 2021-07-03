@@ -70,7 +70,15 @@ public class RoadChip : MonoBehaviour
     /// <returns></returns>
     public RoadChip Prev => prevChip;
 
+    /// <summary>
+    /// カーブの中心点(直線の場合はnull)
+    /// </summary>
     public Transform Center { get => center; set => center = value; }
+
+    /// <summary>
+    /// カーブ時の中心点が右側にあるかどうか
+    /// </summary>
+    public bool IsCenterInRight { get; set; }
 
     /// <summary>
     /// 指定されたレーンの位置を返す
