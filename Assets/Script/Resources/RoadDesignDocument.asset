@@ -18,3 +18,4 @@ MonoBehaviour:
   curveMin: 20
   curveStrengthMax: 2.5
   curveStrengthMin: 0.5
+  centerCheckLength: 2000

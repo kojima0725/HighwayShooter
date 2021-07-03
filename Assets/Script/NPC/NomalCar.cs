@@ -76,7 +76,7 @@ public class NomalCar : MonoBehaviour
             {
                 this.transform.position = moveTo.position;
                 moveDistance -= Mathf.Sqrt(sqrLength);
-                currentRoadChip = back ? currentRoadChip.GetPrev() : currentRoadChip.GetNext();
+                currentRoadChip = back ? currentRoadChip.Prev : currentRoadChip.Next;
                 if (!currentRoadChip)
                 {
                     //次がない場合は削除

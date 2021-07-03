@@ -96,21 +96,34 @@ public class RoadMaker : MonoBehaviour
     public IEnumerable<RoadChip> MakeRoads()
     {
         RoadChip start = latestRoadChip;
-        RoadChip end;
+        RoadChip end = null;
+        Transform center = null;
+        bool isCurve = currentRoadType == RoadType.Curve;
+        //カーブの場合は中心点を予め生成
+        if (isCurve)
+        {
+            //道路がカーブの場合は円の中心点を設定する
+            center = new GameObject().transform;
+        }
+        //道路生成
         while (remaining >= 0)
         {
             //自身の子オブジェクトとして道路を生成
-            RoadChip maked = MakeChip();
-
+            RoadChip maked = MakeChip(center);
+            
             //現在制作中の道がどれぐらいで終わるか計算する
             DesignRoad();
+
             end = maked;
             yield return maked;
         }
-
-        //道路がカーブの場合は円の中心点を設定する
-        Transform center = new GameObject().transform;
-
+        //カーブの場合は中心点の座標を計算
+        if (isCurve)
+        {
+            MakeCenterPos(center, start, end);
+            //生成した道路の終端に格納する(一緒に削除されるように)
+            center.parent = end.transform;
+        }
 
         //道路が設計の終端に達したため新しい設計を作成する
         MakeNextRoadState();
@@ -210,23 +223,57 @@ public class RoadMaker : MonoBehaviour
     /// <summary>
     /// ロードチップを作成する
     /// </summary>
-    /// <returns></returns>
-    private RoadChip MakeChip()
+    /// <param name="center">カーブ時の道路が描く円の中心点</param>
+    /// <returns>作成したチップ</returns>
+    private RoadChip MakeChip(Transform center)
     {
         //自身の子オブジェクトとして道路を生成
         RoadChip maked = Instantiate(roadChipPrefab, this.transform);
         //道路の終端につなげる
-        maked.transform.position = latestRoadChip.GetEnd().position;
-        maked.transform.rotation = latestRoadChip.GetEnd().rotation;
+        maked.transform.position = latestRoadChip.End.position;
+        maked.transform.rotation = latestRoadChip.End.rotation;
         //道路を初期化(曲げる,ケツを設定する)
-        maked.Init(new Vector3(0, chipRotate, 0), roadData.Length, roadData.Width, roadData.Lane);
+        maked.Init(new Vector3(0, chipRotate, 0), roadData.Length, roadData.Width, roadData.Lane, latestRoadChip);
+        //中心点を設定
+        maked.Center = center;
         //一個昔のロードチップに次をセットする
-        latestRoadChip.SetNext(maked);
-        //作ったロードチップに一個前をセットする
-        maked.SetPrev(latestRoadChip);
+        latestRoadChip.Next = maked;
         //作った道路が終端となる
         latestRoadChip = maked;
 
         return maked;
+    }
+
+    /// <summary>
+    /// カーブの始まりと終わりの座標から、円の中心点を算出する
+    /// </summary>
+    /// <param name="center">座標を適用するオブジェクト</param>
+    /// <param name="start">カーブの始まり</param>
+    /// <param name="end">カーブの終わり</param>
+    private void MakeCenterPos(Transform center, RoadChip start, RoadChip end)
+    {
+        //中心点の座標を計算
+        Transform startPos = start.End;
+        Vector3 l1s = startPos.position + startPos.right * roadDesignDocument.CenterCheckLength;
+        Vector3 l1e = startPos.position - startPos.right * roadDesignDocument.CenterCheckLength;
+        Transform endPos = end.End;
+        Vector3 l2s = endPos.position + endPos.right * roadDesignDocument.CenterCheckLength;
+        Vector3 l2e = endPos.position - endPos.right * roadDesignDocument.CenterCheckLength;
+
+
+        Vector2 l1s2 = new Vector2(l1s.x, l1s.z);
+        Vector2 l1e2 = new Vector2(l1e.x, l1e.z);
+        Vector2 l2s2 = new Vector2(l2s.x, l2s.z);
+        Vector2 l2e2 = new Vector2(l2e.x, l2e.z);
+
+        Vector2 hit;
+        if (MathKoji.LineToLineCollision(l1s2, l1e2, l2s2, l2e2, out hit))
+        {
+            center.position = new Vector3(hit.x, 0, hit.y);
+        }
+        else
+        {
+            Debug.LogError("NO HIT!!!(円の中心座標算出時)");
+        }
     }
 }
