@@ -93,44 +93,37 @@ public class RoadMaker : MonoBehaviour
     /// 道路を生成する
     /// </summary>
     /// <returns>生成した道路</returns>
-    public RoadChip MakeRoad()
+    public IEnumerable<RoadChip> MakeRoads()
     {
-        //角度設定
-        DesignRoad();
+        RoadChip start = latestRoadChip;
+        RoadChip end;
+        while (remaining >= 0)
+        {
+            //自身の子オブジェクトとして道路を生成
+            RoadChip maked = MakeChip();
 
-        //自身の子オブジェクトとして道路を生成
-        RoadChip maked = Instantiate(roadChipPrefab, this.transform);
-        //道路の終端につなげる
-        maked.transform.position = latestRoadChip.GetEnd().position;
-        maked.transform.rotation = latestRoadChip.GetEnd().rotation;
-        //道路を初期化(曲げる,ケツを設定する)
-        maked.Init(new Vector3(0,chipRotate,0), roadData.Length, roadData.Width, roadData.Lane);
-        //一個昔のロードチップに次をセットする
-        latestRoadChip.SetNext(maked);
-        //作ったロードチップに一個前をセットする
-        maked.SetPrev(latestRoadChip);
-        //作った道路が終端となる
-        latestRoadChip = maked;
+            //現在制作中の道がどれぐらいで終わるか計算する
+            DesignRoad();
+            end = maked;
+            yield return maked;
+        }
+
+        //道路がカーブの場合は円の中心点を設定する
+        Transform center = new GameObject().transform;
 
 
-        return maked;
+        //道路が設計の終端に達したため新しい設計を作成する
+        MakeNextRoadState();
     }
 
     /// <summary>
-    /// 次の道路の角度を決定する
+    /// 次の
     /// </summary>
     private void DesignRoad()
     {
-        //残りがない場合は新しい道路の設計を作り出す
-        if (remaining <= 0)
-        {
-            MakeNextRoadState();
-        }
-
         switch (currentRoadType)
         {
             case RoadType.Straight:
-                chipRotate = 0;
                 remaining -= roadData.Length;
                 break;
             case RoadType.Curve:
@@ -147,7 +140,7 @@ public class RoadMaker : MonoBehaviour
     }
 
     /// <summary>
-    /// 新しい道路を設計する
+    /// あとどれぐらいで設計している道路が尽きるか計算する
     /// </summary>
     private void MakeNextRoadState()
     {
@@ -177,9 +170,12 @@ public class RoadMaker : MonoBehaviour
     /// </summary>
     private void MakeStraight()
     {
+        //距離設定
         remaining = UnityEngine.Random.Range
             (roadDesignDocument.StraightLengthMin,
             roadDesignDocument.StraightLengthMax);
+        //曲がる角度はゼロ
+        chipRotate = 0;
     }
     /// <summary>
     /// カーブの設計
@@ -192,19 +188,45 @@ public class RoadMaker : MonoBehaviour
         chipRotate = UnityEngine.Random.Range
             (roadDesignDocument.CurveStrengthMin,
             roadDesignDocument.CurveStrengthMax);
+        //常に道路が前に進み続けるようにしている
         if (currentAngle > 0)
         {
             chipRotate = -chipRotate;
         }
     }
     /// <summary>
-    /// うねうね道路の設計(必要なさそうなのでとりあえず直線にしている)
+    /// うねうね道路の設計(使わないので直線にしている)
     /// </summary>
     private void MakeWinding()
     {
+        //距離設定
         remaining = UnityEngine.Random.Range
             (roadDesignDocument.StraightLengthMin,
             roadDesignDocument.StraightLengthMax);
+        //曲がる角度はゼロ
         chipRotate = 0;
+    }
+
+    /// <summary>
+    /// ロードチップを作成する
+    /// </summary>
+    /// <returns></returns>
+    private RoadChip MakeChip()
+    {
+        //自身の子オブジェクトとして道路を生成
+        RoadChip maked = Instantiate(roadChipPrefab, this.transform);
+        //道路の終端につなげる
+        maked.transform.position = latestRoadChip.GetEnd().position;
+        maked.transform.rotation = latestRoadChip.GetEnd().rotation;
+        //道路を初期化(曲げる,ケツを設定する)
+        maked.Init(new Vector3(0, chipRotate, 0), roadData.Length, roadData.Width, roadData.Lane);
+        //一個昔のロードチップに次をセットする
+        latestRoadChip.SetNext(maked);
+        //作ったロードチップに一個前をセットする
+        maked.SetPrev(latestRoadChip);
+        //作った道路が終端となる
+        latestRoadChip = maked;
+
+        return maked;
     }
 }

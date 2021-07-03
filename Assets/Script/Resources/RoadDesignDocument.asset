@@ -16,5 +16,5 @@ MonoBehaviour:
   straightLengthMin: 50
   curveMax: 100
   curveMin: 20
-  curveStrengthMax: 5
+  curveStrengthMax: 2.5
   curveStrengthMin: 0.5

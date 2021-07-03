@@ -1658,7 +1658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0e5ef97dc9809c488694b0f618b05f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 963194228}
+  MoveCamera: {fileID: 1656324313}
   gun: {fileID: 1525640204}
   rotateX: 15
   rotateY: 5
