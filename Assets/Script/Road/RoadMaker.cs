@@ -233,7 +233,9 @@ public class RoadMaker : MonoBehaviour
         maked.transform.position = latestRoadChip.End.position;
         maked.transform.rotation = latestRoadChip.End.rotation;
         //道路を初期化(曲げる,ケツを設定する)
-        maked.Init(new Vector3(0, chipRotate, 0), roadData.Length, roadData.Width, roadData.Lane, latestRoadChip);
+        maked.Init(new Vector3(0, chipRotate, 0),
+                   roadData.Length, roadData.Width,
+                   roadData.Lane, latestRoadChip);
         //中心点を設定
         maked.Center = center;
         //一個昔のロードチップに次をセットする
