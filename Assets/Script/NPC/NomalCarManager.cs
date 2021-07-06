@@ -28,16 +28,6 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     private NomalCar npcCarPrefab;
 
     /// <summary>
-    /// 一般車に関するデータ
-    /// </summary>
-    private NomalCarData carData;
-
-    /// <summary>
-    /// 道路のデータ
-    /// </summary>
-    private RoadData roadData;
-
-    /// <summary>
     /// 車がスポーンするまでの敷居のロードチップ数
     /// </summary>
     private int toSpawnCount;
@@ -62,11 +52,8 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
 
     private void Awake()
     {
+        //世界に参加
         world.JoinWorld(this);
-        //生成する車のデータを読み込み
-        carData = Resources.Load("NomalCarData") as NomalCarData;
-        //道路のデータを読み込み
-        roadData = Resources.Load("RoadData") as RoadData;
         //各種数値情報の設定
         MakeData();
     }
@@ -98,7 +85,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         if (cars.Count == 0)
         {
             //車が一台もいない場合はとりあえずスポーン
-            Spawn(road.GetRoadChips().Last(), Random.Range(0,roadData.Lane), carData.SpeedMS);
+            Spawn(road.GetRoadChips().Last(), Random.Range(0,StageDatabase.RoadData.Lane), StageDatabase.NomalCarData.SpeedMS);
         }
 
         SpawnCarsInFront();
@@ -123,15 +110,15 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
             if (count == toSpawnCount)
             {
                 //一個前の車とレーンがかぶらないようにレーンを決定
-                int spawnLane = Random.Range(0,roadData.Lane - 1);
+                int spawnLane = Random.Range(0,StageDatabase.RoadData.Lane - 1);
                 if (spawnLane >= car.Lane)
                 {
                     spawnLane++;
                 }
                 //車をスポーン
-                car = Spawn(car.CurrentRoadChip, spawnLane, carData.SpeedMS);
+                car = Spawn(car.CurrentRoadChip, spawnLane, StageDatabase.NomalCarData.SpeedMS);
                 //所定の位置まで移動
-                car.Move(true, Random.Range(carData.BetweenMin, carData.BetweenMax));
+                car.Move(true, Random.Range(StageDatabase.NomalCarData.BetweenMin, StageDatabase.NomalCarData.BetweenMax));
                 //各数値をリセット
                 count = 0;
                 chip = car.CurrentRoadChip;
@@ -162,15 +149,15 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
             if (count == toSpawnCount)
             {
                 //一個前の車とレーンがかぶらないようにレーンを決定
-                int spawnLane = Random.Range(0, roadData.Lane - 1);
+                int spawnLane = Random.Range(0, StageDatabase.RoadData.Lane - 1);
                 if (spawnLane >= car.Lane)
                 {
                     spawnLane++;
                 }
                 //車をスポーン
-                car = Spawn(car.CurrentRoadChip, spawnLane, carData.SpeedMS, true);
+                car = Spawn(car.CurrentRoadChip, spawnLane, StageDatabase.NomalCarData.SpeedMS, true);
                 //所定の位置まで移動
-                car.Move(true, Random.Range(carData.BetweenMin, carData.BetweenMax), true);
+                car.Move(true, Random.Range(StageDatabase.NomalCarData.BetweenMin, StageDatabase.NomalCarData.BetweenMax), true);
                 //各数値をリセット
                 count = 0;
                 chip = car.CurrentRoadChip;
@@ -229,6 +216,6 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
 
     private void MakeData()
     {
-        toSpawnCount = (int)(carData.CarSpawnLength / roadData.Length);
+        toSpawnCount = (int)(StageDatabase.NomalCarData.CarSpawnLength / StageDatabase.RoadData.Length);
     }
 }
