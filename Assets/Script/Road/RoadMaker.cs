@@ -63,8 +63,8 @@ public class RoadMaker : MonoBehaviour
         latestRoadChip.Init(Vector3.zero, StageDatabase.RoadData.Length, StageDatabase.RoadData.Width, StageDatabase.RoadData.Lane);
         //ゲーム開始直後は直線の道路を生成する
         currentRoadType = RoadType.Straight;
-        //直線道路は100メートル作る
-        remaining = 100;
+        //最初は直線道路を500メートル作る
+        remaining = 500;
     }
 
     /// <summary>
