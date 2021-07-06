@@ -26,11 +26,6 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     private EnemyCar enemyCarPrefab;
 
     /// <summary>
-    /// 道路のデータ
-    /// </summary>
-    private RoadData roadData;
-
-    /// <summary>
     /// 生成した敵車
     /// </summary>
     readonly List<EnemyCar> cars = new List<EnemyCar>();
@@ -51,7 +46,5 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     private void Awake()
     {
         world.JoinWorld(this);
-        //道路のデータを読み込み
-        roadData = Resources.Load("RoadData") as RoadData;
     }
 }

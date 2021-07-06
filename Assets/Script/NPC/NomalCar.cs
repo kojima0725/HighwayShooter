@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+
+/// <summary>
+/// 一般車
+/// </summary>
 public class NomalCar : MonoBehaviour
 {
     /// <summary>
@@ -25,10 +29,19 @@ public class NomalCar : MonoBehaviour
     /// </summary>
     public event Action<NomalCar> OnRoadIsNull;
 
+    /// <summary>
+    /// 現在いる箇所のロードチップ
+    /// </summary>
     public RoadChip CurrentRoadChip => currentRoadChip;
 
     public int Lane => lane;
 
+    /// <summary>
+    /// 生成時の初期設定を行う
+    /// </summary>
+    /// <param name="spawnPoint">スポーン箇所</param>
+    /// <param name="lane">スポーンするレーン</param>
+    /// <param name="speedMS">移動速度</param>
     public void Init(RoadChip spawnPoint, int lane, float speedMS)
     {
         //各種ステータスを設定
@@ -47,6 +60,7 @@ public class NomalCar : MonoBehaviour
     /// </summary>
     /// <param name="hasDistance">移動距離を指定するか</param>
     /// <param name="distance">指定する移動距離</param>
+    /// <param name="back">バックするか</param>
     public void Move(bool hasDistance = false, float distance = float.NaN, bool back = false)
     {
 
