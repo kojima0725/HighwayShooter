@@ -50,10 +50,8 @@ public class Road : MonoBehaviour, ICanGetTransforms
     {
         //最初の道路を設定しておく
         roadChips.Add(roadMaker.GetFirstRoadChip());
-        //道路のデータを読み込み
-        RoadData data = Resources.Load("RoadData") as RoadData;
         //距離計算用のメンバ変数の設定
-        float limit = data.LimitDistance;
+        float limit = StageDatabase.RoadData.LimitDistance;
         sqrObjDistance = limit * limit;
 
         world.JoinWorld(this);

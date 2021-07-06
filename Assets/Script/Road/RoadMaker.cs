@@ -34,15 +34,6 @@ public class RoadMaker : MonoBehaviour
     private float currentAngle = 0;
 
     /// <summary>
-    /// ロードチップの各ステータス
-    /// </summary>
-    private RoadData roadData;
-    /// <summary>
-    /// ロードデザインの資料
-    /// </summary>
-    private RoadDesignDocument roadDesignDocument;
-
-    /// <summary>
     /// 現在の道路のステータス
     /// </summary>
     private RoadType currentRoadType;
@@ -66,13 +57,10 @@ public class RoadMaker : MonoBehaviour
 
     private void Awake()
     {
-        //各すクリプタブルオブジェクトのロード
-        roadData = Resources.Load("RoadData") as RoadData;
-        roadDesignDocument = Resources.Load("RoadDesignDocument") as RoadDesignDocument;
         //はじめにあった道路を最新の道路として設定
         latestRoadChip = firstRoadChip;
         //はじめにあった道路を初期化
-        latestRoadChip.Init(Vector3.zero, roadData.Length, roadData.Width, roadData.Lane);
+        latestRoadChip.Init(Vector3.zero, StageDatabase.RoadData.Length, StageDatabase.RoadData.Width, StageDatabase.RoadData.Lane);
         //ゲーム開始直後は直線の道路を生成する
         currentRoadType = RoadType.Straight;
         //直線道路は100メートル作る
@@ -139,13 +127,13 @@ public class RoadMaker : MonoBehaviour
         switch (currentRoadType)
         {
             case RoadType.Straight:
-                remaining -= roadData.Length;
+                remaining -= StageDatabase.RoadData.Length;
                 break;
             case RoadType.Curve:
                 remaining -= Mathf.Abs(chipRotate);
                 break;
             case RoadType.Winding:
-                remaining -= roadData.Length;
+                remaining -= StageDatabase.RoadData.Length;
                 break;
             default:
                 Debug.LogError("RoadTypeが正しくありません");
@@ -187,8 +175,8 @@ public class RoadMaker : MonoBehaviour
     {
         //距離設定
         remaining = UnityEngine.Random.Range
-            (roadDesignDocument.StraightLengthMin,
-            roadDesignDocument.StraightLengthMax);
+            (StageDatabase.RoadDesignDocument.StraightLengthMin,
+            StageDatabase.RoadDesignDocument.StraightLengthMax);
         //曲がる角度はゼロ
         chipRotate = 0;
     }
@@ -198,11 +186,11 @@ public class RoadMaker : MonoBehaviour
     private void MakeCurve()
     {
         remaining = UnityEngine.Random.Range
-            (roadDesignDocument.CurveMin,
-            roadDesignDocument.CurveMax);
+            (StageDatabase.RoadDesignDocument.CurveMin,
+            StageDatabase.RoadDesignDocument.CurveMax);
         chipRotate = UnityEngine.Random.Range
-            (roadDesignDocument.CurveStrengthMin,
-            roadDesignDocument.CurveStrengthMax);
+            (StageDatabase.RoadDesignDocument.CurveStrengthMin,
+            StageDatabase.RoadDesignDocument.CurveStrengthMax);
         //常に道路が前に進み続けるようにしている
         if (currentAngle > 0)
         {
@@ -221,8 +209,8 @@ public class RoadMaker : MonoBehaviour
     {
         //距離設定
         remaining = UnityEngine.Random.Range
-            (roadDesignDocument.StraightLengthMin,
-            roadDesignDocument.StraightLengthMax);
+            (StageDatabase.RoadDesignDocument.StraightLengthMin,
+            StageDatabase.RoadDesignDocument.StraightLengthMax);
         //曲がる角度はゼロ
         chipRotate = 0;
     }
@@ -241,8 +229,8 @@ public class RoadMaker : MonoBehaviour
         maked.transform.rotation = latestRoadChip.End.rotation;
         //道路を初期化(曲げる,ケツを設定する)
         maked.Init(new Vector3(0, chipRotate, 0),
-                   roadData.Length, roadData.Width,
-                   roadData.Lane, latestRoadChip);
+                   StageDatabase.RoadData.Length, StageDatabase.RoadData.Width,
+                   StageDatabase.RoadData.Lane, latestRoadChip);
         //中心点を設定
         maked.Center = center;
         //中心点がどちら側にあるかを設定
@@ -265,11 +253,11 @@ public class RoadMaker : MonoBehaviour
     {
         //中心点の座標を計算
         Transform startPos = start.End;
-        Vector3 l1s = startPos.position + startPos.right * roadDesignDocument.CenterCheckLength;
-        Vector3 l1e = startPos.position - startPos.right * roadDesignDocument.CenterCheckLength;
+        Vector3 l1s = startPos.position + startPos.right * StageDatabase.RoadDesignDocument.CenterCheckLength;
+        Vector3 l1e = startPos.position - startPos.right * StageDatabase.RoadDesignDocument.CenterCheckLength;
         Transform endPos = end.End;
-        Vector3 l2s = endPos.position + endPos.right * roadDesignDocument.CenterCheckLength;
-        Vector3 l2e = endPos.position - endPos.right * roadDesignDocument.CenterCheckLength;
+        Vector3 l2s = endPos.position + endPos.right * StageDatabase.RoadDesignDocument.CenterCheckLength;
+        Vector3 l2e = endPos.position - endPos.right * StageDatabase.RoadDesignDocument.CenterCheckLength;
 
 
         Vector2 l1s2 = new Vector2(l1s.x, l1s.z);
