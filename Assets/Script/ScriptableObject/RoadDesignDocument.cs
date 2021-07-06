@@ -28,6 +28,9 @@ public class RoadDesignDocument : ScriptableObject
     [SerializeField]
     private float curveStrengthMin;
 
+    [SerializeField]
+    private float centerCheckLength;
+
     /// <summary>
     /// 直線距離の最大値
     /// </summary>
@@ -57,4 +60,9 @@ public class RoadDesignDocument : ScriptableObject
     /// カーブのキツさの最小値
     /// </summary>
     public float CurveStrengthMin => curveStrengthMin;
+
+    /// <summary>
+    /// 円の中心点を求めるための線の長さ
+    /// </summary>
+    public float CenterCheckLength => centerCheckLength;
 }

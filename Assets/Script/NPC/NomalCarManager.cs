@@ -117,7 +117,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         {
             while (count != toSpawnCount && chip)
             {
-                chip = chip.GetNext();
+                chip = chip.Next;
                 count++;
             }
             if (count == toSpawnCount)
@@ -156,7 +156,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         {
             while (count != toSpawnCount && chip)
             {
-                chip = chip.GetPrev();
+                chip = chip.Prev;
                 count++;
             }
             if (count == toSpawnCount)

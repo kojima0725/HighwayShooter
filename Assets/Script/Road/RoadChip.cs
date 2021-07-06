@@ -37,42 +37,48 @@ public class RoadChip : MonoBehaviour
     private Transform[] lanes;
 
     /// <summary>
+    /// 自身がカーブしているときに描く円の中心点
+    /// </summary>
+    private Transform center;
+
+    /// <summary>
     /// 自身の次のチップ
     /// </summary>
     private RoadChip nextChip = null;
 
+    /// <summary>
+    /// 自身の一個前のチップ
+    /// </summary>
     private RoadChip prevChip = null;
 
 
     /// <summary>
-    /// 道の終端の位置を渡す
+    /// 道の終端の位置
     /// </summary>
     /// <returns></returns>
-    public Transform GetEnd() => end;
+    public Transform End => end;
 
     /// <summary>
-    /// 自身の次のロードチップを設定する
+    /// 次のチップ(ない場合はnull)
     /// </summary>
-    /// <param name="chip"></param>
-    public void SetNext(RoadChip chip) => nextChip = chip;
+    public RoadChip Next { get => nextChip; set => nextChip = value; }
+
 
     /// <summary>
-    /// 次のロードチップを渡す(ない場合はnull)
-    /// </summary>
-    /// <returns></returns>
-    public RoadChip GetNext() => nextChip;
-
-    /// <summary>
-    /// 自身の一個前のロードチップを設定する
-    /// </summary>
-    /// <param name="chip"></param>
-    public void SetPrev(RoadChip chip) => prevChip = chip;
-
-    /// <summary>
-    /// 一個前のロードチップを渡す(ない場合はnull)
+    /// 一個前のチップ(ない場合はnull)
     /// </summary>
     /// <returns></returns>
-    public RoadChip GetPrev() => prevChip;
+    public RoadChip Prev => prevChip;
+
+    /// <summary>
+    /// カーブの中心点(直線の場合はnull)
+    /// </summary>
+    public Transform Center { get => center; set => center = value; }
+
+    /// <summary>
+    /// カーブ時の中心点が右側にあるかどうか
+    /// </summary>
+    public bool IsCenterInRight { get; set; }
 
     /// <summary>
     /// 指定されたレーンの位置を返す
@@ -88,10 +94,11 @@ public class RoadChip : MonoBehaviour
     /// <param name="length">チップの長さ</param>
     /// <param name="width">チップの幅</param>
     /// <param name="lane">車線数</param>
-    public void Init(Vector3 rotate, float length, float width, int lane)
+    public void Init(Vector3 rotate, float length, float width, int lane, RoadChip prev = null)
     {
         //End位置の設定
         end.localPosition = new Vector3(0,0,length);
+        end.localRotation = Quaternion.identity;
 
         float halfWidth = width / 2;
         float halfLength = length / 2;
@@ -107,6 +114,9 @@ public class RoadChip : MonoBehaviour
 
         //自身を曲げる
         this.transform.Rotate(rotate);
+
+        //ケツを設定
+        prevChip = prev;
     }
 
     /// <summary>

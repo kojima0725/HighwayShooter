@@ -76,7 +76,7 @@ public class PlayerCar : MonoBehaviour
 
     private void Start()
     {
-        World.current.SetCarSpeed(speed);
+        World.current?.SetCarSpeed(speed);
     }
 
     // Update is called once per frame

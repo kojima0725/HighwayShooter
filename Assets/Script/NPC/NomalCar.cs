@@ -76,7 +76,7 @@ public class NomalCar : MonoBehaviour
             {
                 this.transform.position = moveTo.position;
                 moveDistance -= Mathf.Sqrt(sqrLength);
-                currentRoadChip = back ? currentRoadChip.GetPrev() : currentRoadChip.GetNext();
+                currentRoadChip = back ? currentRoadChip.Prev : currentRoadChip.Next;
                 if (!currentRoadChip)
                 {
                     //次がない場合は削除
@@ -92,9 +92,29 @@ public class NomalCar : MonoBehaviour
                 Vector3 dir = moveTo.position - this.transform.position;
                 Vector3 pos = this.transform.position;
                 this.transform.position = pos + dir.normalized * moveDistance;
-                this.transform.rotation = moveTo.rotation;
                 break;
             }
+        }
+
+        //車の角度を決定
+        ChangeRotation();
+    }
+
+    private void ChangeRotation()
+    {
+        Transform center;
+        if (center = currentRoadChip.Center)
+        {
+            Vector3 vector = this.transform.position - center.position;
+            //センターと自身の位置から、角度の計算
+            float angle = Mathf.Atan2(vector.x, vector.z);
+            Quaternion rotate = Quaternion.AngleAxis(Mathf.Rad2Deg * angle, Vector3.up);
+            Quaternion rightLeft = currentRoadChip.IsCenterInRight ? Quaternion.AngleAxis(90, Vector3.up) : Quaternion.AngleAxis(-90, Vector3.up);
+            this.transform.rotation = rotate * rightLeft;
+        }
+        else
+        {
+            this.transform.rotation = currentRoadChip.End.rotation;
         }
     }
 }
