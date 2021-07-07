@@ -20,6 +20,10 @@ public class PlayerCarData : ScriptableObject
     private float brakePower;
     [SerializeField]
     private float firstSpeed;
+    [SerializeField]
+    private float cameraRotateX;
+    [SerializeField]
+    private float cameraRotateY;
 
 
     /// <summary>
@@ -51,4 +55,14 @@ public class PlayerCarData : ScriptableObject
     /// 開始時のスピード
     /// </summary>
     public float FirstSpeed => firstSpeed;
+
+    /// <summary>
+    /// レティクルの位置に合わせたカメラ回転の強さ(平行)
+    /// </summary>
+    public float CameraRotateX => cameraRotateX;
+
+    /// <summary>
+    /// レティクルの位置に合わせたカメラ回転の強さ(垂直)
+    /// </summary>
+    public float CameraRotateY => cameraRotateY;
 }

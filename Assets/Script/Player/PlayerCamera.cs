@@ -16,11 +16,6 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField]
     private PlayerGun gun;
 
-    [SerializeField]
-    float rotateX;
-
-    [SerializeField]
-    float rotateY;
 
     private Quaternion baseRotation;
 
@@ -37,8 +32,8 @@ public class PlayerCamera : MonoBehaviour
     private void Rotate()
     {
         Vector2 pos = gun.GetReticlePos();
-        float x = rotateX * pos.x;
-        float y = rotateY * pos.y;
+        float x = StageDatabase.PlayerCarData.CameraRotateX * pos.x;
+        float y = StageDatabase.PlayerCarData.CameraRotateY * pos.y;
         Quaternion rotate = Quaternion.Euler(-y,x,0);
         Quaternion after = baseRotation * rotate;
         MoveCamera.localRotation = after;
