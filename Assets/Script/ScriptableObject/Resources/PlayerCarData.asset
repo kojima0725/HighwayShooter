@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af8a0b470f7fb684eb1c062fffcc3462, type: 3}
   m_Name: PlayerCarData
   m_EditorClassIdentifier: 
-  rollSensitivity: 0
-  handleInputSensitivity: 0
-  maxSpeed: 0
-  accelerationPower: 0
-  brakePower: 0
-  firstSpeed: 0
+  rollSensitivity: 45
+  handleInputSensitivity: 5
+  maxSpeed: 300
+  accelerationPower: 10
+  brakePower: 25
+  firstSpeed: 200
+  cameraRotateX: 15
+  cameraRotateY: 5
