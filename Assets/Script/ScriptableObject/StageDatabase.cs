@@ -11,6 +11,7 @@ public class StageDatabase : MonoBehaviour
     private static NomalCarData nomalCarData;
     private static RoadData roadData;
     private static RoadDesignDocument roadDesignDocument;
+    private static PlayerCarData playerCarData;
 
     /// <summary>
     /// 一般車に関するデータ
@@ -24,6 +25,10 @@ public class StageDatabase : MonoBehaviour
     /// 道の生成に関するデータ
     /// </summary>
     public static RoadDesignDocument RoadDesignDocument => roadDesignDocument;
+    /// <summary>
+    /// プレイヤーの車に関するデータ
+    /// </summary>
+    public static PlayerCarData PlayerCarData => playerCarData;
 
     private void Awake()
     {
@@ -40,5 +45,6 @@ public class StageDatabase : MonoBehaviour
         nomalCarData = Resources.Load("NomalCarData") as NomalCarData;
         roadData = Resources.Load("RoadData") as RoadData;
         roadDesignDocument = Resources.Load("RoadDesignDocument") as RoadDesignDocument;
+        playerCarData = Resources.Load("PlayerCarData") as PlayerCarData;
     }
 }

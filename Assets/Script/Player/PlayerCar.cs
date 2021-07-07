@@ -8,6 +8,7 @@ using UnityEngine.UI;
 /// プレイヤーの乗っている車
 /// ゲームパッドの左側で操作する
 /// </summary>
+[RequireComponent(typeof(PlayerCarMover))]
 public class PlayerCar : MonoBehaviour
 {
     /// <summary>
@@ -19,51 +20,16 @@ public class PlayerCar : MonoBehaviour
     /// <summary>
     /// 現在の車の速度
     /// </summary>
-    [SerializeField]
     private float speed;
 
-    #region ハンドル関連
-
-    /// <summary>
-    /// 車体を傾ける感度;
-    /// </summary>
     [SerializeField]
-    private float rollSensitivity;
-    
-    /// <summary>
-    /// ハンドルの入力感度(入力にどれだけ素直に反応するか)
-    /// </summary>
-    [SerializeField]
-    private float handleInputSensitivity;
+    PlayerCarMover mover;
 
     /// <summary>
     /// 車のハンドルの入力状態
     /// </summary>
     private float handleInput;
 
-    #endregion
-
-    #region アクセル、ブレーキ関連
-
-    /// <summary>
-    /// 最大速度
-    /// </summary>
-    [SerializeField]
-    private float maxSpeed;
-
-    /// <summary>
-    /// 加速力
-    /// </summary>
-    [SerializeField]
-    private float accelerationPower;
-
-    /// <summary>
-    /// 減速力
-    /// </summary>
-    [SerializeField]
-    private float brakePower;
-
-    #endregion
 
     /// <summary>
     /// デバッグモードかどうか
@@ -76,6 +42,7 @@ public class PlayerCar : MonoBehaviour
 
     private void Start()
     {
+        speed = StageDatabase.PlayerCarData.FirstSpeed;
         World.current?.SetCarSpeed(speed);
     }
 
@@ -104,7 +71,7 @@ public class PlayerCar : MonoBehaviour
     /// </summary>
     private void GetHandleInput()
     {
-        handleInput = MathKoji.GetCloser(handleInput, KInputManager.GetCarMoveInput(), handleInputSensitivity) ; KInputManager.GetCarMoveInput();
+        handleInput = MathKoji.GetCloser(handleInput, KInputManager.GetCarMoveInput(), StageDatabase.PlayerCarData.HandleInputSensitivity) ; KInputManager.GetCarMoveInput();
         //Debug.Log(holizontalPower);
     }
 
@@ -117,13 +84,13 @@ public class PlayerCar : MonoBehaviour
         float input = KInputManager.GetCarBrakeInput();
         if (0 != input)
         {
-            speed = MathKoji.GetCloser(speed,0f,brakePower * input);
+            speed = MathKoji.GetCloser(speed,0f, StageDatabase.PlayerCarData.BrakePower * input);
             return;
         }
         input = KInputManager.GetCerAcceleratorInput();
         if (0 != input)
         {
-            speed = MathKoji.GetCloser(speed, maxSpeed, brakePower * input);
+            speed = MathKoji.GetCloser(speed, StageDatabase.PlayerCarData.MaxSpeed, StageDatabase.PlayerCarData.BrakePower * input);
             return;
         }
         
@@ -136,7 +103,7 @@ public class PlayerCar : MonoBehaviour
     {
         var roll = body.transform.localEulerAngles;
 
-        roll.y += handleInput * rollSensitivity * Time.deltaTime;
+        roll.y += handleInput * StageDatabase.PlayerCarData.RollSensitivity * Time.deltaTime;
 
         body.transform.localEulerAngles = roll;
     }

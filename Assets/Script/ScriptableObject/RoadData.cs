@@ -8,16 +8,12 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "RoadData", menuName = "ScriptableObjects/CreateRoadData")]
 public class RoadData : ScriptableObject
 {
-    
     [SerializeField]
     private float length;
- 
     [SerializeField]
     private float width;
-
     [SerializeField]
-    private int lane;
-    
+    private int lane;  
     [SerializeField]
     private float limitDistance;
 
