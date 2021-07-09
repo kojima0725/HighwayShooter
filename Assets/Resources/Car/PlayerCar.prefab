@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 1823321953882841898}
   - component: {fileID: 1821322120126751203}
   - component: {fileID: 1821322120126751201}
+  - component: {fileID: 3889202977942183039}
   - component: {fileID: 1821322120126751200}
   m_Layer: 0
   m_Name: PlayerCar
@@ -159,16 +160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 45130690caa36b549a6d69480e43c571, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  body: {fileID: 1097483485874794623}
-  speed: 250
   mover: {fileID: 1821322120126751201}
-  rollSensitivity: 45
-  handleInputSensitivity: 5
-  maxSpeed: 300
-  accelerationPower: 10
-  brakePower: 25
-  debugMode: 1
-  hundleTxt: {fileID: 0}
 --- !u!114 &1821322120126751201
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +173,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 643612357ff22d64aaca74736fcdbfc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  driver: {fileID: 3889202977942183039}
+  body: {fileID: 1097483485874695263}
+--- !u!114 &3889202977942183039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821322120126751202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f39eb19aabdc694bb7c6c8dc5d60e7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handleTxt: {fileID: 0}
 --- !u!114 &1821322120126751200
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -195,8 +202,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MoveCamera: {fileID: 7251631313305776707}
   gun: {fileID: 0}
-  rotateX: 15
-  rotateY: 5
 --- !u!1 &1980979549503597150
 GameObject:
   m_ObjectHideFlags: 0

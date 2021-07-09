@@ -25,12 +25,8 @@ public class PlayerGun : MonoBehaviour
     /// </summary>
     RectTransform reticleTransform;
 
-
-
     [SerializeField]
-    bool debugMode;
-    [SerializeField]
-    Text debugText;
+    Text debugTxt;
 
     private void Awake()
     {
@@ -41,9 +37,9 @@ public class PlayerGun : MonoBehaviour
     private void Update()
     {
         MoveReticle();
-        if (debugMode)
+        if (debugTxt)
         {
-            debugText.text = $"X:{GetReticlePos().x} Y:{GetReticlePos().y}";
+            debugTxt.text = $"X:{GetReticlePos().x} Y:{GetReticlePos().y}";
         }
     }
 

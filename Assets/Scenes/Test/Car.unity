@@ -265,6 +265,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1821322120126751200, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: gun
+      value: 
+      objectReference: {fileID: 1525640204}
     - target: {fileID: 1821322120126751202, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: m_Name
@@ -330,6 +335,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3889202977942183039, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: handleTxt
+      value: 
+      objectReference: {fileID: 997244239}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 388c48231e4ad034daa66b42350dc213, type: 3}
 --- !u!1 &567762942
@@ -789,8 +799,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticle: {fileID: 567762943}
   reticleSpeed: 1
-  debugMode: 1
-  debugText: {fileID: 1767400409}
+  debugTxt: {fileID: 1767400409}
 --- !u!4 &1525640205
 Transform:
   m_ObjectHideFlags: 0
