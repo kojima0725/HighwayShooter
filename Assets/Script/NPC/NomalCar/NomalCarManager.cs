@@ -89,7 +89,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         if (cars.Count == 0)
         {
             //車が一台もいない場合はとりあえずスポーン
-            Spawn(road.GetRoadChips().Last(), Random.Range(0,StageDatabase.RoadData.Lane), StageDatabase.NomalCarData.SpeedMS);
+            Spawn(road.GetRoadChips().Last(), Random.Range(0,StageDatabase.RoadData.Lane), StageDatabase.NomalCarSpawnData.SpeedMS);
         }
 
         SpawnCarsInFront();
@@ -120,9 +120,9 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
                     spawnLane++;
                 }
                 //車をスポーン
-                car = Spawn(car.CurrentRoadChip, spawnLane, StageDatabase.NomalCarData.SpeedMS);
+                car = Spawn(car.CurrentRoadChip, spawnLane, StageDatabase.NomalCarSpawnData.SpeedMS);
                 //所定の位置まで移動
-                car.Move(true, Random.Range(StageDatabase.NomalCarData.BetweenMin, StageDatabase.NomalCarData.BetweenMax));
+                car.Move(true, Random.Range(StageDatabase.NomalCarSpawnData.BetweenMin, StageDatabase.NomalCarSpawnData.BetweenMax));
                 //各数値をリセット
                 count = 0;
                 chip = car.CurrentRoadChip;
@@ -159,9 +159,9 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
                     spawnLane++;
                 }
                 //車をスポーン
-                car = Spawn(car.CurrentRoadChip, spawnLane, StageDatabase.NomalCarData.SpeedMS, true);
+                car = Spawn(car.CurrentRoadChip, spawnLane, StageDatabase.NomalCarSpawnData.SpeedMS, true);
                 //所定の位置まで移動
-                car.Move(true, Random.Range(StageDatabase.NomalCarData.BetweenMin, StageDatabase.NomalCarData.BetweenMax), true);
+                car.Move(true, Random.Range(StageDatabase.NomalCarSpawnData.BetweenMin, StageDatabase.NomalCarSpawnData.BetweenMax), true);
                 //各数値をリセット
                 count = 0;
                 chip = car.CurrentRoadChip;
@@ -220,6 +220,6 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
 
     private void MakeData()
     {
-        toSpawnCount = (int)(StageDatabase.NomalCarData.CarSpawnLength / StageDatabase.RoadData.Length);
+        toSpawnCount = (int)(StageDatabase.NomalCarSpawnData.CarSpawnLength / StageDatabase.RoadData.Length);
     }
 }

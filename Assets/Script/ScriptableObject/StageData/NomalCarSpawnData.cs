@@ -4,10 +4,10 @@ using UnityEngine;
 
 
 /// <summary>
-/// 一般車に関するデータ
+/// 一般車のスポーン関するデータ
 /// </summary>
-[CreateAssetMenu(fileName = "NomalCarData", menuName = "ScriptableObjects/CreateNomalCarData")]
-public class NomalCarData : ScriptableObject
+[CreateAssetMenu(fileName = "NomalCarSpawnData", menuName = "ScriptableObjects/CreateNomalCarSpawnData")]
+public class NomalCarSpawnData : ScriptableObject
 {
     [SerializeField]
     private float speedKmH;

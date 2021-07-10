@@ -8,14 +8,14 @@ using UnityEngine;
 /// </summary>
 public class StageDatabase : MonoBehaviour
 {
-    private static NomalCarData nomalCarData;
+    private static NomalCarSpawnData nomalCarSpawnData;
     private static RoadData roadData;
     private static RoadDesignDocument roadDesignDocument;
 
     /// <summary>
     /// 一般車に関するデータ
     /// </summary>
-    public static NomalCarData NomalCarData => nomalCarData;
+    public static NomalCarSpawnData NomalCarSpawnData => nomalCarSpawnData;
     /// <summary>
     /// 道に関するデータ
     /// </summary>
@@ -36,7 +36,7 @@ public class StageDatabase : MonoBehaviour
     /// </summary>
     public static void LoadData()
     {
-        nomalCarData = Resources.Load("NomalCarData") as NomalCarData;
+        nomalCarSpawnData = Resources.Load("NomalCarSpawnData") as NomalCarSpawnData;
         roadData = Resources.Load("RoadData") as RoadData;
         roadDesignDocument = Resources.Load("RoadDesignDocument") as RoadDesignDocument;
     }
