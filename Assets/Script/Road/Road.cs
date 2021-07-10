@@ -16,6 +16,9 @@ public class Road : MonoBehaviour, ICanGetTransforms
     [SerializeField]
     private RoadMaker roadMaker;
 
+    /// <summary>
+    /// 世界
+    /// </summary>
     [SerializeField]
     private World world;
 
@@ -46,7 +49,7 @@ public class Road : MonoBehaviour, ICanGetTransforms
     }
 
     /// <summary>
-    /// プレイヤーが今どのロードチップの近くにいるかを返します(少し重い)
+    /// プレイヤーが今どのロードチップの近くにいるかを返す(少し重い)
     /// </summary>
     /// <returns></returns>
     public RoadChip GetPlayerRoadChip()
@@ -89,7 +92,9 @@ public class Road : MonoBehaviour, ICanGetTransforms
 
     private void Update()
     {
+        //新しい道路を生成
         MakeNewRoads();
+        //古い道路を削除
         DestroyOldRoads();
     }
 

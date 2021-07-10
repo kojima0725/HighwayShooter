@@ -143,7 +143,7 @@ public class RoadMaker : MonoBehaviour
     }
 
     /// <summary>
-    /// あとどれぐらいで設計している道路が尽きるか計算する
+    /// 次に作る道路の形を決定する
     /// </summary>
     private void MakeNextRoadState()
     {

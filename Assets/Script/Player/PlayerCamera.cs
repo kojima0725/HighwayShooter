@@ -26,9 +26,14 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
     {
+        //カメラを回転させる
         Rotate();
     }
 
+
+    /// <summary>
+    /// レティクルの位置に合わせてカメラを回転させる
+    /// </summary>
     private void Rotate()
     {
         Vector2 pos = gun.GetReticlePos();
