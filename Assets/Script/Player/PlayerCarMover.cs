@@ -23,6 +23,8 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private float speed;
 
+    public float Speed => speed;
+
     private void Start()
     {
         speed = PlayerDataBase.PlayerCarData.FirstSpeed;

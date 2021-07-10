@@ -11,13 +11,10 @@ public class NomalCarSpawnData : ScriptableObject
 {
     [SerializeField]
     private float speedKmH;
-
     [SerializeField]
     private float carSpawnLength;
-
     [SerializeField]
     private float betweenMax;
-
     [SerializeField]
     private float betweenMin;
 

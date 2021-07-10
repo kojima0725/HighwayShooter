@@ -26,6 +26,11 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     private EnemyCar enemyCarPrefab;
 
     /// <summary>
+    /// 車はプレイヤーの位置からこの数後ろでスポーンする
+    /// </summary>
+    private int toSpawnCount;
+
+    /// <summary>
     /// 生成した敵車
     /// </summary>
     readonly List<EnemyCar> cars = new List<EnemyCar>();
@@ -52,8 +57,8 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
 
     private void Start()
     {
-        //テスト用！敵をとりあえず一体スポーンさせる
-        Spawn(road.GetRoadChips()[0], MathKoji.KmHToMS(200));
+        MakeData();
+        enemySpawnTimer = StageDatabase.EnemyCarSpawnData.FirstIntervalTime;
     }
 
     private void Update()
@@ -83,11 +88,11 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
         enemySpawnTimer -= Time.deltaTime;
         if (enemySpawnTimer < 0)
         {
-            if (cars.Count < 10)
+            if (cars.Count < StageDatabase.EnemyCarSpawnData.MaxCount)
             {
                 RoadChip spawnTo = road.GetPlayerRoadChip();
                 int count = 0;
-                while (count <= 3)
+                while (count <= toSpawnCount)
                 {
                     if (spawnTo.Prev is null)
                     {
@@ -96,9 +101,9 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
                     spawnTo = spawnTo.Prev;
                     count++;
                 }
-                Spawn(spawnTo, 300);
+                Spawn(spawnTo, PlayerCar.current.SpeedMS);
             }
-            enemySpawnTimer = 3;
+            enemySpawnTimer = StageDatabase.EnemyCarSpawnData.IntervalTime;
         }
     }
 
@@ -137,5 +142,11 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
             Destroy(item.gameObject);
         }
         destroyBookingCars.Clear();
+    }
+
+
+    private void MakeData()
+    {
+        toSpawnCount = (int)(StageDatabase.EnemyCarSpawnData.SpawnBackLength / StageDatabase.RoadData.Length);
     }
 }
