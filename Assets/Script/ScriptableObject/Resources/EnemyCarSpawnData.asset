@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd15938e1ea065f448f42f8d1de07f71, type: 3}
   m_Name: EnemyCarSpawnData
   m_EditorClassIdentifier: 
-  spawnBackLength: 0
-  intervalTime: 0
-  firstIntervalTime: 0
-  maxEnemyCount: 0
+  spawnBackLength: 15
+  intervalTime: 3
+  firstIntervalTime: 10
+  maxCount: 10
