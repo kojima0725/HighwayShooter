@@ -38,8 +38,8 @@ public class PlayerCarDriver : MonoBehaviour
     private void GetHandleInput()
     {
         handleInput = MathKoji.GetCloser(handleInput, 
-            KInputManager.GetCarMoveInput(), 
-            StageDatabase.PlayerCarData.HandleInputSensitivity);
+            KInputManager.GetCarMoveInput(),
+            PlayerDataBase.PlayerCarData.HandleInputSensitivity);
         if (handleTxt)
         {
             handleTxt.text = "ハンドルは" + handleInput;

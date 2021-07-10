@@ -32,8 +32,8 @@ public class PlayerCamera : MonoBehaviour
     private void Rotate()
     {
         Vector2 pos = gun.GetReticlePos();
-        float x = StageDatabase.PlayerCarData.CameraRotateX * pos.x;
-        float y = StageDatabase.PlayerCarData.CameraRotateY * pos.y;
+        float x = PlayerDataBase.PlayerCarData.CameraRotateX * pos.x;
+        float y = PlayerDataBase.PlayerCarData.CameraRotateY * pos.y;
         Quaternion rotate = Quaternion.Euler(-y,x,0);
         Quaternion after = baseRotation * rotate;
         MoveCamera.localRotation = after;

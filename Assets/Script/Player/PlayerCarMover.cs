@@ -25,7 +25,7 @@ public class PlayerCarMover : MonoBehaviour
 
     private void Start()
     {
-        speed = StageDatabase.PlayerCarData.FirstSpeed;
+        speed = PlayerDataBase.PlayerCarData.FirstSpeed;
         World.current?.SetCarSpeed(speed);
     }
 
@@ -51,7 +51,7 @@ public class PlayerCarMover : MonoBehaviour
     {
         var roll = body.transform.localEulerAngles;
 
-        roll.y += driver.HandleInput * StageDatabase.PlayerCarData.RollSensitivity * Time.deltaTime;
+        roll.y += driver.HandleInput * PlayerDataBase.PlayerCarData.RollSensitivity * Time.deltaTime;
 
         body.transform.localEulerAngles = roll;
     }
@@ -69,15 +69,15 @@ public class PlayerCarMover : MonoBehaviour
         //加速時
         if (a >= 0)
         {
-            speed = MathKoji.GetCloser(speed, StageDatabase.PlayerCarData.MaxSpeed,
-                StageDatabase.PlayerCarData.BrakePower * a);
+            speed = MathKoji.GetCloser(speed, PlayerDataBase.PlayerCarData.MaxSpeed,
+                PlayerDataBase.PlayerCarData.BrakePower * a);
         }
         //減速時
         else if (driver.Acceleration <= 0)
         {
             a = -a;
-            speed = MathKoji.GetCloser(speed, 0f, 
-                StageDatabase.PlayerCarData.BrakePower * a);
+            speed = MathKoji.GetCloser(speed, 0f,
+                PlayerDataBase.PlayerCarData.BrakePower * a);
         }
     }
 
