@@ -273,7 +273,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &567762943
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -649,8 +649,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   road: {fileID: 1383892033}
   world: {fileID: 1383892036}
-  nomalCarContainer: {fileID: 611008913}
-  enemyCarPrefab: {fileID: 0}
+  enemyCarContainer: {fileID: 611008913}
+  enemyCarPrefab: {fileID: 5220089833429797709, guid: 43fed5ee4471a934caec609cb09d580c,
+    type: 3}
 --- !u!1 &1525640203
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,7 +676,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1525640203}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 714fd78e8c76ffe44a9f42c350040f90, type: 3}
   m_Name: 

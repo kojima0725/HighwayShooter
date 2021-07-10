@@ -54,6 +54,10 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     {
         //世界に参加
         world.JoinWorld(this);
+    }
+
+    private void Start()
+    {
         //各種数値情報の設定
         MakeData();
     }
