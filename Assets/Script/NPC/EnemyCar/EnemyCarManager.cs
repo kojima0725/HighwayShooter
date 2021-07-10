@@ -35,6 +35,8 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     /// </summary>
     readonly List<EnemyCar> destroyBookingCars = new List<EnemyCar>();
 
+    private float enemySpawnTimer;
+
     public IEnumerable<Transform> Transforms()
     {
         foreach (var item in cars)
@@ -57,6 +59,7 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     private void Update()
     {
         MoveCars();
+        EnemySpawnUpdate();
     }
 
     /// <summary>
@@ -71,6 +74,34 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
         //道から溢れた車を削除
         DestroyBookedCars();
     }
+
+    /// <summary>
+    /// 敵の生成管理
+    /// </summary>
+    private void EnemySpawnUpdate()
+    {
+        enemySpawnTimer -= Time.deltaTime;
+        if (enemySpawnTimer < 0)
+        {
+            if (cars.Count < 10)
+            {
+                RoadChip spawnTo = road.GetPlayerRoadChip();
+                int count = 0;
+                while (count <= 3)
+                {
+                    if (spawnTo.Prev is null)
+                    {
+                        break;
+                    }
+                    spawnTo = spawnTo.Prev;
+                    count++;
+                }
+                Spawn(spawnTo, 300);
+            }
+            enemySpawnTimer = 3;
+        }
+    }
+
 
     /// <summary>
     /// 指定した箇所に車をスポーンさせる

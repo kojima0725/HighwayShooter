@@ -45,6 +45,35 @@ public class Road : MonoBehaviour, ICanGetTransforms
         }
     }
 
+    /// <summary>
+    /// プレイヤーが今どのロードチップの近くにいるかを返します(少し重い)
+    /// </summary>
+    /// <returns></returns>
+    public RoadChip GetPlayerRoadChip()
+    {
+        RoadChip min = null;
+        float minMag = 0;
+        foreach (var item in roadChips)
+        {
+            if (min is null)
+            {
+                min = item;
+                minMag = item.transform.position.sqrMagnitude;
+            }
+            else
+            {
+                float mag = item.transform.position.sqrMagnitude;
+                if (mag < minMag)
+                {
+                    min = item;
+                    minMag = mag;
+                }
+            }
+        }
+
+        return min;
+    }
+
 
     private void Awake()
     {
