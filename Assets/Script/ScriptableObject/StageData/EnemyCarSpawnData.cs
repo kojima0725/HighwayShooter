@@ -16,6 +16,8 @@ public class EnemyCarSpawnData : ScriptableObject
     private float firstIntervalTime;
     [SerializeField]
     private float maxCount;
+    [SerializeField]
+    private float firstAddSpeed;
 
     /// <summary>
     /// 車をプレイヤーの何メートル後ろにスポーンさせるか
@@ -36,4 +38,9 @@ public class EnemyCarSpawnData : ScriptableObject
     /// 同時に登場する敵の最大数
     /// </summary>
     public float MaxCount => maxCount;
+
+    /// <summary>
+    /// スポーン時にプレイヤーの速度よりどれぐらい速いか
+    /// </summary>
+    public float FirstAddSpeedMS => MathKoji.KmHToMS(firstAddSpeed);
 }

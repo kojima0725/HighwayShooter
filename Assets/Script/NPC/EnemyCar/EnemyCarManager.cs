@@ -101,7 +101,7 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
                     spawnTo = spawnTo.Prev;
                     count++;
                 }
-                Spawn(spawnTo, PlayerCar.current.SpeedMS);
+                Spawn(spawnTo, PlayerCar.current.SpeedMS + StageDatabase.EnemyCarSpawnData.FirstAddSpeedMS);
             }
             enemySpawnTimer = StageDatabase.EnemyCarSpawnData.IntervalTime;
         }
