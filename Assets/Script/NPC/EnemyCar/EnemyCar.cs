@@ -54,7 +54,11 @@ public class EnemyCar : MonoBehaviour
     /// <param name="back">バックするか</param>
     public void Move(bool hasDistance = false, float distance = float.NaN, bool back = false)
     {
+        MoveBase(hasDistance, distance, back);
+    }
 
+    private void MoveBase(bool hasDistance = false, float distance = float.NaN, bool back = false)
+    {
         if (!currentRoadChip)
         {
             OnRoadIsNull(this);
