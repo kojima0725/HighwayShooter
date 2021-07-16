@@ -10,6 +10,11 @@ using System;
 public class EnemyCar : MonoBehaviour
 {
     /// <summary>
+    /// 移動先がNullのときに呼ばれる
+    /// </summary>
+    public event Action<EnemyCar> OnRoadIsNull;
+
+    /// <summary>
     /// 現在いる箇所のロードチップ
     /// </summary>
     private RoadChip currentRoadChip;
@@ -19,10 +24,8 @@ public class EnemyCar : MonoBehaviour
     /// </summary>
     private float speedMS;
 
-    /// <summary>
-    /// 移動先がNullのときに呼ばれる
-    /// </summary>
-    public event Action<EnemyCar> OnRoadIsNull;
+    [SerializeField]
+    private EnemyCarBody body;
 
     /// <summary>
     /// 現在いる箇所のロードチップ
@@ -54,7 +57,59 @@ public class EnemyCar : MonoBehaviour
     /// <param name="back">バックするか</param>
     public void Move(bool hasDistance = false, float distance = float.NaN, bool back = false)
     {
+        ChangeSpeed();
         MoveBase(hasDistance, distance, back);
+    }
+
+    private void ChangeSpeed()
+    {
+        Vector3 thisPos = body.transform.position;
+        float sqrDist = thisPos.sqrMagnitude;
+        float min = StageDatabase.EnemyCarMovementData.StayLengthMin;
+        if (sqrDist < min * min)
+        {
+            //距離が近すぎる場合は減速
+            SpeedUp();
+            return;
+        }
+        float angle = Vector3.Angle(PlayerCar.current.Body.forward, thisPos);
+        if (angle > StageDatabase.EnemyCarMovementData.StayAngle / 2)
+        {
+            //プレイヤーの視界の外にいる場合は加速
+            SpeedUp();
+            return;
+        }
+        float max = StageDatabase.EnemyCarMovementData.StayLengthMax;
+        if (sqrDist < max * max)
+        {
+            //視野内、一定の距離内にいる場合は速度維持して並走
+            SpeedKeep();
+            return;
+        }
+        //プレイヤーの前方遠くにいる場合は減速
+        SpeedDown();
+    }
+
+    private void SpeedUp()
+    {
+        speedMS = MathKoji.GetCloser(
+            speedMS,
+            PlayerCar.current.SpeedMS + StageDatabase.EnemyCarMovementData.AddSpeedMS,
+            10);
+    }
+
+    private void SpeedDown()
+    {
+        speedMS = MathKoji.GetCloser(speedMS,
+            PlayerCar.current.SpeedMS - StageDatabase.EnemyCarMovementData.RemoveSpeedMS,
+            10);
+    }
+
+    private void SpeedKeep()
+    {
+        speedMS = MathKoji.GetCloser(speedMS,
+            PlayerCar.current.SpeedMS,
+            3);
     }
 
     private void MoveBase(bool hasDistance = false, float distance = float.NaN, bool back = false)

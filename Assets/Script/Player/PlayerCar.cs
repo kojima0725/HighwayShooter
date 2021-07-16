@@ -21,6 +21,8 @@ public class PlayerCar : MonoBehaviour
 
     public float SpeedMS => MathKoji.KmHToMS(mover.Speed);
 
+    public Transform Body => mover.Body;
+
     private void Awake()
     {
         current = this;

@@ -25,6 +25,8 @@ public class PlayerCarMover : MonoBehaviour
 
     public float Speed => speed;
 
+    public Transform Body => body;
+
     private void Start()
     {
         speed = PlayerDataBase.PlayerCarData.FirstSpeed;

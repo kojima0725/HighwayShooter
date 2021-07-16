@@ -5,8 +5,8 @@ using UnityEngine;
 /// <summary>
 /// 敵の動きに関するデータ
 /// </summary>
-[CreateAssetMenu(fileName = "EnemyMovementData", menuName = "ScriptableObjects/EnemyMovementData")]
-public class EnemyMovementData : ScriptableObject
+[CreateAssetMenu(fileName = "EnemyCarMovementData", menuName = "ScriptableObjects/EnemyCarMovementData")]
+public class EnemyCarMovementData : ScriptableObject
 {
     [SerializeField]
     private float addSpeed;
@@ -23,12 +23,12 @@ public class EnemyMovementData : ScriptableObject
     /// <summary>
     /// プレイヤーに追いつく時にどれぐらいスピードを上げるか
     /// </summary>
-    public float AddSpeed => addSpeed;
+    public float AddSpeedMS => MathKoji.KmHToMS(addSpeed);
 
     /// <summary>
     /// プレイヤーに前から近づく時にどれぐらいスピードを下げるか
     /// </summary>
-    public float RemoveSpeed => removeSpeed;
+    public float RemoveSpeedMS => MathKoji.KmHToMS(removeSpeed);
 
     /// <summary>
     /// プレイヤーの前方のどの角度以内に留まるか
