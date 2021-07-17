@@ -15,6 +15,10 @@ public class EnemyCarData : ScriptableObject
 
     public EnemyCarMovementData MovementData => movementData;
 
+    /// <summary>
+    /// 車を生成する
+    /// </summary>
+    /// <returns>生成された車</returns>
     public EnemyCar GenerateEnemyCar()
     {
         EnemyCar maked = Instantiate(carPrefab);

@@ -12,6 +12,10 @@ public class NomalCarData : ScriptableObject
     [SerializeField]
     private NomalCar carPrefab;
 
+    /// <summary>
+    /// 車を生成する
+    /// </summary>
+    /// <returns>生成された車</returns>
     public NomalCar GeneratePlayerCar()
     {
         NomalCar maked = Instantiate(carPrefab);

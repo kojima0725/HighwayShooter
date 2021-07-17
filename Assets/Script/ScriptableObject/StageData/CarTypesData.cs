@@ -19,5 +19,8 @@ public class CarTypesData : ScriptableObject
     /// </summary>
     public EnemyCarData[] Enemys => enemyCarList;
 
+    /// <summary>
+    /// 一般車のデータリスト
+    /// </summary>
     public NomalCarData[] NomalCarList => nomalCarList;
 }

@@ -37,7 +37,7 @@ public class PlayerCarDriver : MonoBehaviour
 
     private void GetHandleInput()
     {
-        handleInput = MathKoji.GetCloser(handleInput, 
+        handleInput = KMath.GetCloser(handleInput, 
             KInputManager.GetCarMoveInput(),
             PlayerDataBase.PlayerCarData.HandleInputSensitivity);
         if (handleTxt)

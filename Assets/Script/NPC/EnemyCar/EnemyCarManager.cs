@@ -5,11 +5,11 @@ using UnityEngine;
 /// <summary>
 /// 雑魚敵の生成、移動、削除を管理する
 /// </summary>
-[RequireComponent(typeof(Road))]
+[RequireComponent(typeof(RoadManager))]
 public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
 {
     [SerializeField]
-    private Road road;
+    private RoadManager road;
     [SerializeField]
     private World world;
 
@@ -46,6 +46,7 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
 
     private void Awake()
     {
+        //世界に登録
         world.JoinWorld(this);
     }
 

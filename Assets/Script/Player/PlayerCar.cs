@@ -19,7 +19,7 @@ public class PlayerCar : MonoBehaviour
     [SerializeField]
     PlayerCarMover mover;
 
-    public float SpeedMS => MathKoji.KmHToMS(mover.Speed);
+    public float SpeedMS => KMath.KmHToMS(mover.Speed);
 
     public Transform Body => mover.Body;
 

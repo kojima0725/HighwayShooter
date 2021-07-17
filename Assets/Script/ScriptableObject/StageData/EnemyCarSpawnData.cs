@@ -42,5 +42,5 @@ public class EnemyCarSpawnData : ScriptableObject
     /// <summary>
     /// スポーン時にプレイヤーの速度よりどれぐらい速いか
     /// </summary>
-    public float FirstAddSpeedMS => MathKoji.KmHToMS(firstAddSpeed);
+    public float FirstAddSpeedMS => KMath.KmHToMS(firstAddSpeed);
 }

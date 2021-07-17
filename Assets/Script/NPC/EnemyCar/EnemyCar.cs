@@ -65,6 +65,9 @@ public class EnemyCar : MonoBehaviour
         MoveBase(hasDistance, distance, back);
     }
 
+    /// <summary>
+    /// プレイヤーとの相対位置応じて加減速を行う
+    /// </summary>
     private void ChangeSpeed()
     {
         Vector3 thisPos = body.transform.position;
@@ -96,7 +99,7 @@ public class EnemyCar : MonoBehaviour
 
     private void SpeedUp()
     {
-        speedMS = MathKoji.GetCloser(
+        speedMS = KMath.GetCloser(
             speedMS,
             PlayerCar.current.SpeedMS + myData.MovementData.AddSpeedMS,
             10);
@@ -104,18 +107,24 @@ public class EnemyCar : MonoBehaviour
 
     private void SpeedDown()
     {
-        speedMS = MathKoji.GetCloser(speedMS,
+        speedMS = KMath.GetCloser(speedMS,
             PlayerCar.current.SpeedMS - myData.MovementData.RemoveSpeedMS,
             10);
     }
 
     private void SpeedKeep()
     {
-        speedMS = MathKoji.GetCloser(speedMS,
+        speedMS = KMath.GetCloser(speedMS,
             PlayerCar.current.SpeedMS,
             3);
     }
 
+    /// <summary>
+    /// 道路の中心を動くベース部分の移動
+    /// </summary>
+    /// <param name="hasDistance"></param>
+    /// <param name="distance"></param>
+    /// <param name="back"></param>
     private void MoveBase(bool hasDistance = false, float distance = float.NaN, bool back = false)
     {
         if (!currentRoadChip)
@@ -165,10 +174,13 @@ public class EnemyCar : MonoBehaviour
         }
 
         //車の角度を決定
-        ChangeRotation();
+        ChangeBaseRotation();
     }
 
-    private void ChangeRotation()
+    /// <summary>
+    /// 道路に合わせて土台部分の回転を行う
+    /// </summary>
+    private void ChangeBaseRotation()
     {
         Transform center;
         if (center = currentRoadChip.Center)

@@ -21,7 +21,7 @@ public class NomalCarSpawnData : ScriptableObject
     /// <summary>
     /// 移動速度(M/秒)
     /// </summary>
-    public float SpeedMS => MathKoji.KmHToMS(speedKmH);
+    public float SpeedMS => KMath.KmHToMS(speedKmH);
 
     /// <summary>
     /// 次の車のスポーン距離のしきい値

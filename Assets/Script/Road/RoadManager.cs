@@ -8,7 +8,7 @@ using UnityEngine;
 /// 道路及び世界を後ろに流していく
 /// </summary>
 [RequireComponent(typeof(RoadMaker))]
-public class Road : MonoBehaviour, ICanGetTransforms
+public class RoadManager : MonoBehaviour, ICanGetTransforms
 {
     /// <summary>
     /// 道路生成機

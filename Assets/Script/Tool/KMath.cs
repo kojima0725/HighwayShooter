@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 
-public static class MathKoji
+public static class KMath
 {
     /// <summary>
     /// ある値をある値に近づける

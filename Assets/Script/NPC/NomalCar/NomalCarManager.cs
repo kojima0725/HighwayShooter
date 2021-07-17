@@ -7,11 +7,11 @@ using System.Linq;
 /// <summary>
 /// 道路上の一般車の生成、移動、削除を管理する
 /// </summary>
-[RequireComponent(typeof(Road))]
+[RequireComponent(typeof(RoadManager))]
 public class NomalCarManager : MonoBehaviour, ICanGetTransforms
 {
     [SerializeField]
-    private Road road;
+    private RoadManager road;
     [SerializeField]
     private World world;
 

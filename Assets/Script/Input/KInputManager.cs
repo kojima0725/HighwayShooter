@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 入力の管理
 /// </summary>
-public class KInputManager : MonoBehaviour
+public class KInputManager
 {
 
     /// <summary>

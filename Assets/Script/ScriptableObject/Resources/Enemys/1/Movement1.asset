@@ -15,5 +15,5 @@ MonoBehaviour:
   addSpeed: 50
   removeSpeed: 50
   stayAngle: 100
-  stayLengthMin: 7
-  stayLengthMax: 25
+  stayLengthMin: 10
+  stayLengthMax: 20

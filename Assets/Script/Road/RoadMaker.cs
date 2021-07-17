@@ -266,7 +266,7 @@ public class RoadMaker : MonoBehaviour
         Vector2 l2e2 = new Vector2(l2e.x, l2e.z);
 
         Vector2 hit;
-        if (MathKoji.LineToLineCollision(l1s2, l1e2, l2s2, l2e2, out hit))
+        if (KMath.LineToLineCollision(l1s2, l1e2, l2s2, l2e2, out hit))
         {
             center.position = new Vector3(hit.x, 0, hit.y);
         }

@@ -17,7 +17,7 @@ public interface ICanGetTransforms
 /// <summary>
 /// プレイヤーの動きによって動かされるオブジェクトたちを管理する
 /// </summary>
-[RequireComponent(typeof(Road))]
+[RequireComponent(typeof(RoadManager))]
 public class World : MonoBehaviour
 {
     /// <summary>
@@ -51,15 +51,6 @@ public class World : MonoBehaviour
     {
         current = this;
     }
-
-    private void LateUpdate()
-    {
-        //車の速度、方向に応じて世界を移動させる
-        //MoveWorlds(moveAxis * speedMS, true);
-    }
-
-
-
 
     /// <summary>
     /// 世界を移動させる

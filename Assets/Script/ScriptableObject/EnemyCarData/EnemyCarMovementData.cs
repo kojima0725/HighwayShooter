@@ -23,12 +23,12 @@ public class EnemyCarMovementData : ScriptableObject
     /// <summary>
     /// プレイヤーに追いつく時にどれぐらいスピードを上げるか
     /// </summary>
-    public float AddSpeedMS => MathKoji.KmHToMS(addSpeed);
+    public float AddSpeedMS => KMath.KmHToMS(addSpeed);
 
     /// <summary>
     /// プレイヤーに前から近づく時にどれぐらいスピードを下げるか
     /// </summary>
-    public float RemoveSpeedMS => MathKoji.KmHToMS(removeSpeed);
+    public float RemoveSpeedMS => KMath.KmHToMS(removeSpeed);
 
     /// <summary>
     /// プレイヤーの前方のどの角度以内に留まるか

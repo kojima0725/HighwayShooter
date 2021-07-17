@@ -23,7 +23,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private float speed;
 
-    private float SpeedMS => MathKoji.KmHToMS(speed);
+    private float SpeedMS => KMath.KmHToMS(speed);
 
     public float Speed => speed;
 
@@ -74,14 +74,14 @@ public class PlayerCarMover : MonoBehaviour
         //加速時
         if (a >= 0)
         {
-            speed = MathKoji.GetCloser(speed, PlayerDataBase.PlayerCarData.MaxSpeed,
+            speed = KMath.GetCloser(speed, PlayerDataBase.PlayerCarData.MaxSpeed,
                 PlayerDataBase.PlayerCarData.BrakePower * a);
         }
         //減速時
         else if (driver.Acceleration <= 0)
         {
             a = -a;
-            speed = MathKoji.GetCloser(speed, 0f,
+            speed = KMath.GetCloser(speed, 0f,
                 PlayerDataBase.PlayerCarData.BrakePower * a);
         }
     }
