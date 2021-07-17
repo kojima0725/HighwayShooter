@@ -23,6 +23,8 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private float speed;
 
+    private float SpeedMS => MathKoji.KmHToMS(speed);
+
     public float Speed => speed;
 
     public Transform Body => body;
@@ -30,7 +32,6 @@ public class PlayerCarMover : MonoBehaviour
     private void Start()
     {
         speed = PlayerDataBase.PlayerCarData.FirstSpeed;
-        World.current?.SetCarSpeed(speed);
     }
 
     public void MoveUpdate()
@@ -102,8 +103,8 @@ public class PlayerCarMover : MonoBehaviour
     {
         if (World.current)
         {
-            World.current.SetCarSpeed(speed);
-            World.current.SetMoveAxis(-body.transform.forward);
+            World.current.SwipeWorld(
+                -body.transform.forward * SpeedMS * Time.deltaTime );
         }
     }
 }
