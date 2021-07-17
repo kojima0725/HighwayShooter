@@ -31,7 +31,7 @@ public class StageDatabase : MonoBehaviour
     /// </summary>
     public static RoadDesignDocument RoadDesignDocument => roadDesignDocument;
     /// <summary>
-    /// 敵の移動に関するデータ
+    /// 出現する車たちのデータ
     /// </summary>
     public static CarTypesData CarTypesData => carTypesData;
 

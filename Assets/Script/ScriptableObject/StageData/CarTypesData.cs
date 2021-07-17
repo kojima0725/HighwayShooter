@@ -10,10 +10,14 @@ using UnityEngine;
 public class CarTypesData : ScriptableObject
 {
     [SerializeField]
-    private EnemyCarData[] enemys;
+    private EnemyCarData[] enemyCarList;
+    [SerializeField]
+    private NomalCarData[] nomalCarList; 
 
     /// <summary>
     /// 敵車のデータリスト
     /// </summary>
-    public EnemyCarData[] Enemys => enemys;
+    public EnemyCarData[] Enemys => enemyCarList;
+
+    public NomalCarData[] NomalCarList => nomalCarList;
 }

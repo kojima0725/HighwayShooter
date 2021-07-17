@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f50ab68bffca5fb4d8f2c68ed51158b9, type: 3}
   m_Name: CarTypesData
   m_EditorClassIdentifier: Assembly-CSharp::CarTypesData
-  enemys:
+  enemyCarList:
   - {fileID: 11400000, guid: a617acf3e548ee943a0af90a2c45e7c6, type: 2}
+  nomalCarList:
+  - {fileID: 11400000, guid: a397d4f781886ec40b0b0837b326b24c, type: 2}

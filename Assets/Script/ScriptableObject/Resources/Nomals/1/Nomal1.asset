@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd15938e1ea065f448f42f8d1de07f71, type: 3}
-  m_Name: EnemyCarSpawnData
+  m_Script: {fileID: 11500000, guid: 1f52633ba25b9c245b4ae2a71e71fb1b, type: 3}
+  m_Name: Nomal1
   m_EditorClassIdentifier: 
-  spawnBackLength: 25
-  intervalTime: 3
-  firstIntervalTime: 10
-  maxCount: 5
-  firstAddSpeed: 50
+  carPrefab: {fileID: 2915093056513027541, guid: 55337cf6cc16e684b81eb57e5fe9b541,
+    type: 3}

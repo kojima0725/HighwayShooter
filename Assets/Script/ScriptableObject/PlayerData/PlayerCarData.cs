@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// プレイヤーの車に関するデータ
 /// </summary>
-[CreateAssetMenu(fileName = "PlayerCarData", menuName = "ScriptableObjects/PlayerCarData")]
+[CreateAssetMenu(fileName = "PlayerCarData", menuName = "ScriptableObjects/CreatePlayerCarData")]
 public class PlayerCarData : ScriptableObject
 {
     [SerializeField]

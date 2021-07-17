@@ -22,12 +22,6 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     private Transform nomalCarContainer;
 
     /// <summary>
-    /// 生成する車
-    /// </summary>
-    [SerializeField]
-    private NomalCar npcCarPrefab;
-
-    /// <summary>
     /// 車がスポーンするまでの敷居のロードチップ数
     /// </summary>
     private int toSpawnCount;
@@ -181,7 +175,8 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     /// <param name="lane"></param>
     private NomalCar Spawn(RoadChip spawnPoint, int lane, float speedMS, bool insert = false)
     {
-        NomalCar maked = Instantiate(npcCarPrefab, nomalCarContainer);
+        NomalCarData[] carList = StageDatabase.CarTypesData.NomalCarList;
+        NomalCar maked = carList[Random.Range(0,carList.Length)].GeneratePlayerCar();
         maked.Init(spawnPoint, lane, speedMS);
         if (insert)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 敵の動きに関するデータ
 /// </summary>
-[CreateAssetMenu(fileName = "EnemyCarMovementData", menuName = "ScriptableObjects/EnemyCarMovementData")]
+[CreateAssetMenu(fileName = "EnemyCarMovementData", menuName = "ScriptableObjects/CreateEnemyCarMovementData")]
 public class EnemyCarMovementData : ScriptableObject
 {
     [SerializeField]
