@@ -12,7 +12,7 @@ public class StageDatabase : MonoBehaviour
     private static EnemyCarSpawnData enemyCarSpawnData;
     private static RoadData roadData;
     private static RoadDesignDocument roadDesignDocument;
-    private static EnemyCarMovementData enemyCarMovementData;
+    private static CarTypesData carTypesData;
 
     /// <summary>
     /// 一般車の生成に関するデータ
@@ -33,7 +33,7 @@ public class StageDatabase : MonoBehaviour
     /// <summary>
     /// 敵の移動に関するデータ
     /// </summary>
-    public static EnemyCarMovementData EnemyCarMovementData => enemyCarMovementData;
+    public static CarTypesData CarTypesData => carTypesData;
 
     private void Awake()
     {
@@ -50,6 +50,6 @@ public class StageDatabase : MonoBehaviour
         enemyCarSpawnData = Resources.Load("EnemyCarSpawnData") as EnemyCarSpawnData;
         roadData = Resources.Load("RoadData") as RoadData;
         roadDesignDocument = Resources.Load("RoadDesignDocument") as RoadDesignDocument;
-        enemyCarMovementData = Resources.Load("EnemyCarMovementData") as EnemyCarMovementData;
+        carTypesData = Resources.Load("CarTypesData") as CarTypesData;
     }
 }

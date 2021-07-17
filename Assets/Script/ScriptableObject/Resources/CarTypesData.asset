@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f01761e61101290419250294b3407432, type: 3}
-  m_Name: EnemyCarMovementData
-  m_EditorClassIdentifier: 
-  addSpeed: 50
-  removeSpeed: 50
-  stayAngle: 100
-  stayLengthMin: 7
-  stayLengthMax: 25
+  m_Script: {fileID: 0}
+  m_Name: CarTypesData
+  m_EditorClassIdentifier: Assembly-CSharp::CarTypesData
+  enemys:
+  - {fileID: 11400000, guid: a617acf3e548ee943a0af90a2c45e7c6, type: 2}

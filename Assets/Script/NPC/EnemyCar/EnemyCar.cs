@@ -24,6 +24,8 @@ public class EnemyCar : MonoBehaviour
     /// </summary>
     private float speedMS;
 
+    private EnemyCarData myData;
+
     [SerializeField]
     private EnemyCarBody body;
 
@@ -31,6 +33,8 @@ public class EnemyCar : MonoBehaviour
     /// 現在いる箇所のロードチップ
     /// </summary>
     public RoadChip CurrentRoadChip => currentRoadChip;
+
+    public void SetEnemyCarData(EnemyCarData data) => myData = data;
 
     /// <summary>
     /// 生成時の初期設定を行う
@@ -65,7 +69,7 @@ public class EnemyCar : MonoBehaviour
     {
         Vector3 thisPos = body.transform.position;
         float sqrDist = thisPos.sqrMagnitude;
-        float min = StageDatabase.EnemyCarMovementData.StayLengthMin;
+        float min = myData.MovementData.StayLengthMin;
         if (sqrDist < min * min)
         {
             //距離が近すぎる場合は減速
@@ -73,13 +77,13 @@ public class EnemyCar : MonoBehaviour
             return;
         }
         float angle = Vector3.Angle(PlayerCar.current.Body.forward, thisPos);
-        if (angle > StageDatabase.EnemyCarMovementData.StayAngle / 2)
+        if (angle > myData.MovementData.StayAngle / 2)
         {
             //プレイヤーの視界の外にいる場合は加速
             SpeedUp();
             return;
         }
-        float max = StageDatabase.EnemyCarMovementData.StayLengthMax;
+        float max = myData.MovementData.StayLengthMax;
         if (sqrDist < max * max)
         {
             //視野内、一定の距離内にいる場合は速度維持して並走
@@ -94,14 +98,14 @@ public class EnemyCar : MonoBehaviour
     {
         speedMS = MathKoji.GetCloser(
             speedMS,
-            PlayerCar.current.SpeedMS + StageDatabase.EnemyCarMovementData.AddSpeedMS,
+            PlayerCar.current.SpeedMS + myData.MovementData.AddSpeedMS,
             10);
     }
 
     private void SpeedDown()
     {
         speedMS = MathKoji.GetCloser(speedMS,
-            PlayerCar.current.SpeedMS - StageDatabase.EnemyCarMovementData.RemoveSpeedMS,
+            PlayerCar.current.SpeedMS - myData.MovementData.RemoveSpeedMS,
             10);
     }
 

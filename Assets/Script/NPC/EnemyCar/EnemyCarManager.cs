@@ -20,12 +20,6 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     private Transform enemyCarContainer;
 
     /// <summary>
-    /// 生成する敵車
-    /// </summary>
-    [SerializeField]
-    private EnemyCar enemyCarPrefab;
-
-    /// <summary>
     /// 車はプレイヤーの位置からこの数後ろでスポーンする
     /// </summary>
     private int toSpawnCount;
@@ -115,7 +109,9 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     /// <param name="lane"></param>
     private EnemyCar Spawn(RoadChip spawnPoint, float speedMS)
     {
-        EnemyCar maked = Instantiate(enemyCarPrefab, enemyCarContainer);
+        //敵車のリストからランダムに生成
+        EnemyCarData[] carList = StageDatabase.CarTypesData.Enemys;
+        EnemyCar maked = carList[Random.Range(0,carList.Length)].GenerateEnemyCar();
         maked.Init(spawnPoint, speedMS);
         cars.Add(maked);
         maked.OnRoadIsNull += DestroyBooking;
