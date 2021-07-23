@@ -165,11 +165,11 @@ public class RoadChip : MonoBehaviour
     {
         gurdralis[0] = new GameObject("leftGurd").transform;
         gurdralis[0].parent = this.transform;
-        gurdralis[0].localPosition = points[0];
+        gurdralis[0].localPosition = points[2];
 
         gurdralis[1] = new GameObject("rightGurd").transform;
         gurdralis[1].parent = this.transform;
-        gurdralis[1].localPosition = points[1];
+        gurdralis[1].localPosition = points[3];
     }
 
     /// <summary>

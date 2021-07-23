@@ -77,6 +77,16 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
         return min;
     }
 
+    /// <summary>
+    /// ガードレールと線があたっているかどうか調べる
+    /// </summary>
+    /// <param name="LR">true=左, false=</param>
+    /// <returns></returns>
+    public GurdrailHit GurdrailHitCheck(bool LR, Vector2Line line)
+    {
+        return new GurdrailHit();
+    }
+
 
     private void Awake()
     {
