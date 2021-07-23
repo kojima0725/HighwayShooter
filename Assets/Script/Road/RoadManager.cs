@@ -120,7 +120,7 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
         {
             foreach (var item in roadMaker.MakeRoads())
             {
-                roadChips.Insert(0, item);
+                roadChips.Add(item);
             }
         }
     }
@@ -131,12 +131,12 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     private void DestroyOldRoads()
     {
         RoadChip a;
-        a = roadChips.Last();
+        a = roadChips.First();
         while (sqrObjDistance < a.transform.position.sqrMagnitude)
         {
-            roadChips.RemoveAt(roadChips.Count - 1);
+            roadChips.RemoveAt(0);
             Destroy(a.gameObject);
-            a = roadChips.Last();
+            a = roadChips.First();
         }
     }
 

@@ -83,7 +83,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
         if (cars.Count == 0)
         {
             //車が一台もいない場合はとりあえずスポーン
-            Spawn(road.GetRoadChips().Last(), Random.Range(0,StageDatabase.RoadData.Lane), StageDatabase.NomalCarSpawnData.SpeedMS);
+            Spawn(road.GetRoadChips().First(), Random.Range(0,StageDatabase.RoadData.Lane), StageDatabase.NomalCarSpawnData.SpeedMS);
         }
 
         SpawnCarsInFront();
