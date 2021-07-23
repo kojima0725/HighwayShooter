@@ -14,16 +14,7 @@ public class RoadChip : MonoBehaviour
     /// </summary>
     [SerializeField]
     private Transform end;
-    /// <summary>
-    /// 右側のガードレール
-    /// </summary>
-    [SerializeField]
-    private Transform guardrailLeft;
-    /// <summary>
-    /// 左側のガードレール
-    /// </summary>
-    [SerializeField]
-    private Transform guardrailRight;
+    
 
     /// <summary>
     /// メッシュフィルター
@@ -40,6 +31,11 @@ public class RoadChip : MonoBehaviour
     /// 自身がカーブしているときに描く円の中心点
     /// </summary>
     private Transform center;
+
+    /// <summary>
+    /// ガードレールの端の座標(左手前、右手前)
+    /// </summary>
+    private Transform[] gurdralis = new Transform[2];
 
     /// <summary>
     /// 自身の次のチップ
@@ -69,6 +65,10 @@ public class RoadChip : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public RoadChip Prev => prevChip;
+
+    public Transform gurdrailLeft => gurdralis[0];
+
+    public Transform gurdrailRight => gurdralis[1];
 
     /// <summary>
     /// カーブの中心点(直線の場合はnull)
@@ -104,10 +104,7 @@ public class RoadChip : MonoBehaviour
         float halfLength = length / 2;
 
         //道路のメッシュ作成
-        MakeMesh(rotate, length, halfWidth);
-
-        //ガードレールの設置
-        MakeGuardrail(halfLength, halfWidth, length);
+        MakeMeshAndGurdrail(rotate, length, halfWidth);
 
         //レーンに対応した位置を作成
         MakeLanes(lane, halfWidth, length);
@@ -125,7 +122,7 @@ public class RoadChip : MonoBehaviour
     /// <param name="rotate"></param>
     /// <param name="length"></param>
     /// <param name="halfWidth"></param>
-    private void MakeMesh(Vector3 rotate, float length, float halfWidth)
+    private void MakeMeshAndGurdrail(Vector3 rotate, float length, float halfWidth)
     {
         //メッシュ生成用意
         Mesh mesh = new Mesh();
@@ -138,8 +135,11 @@ public class RoadChip : MonoBehaviour
         vertices[1] = new Vector3(cosWidth, 0, sinWidth);
         vertices[2] = new Vector3(-halfWidth, 0, length);
         vertices[3] = new Vector3(halfWidth, 0, length);
-
         mesh.vertices = vertices;
+
+        //頂点情報を使ってガードレールも生成する
+        MakeGuardrail(vertices);
+
         //uv設定
         mesh.uv = new Vector2[] {
         new Vector2 (0, 0),
@@ -160,15 +160,16 @@ public class RoadChip : MonoBehaviour
     /// <summary>
     /// ガードレールの設定をする
     /// </summary>
-    /// <param name="halfLength"></param>
-    /// <param name="halfWidth"></param>
-    /// <param name="length"></param>
-    private void MakeGuardrail(float halfLength, float halfWidth, float length)
+    /// <param name="points">メッシュの四隅の座標</param>
+    private void MakeGuardrail(Vector3[] points)
     {
-        guardrailLeft.localPosition = new Vector3(-halfWidth, 0, halfLength);
-        guardrailLeft.localScale = new Vector3(1, 1, length);
-        guardrailRight.localPosition = new Vector3(halfWidth, 0, halfLength);
-        guardrailRight.localScale = new Vector3(1, 1, length);
+        gurdralis[0] = new GameObject("leftGurd").transform;
+        gurdralis[0].parent = this.transform;
+        gurdralis[0].localPosition = points[0];
+
+        gurdralis[1] = new GameObject("rightGurd").transform;
+        gurdralis[1].parent = this.transform;
+        gurdralis[1].localPosition = points[1];
     }
 
     /// <summary>
