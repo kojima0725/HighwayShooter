@@ -80,11 +80,25 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     /// <summary>
     /// ガードレールと線があたっているかどうか調べる
     /// </summary>
-    /// <param name="LR">true=左, false=</param>
+    /// <param name="LR">true=左, false=右</param>
     /// <returns></returns>
-    public GurdrailHit GurdrailHitCheck(bool LR, Vector2Line line)
+    public bool GurdrailHitCheck(bool LR, Vector2Line line, out GurdrailHit hit)
     {
-        return new GurdrailHit();
+        RoadChip chip = roadChips.First();
+        Vector2Line rail = new Vector2Line();
+        Vector2 hitPos;
+        while (chip.Next)
+        {
+            rail.start = chip.Gurdrail(LR).position;
+            rail.end = chip.Next.Gurdrail(LR).position;
+            if (KMath.LineToLineCollision(line, rail, out hitPos))
+            {
+                hit = new GurdrailHit(rail, chip.Next, hitPos);
+                return true;
+            }
+        }
+        hit = new GurdrailHit();
+        return false;
     }
 
 

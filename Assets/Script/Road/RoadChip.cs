@@ -66,9 +66,21 @@ public class RoadChip : MonoBehaviour
     /// <returns></returns>
     public RoadChip Prev => prevChip;
 
-    public Transform gurdrailLeft => gurdralis[0];
+    /// <summary>
+    /// 左ガードレールの終端
+    /// </summary>
+    public Transform GurdrailLeft => gurdralis[0];
 
-    public Transform gurdrailRight => gurdralis[1];
+    /// <summary>
+    /// 右ガードレールの終端
+    /// </summary>
+    public Transform GurdrailRight => gurdralis[1];
+
+    /// <summary>
+    /// ガードレールの終端
+    /// </summary>
+    /// <param name="LR">true=左, false=右</param>
+    public Transform Gurdrail(bool LR) => LR ? GurdrailLeft : GurdrailRight;
 
     /// <summary>
     /// カーブの中心点(直線の場合はnull)
