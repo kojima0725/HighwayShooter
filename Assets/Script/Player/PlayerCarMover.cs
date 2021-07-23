@@ -156,7 +156,7 @@ public class PlayerCarMover : MonoBehaviour
     /// <returns></returns>
     private Vector2Line MakeLine(Transform start, Transform end)
     {
-        return new Vector2Line(start.position.x, start.position.z, end.position.x, end.position.z)
+        return new Vector2Line(start.position.x, start.position.z, end.position.x, end.position.z);
     }
 
 
