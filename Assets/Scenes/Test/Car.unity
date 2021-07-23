@@ -298,13 +298,18 @@ PrefabInstance:
     - target: {fileID: 1801747678963346808, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1821322120126751200, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: gun
       value: 
       objectReference: {fileID: 1525640204}
+    - target: {fileID: 1821322120126751201, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: test
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1821322120126751202, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: m_Name

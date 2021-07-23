@@ -18,24 +18,17 @@ public class PlayerCarMover : MonoBehaviour
     [SerializeField]
     private Transform body;
 
-    /// <summary>
-    /// 車体の右前
-    /// </summary>
+    
     [SerializeField]
     private Transform rightFront;
-    /// <summary>
-    /// 車体の左後
-    /// </summary>
     [SerializeField]
     private Transform leftBack;
-    /// <summary>
-    /// 車体の左前
-    /// </summary>
     private Transform leftFront;
-    /// <summary>
-    /// 車体の右後ろ
-    /// </summary>
     private Transform rightBack;
+
+    private Vector2Line frontLine;
+    private Vector2Line rightLine;
+    private Vector2Line leftLine;
 
     /// <summary>
     /// 現在の車の速度
@@ -60,16 +53,28 @@ public class PlayerCarMover : MonoBehaviour
 
     public void MoveUpdate()
     {
+        //データ更新
+        DataUpdate();
+        //入力更新
         driver.DriverUpdate();
         //車回転
         RollBody();
         //車の速度変更
         ChangeCarSpeed();
+        //車の移動
+        MoveCar();
         //車の座標修正
         SwipeCarAndWorld();
+    }
 
-        //世界に自身の移動状況を通達する
-        MoveWorld();
+    /// <summary>
+    /// 毎フレーム走るデータ更新処理
+    /// </summary>
+    private void DataUpdate()
+    {
+        frontLine = MakeFrontLine();
+        rightLine = MakeRightLine();
+        leftLine = MakeLeftLine();
     }
 
 
@@ -123,32 +128,41 @@ public class PlayerCarMover : MonoBehaviour
     /// <summary>
     /// 世界に自身の移動状況を伝える
     /// </summary>
-    private void MoveWorld()
+    private void MoveCar()
     {
-        if (World.current)
+        
+        if (RoadManager.current)
         {
-            World.current.SwipeWorld(
-                -body.transform.forward * SpeedMS * Time.deltaTime );
+            GurdrailHit hit;
+            if (RoadManager.current.GurdrailHitCheck(false, frontLine, out hit))
+            {
+                Debug.Log("hitR");
+            }
+            if (RoadManager.current.GurdrailHitCheck(true, frontLine, out hit))
+            {
+                Debug.Log("hitL");
+            }
         }
+        body.localPosition = body.forward * SpeedMS * Time.deltaTime;
     }
 
     /// <summary>
     /// 車体前方の当たり判定の線
     /// </summary>
     /// <returns></returns>
-    private Vector2Line FrontLine() => MakeLine(rightFront, leftFront);
+    private Vector2Line MakeFrontLine() => MakeLine(rightFront, leftFront);
 
     /// <summary>
     /// 車体左の当たり判定の線
     /// </summary>
     /// <returns></returns>
-    private Vector2Line LeftLine() => MakeLine(leftFront, leftBack);
+    private Vector2Line MakeLeftLine() => MakeLine(leftFront, leftBack);
 
     /// <summary>
     /// 車体右の当たり判定の線
     /// </summary>
     /// <returns></returns>
-    private Vector2Line RightLine() => MakeLine(rightFront, rightBack);
+    private Vector2Line MakeRightLine() => MakeLine(rightFront, rightBack);
 
     /// <summary>
     /// 指定された２個のトランスフォームから線を作成する(x.z座標)

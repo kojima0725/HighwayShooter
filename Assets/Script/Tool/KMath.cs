@@ -115,6 +115,6 @@ public static class KMath
 
     public static bool LineToLineCollision(Vector2Line one, Vector2Line two, out Vector2 hitPos)
     {
-        return LineToLineCollision(one.start, one.end, two.start, two.end,out hitPos);
+        return LineToLineCollision(one.start, one.end, two.start, two.end, out hitPos);
     }
 }
