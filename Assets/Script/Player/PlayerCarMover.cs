@@ -134,13 +134,21 @@ public class PlayerCarMover : MonoBehaviour
         if (RoadManager.current)
         {
             GurdrailHit hit;
-            if (RoadManager.current.GurdrailHitCheck(false, frontLine, out hit))
+            if (RoadManager.current.GurdrailHitCheck(false, rightLine, out hit))
             {
                 Debug.Log("hitR");
             }
-            if (RoadManager.current.GurdrailHitCheck(true, frontLine, out hit))
+            else if (RoadManager.current.GurdrailHitCheck(true, leftLine, out hit))
             {
                 Debug.Log("hitL");
+            }
+            else if (RoadManager.current.GurdrailHitCheck(false, frontLine, out hit))
+            {
+                Debug.Log("hitRF");
+            }
+            else if (RoadManager.current.GurdrailHitCheck(true, frontLine, out hit))
+            {
+                Debug.Log("hitLF");
             }
         }
         body.localPosition = body.forward * SpeedMS * Time.deltaTime;
