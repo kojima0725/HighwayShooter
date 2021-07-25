@@ -115,12 +115,14 @@ public class RoadChip : MonoBehaviour
     /// <param name="lane">車線数</param>
     public void Init(Vector3 rotate, float length, float width, int lane, RoadChip prev = null)
     {
+        //ケツを設定
+        prevChip = prev;
+
         //End位置の設定
         end.localPosition = new Vector3(0,0,length);
         end.localRotation = Quaternion.identity;
 
         float halfWidth = width / 2;
-        float halfLength = length / 2;
 
         //道路のメッシュ作成
         MakeMeshAndGurdrail(rotate, length, halfWidth);
@@ -130,9 +132,6 @@ public class RoadChip : MonoBehaviour
 
         //自身を曲げる
         this.transform.Rotate(rotate);
-
-        //ケツを設定
-        prevChip = prev;
     }
 
     /// <summary>
@@ -212,9 +211,10 @@ public class RoadChip : MonoBehaviour
     /// <returns></returns>
     private Vector2 MakeLeftNomal()
     {
-        Vector3 nomal = Vector3.Cross(Vector3.up, gurdLeftNomal).normalized;
+        Vector3 nomal = Vector3.Cross(Vector3.up, gurdLeftVector).normalized;
         Vector2 two = new Vector2(nomal.x, nomal.z);
-        haveRightNomal = true;
+        gurdLeftNomal = two;
+        haveLeftNomal = true;
         return two;
     }
 
@@ -226,6 +226,7 @@ public class RoadChip : MonoBehaviour
     {
         Vector3 nomal = Vector3.Cross(gurdRightVector, Vector3.up).normalized;
         Vector2 two = new Vector2(nomal.x, nomal.z);
+        gurdRightNomal = two;
         haveRightNomal = true;
         return two;
     }
