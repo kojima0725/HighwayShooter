@@ -189,7 +189,7 @@ public class PlayerCarMover : MonoBehaviour
     {
         leftFront = new GameObject("LeftFront").transform;
         leftFront.parent = this.transform;
-        leftFront.localPosition = new Vector3(leftBack.localRotation.x, 0, rightFront.localPosition.z);
+        leftFront.localPosition = new Vector3(leftBack.localPosition.x, 0, rightFront.localPosition.z);
 
         rightBack = new GameObject("RightBack").transform;
         rightBack.parent = this.transform;

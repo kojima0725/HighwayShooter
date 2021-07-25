@@ -8,17 +8,12 @@ using UnityEngine;
 /// </summary>
 public class RoadChip : MonoBehaviour
 {
-
     /// <summary>
     /// 自身の最後端の位置
     /// </summary>
     [SerializeField]
     private Transform end;
     
-
-    /// <summary>
-    /// メッシュフィルター
-    /// </summary>
     [SerializeField]
     private MeshFilter meshFilter;
 
@@ -36,6 +31,14 @@ public class RoadChip : MonoBehaviour
     /// ガードレールの端の座標(左手前、右手前)
     /// </summary>
     private Transform[] gurdralis = new Transform[2];
+
+    private Vector3 gurdLeftVector;
+    private Vector3 gurdRightVector;
+
+    private Vector2 gurdLeftNomal;
+    private bool haveLeftNomal;
+    private Vector2 gurdRightNomal;
+    private bool haveRightNomal;
 
     /// <summary>
     /// 自身の次のチップ
@@ -70,11 +73,15 @@ public class RoadChip : MonoBehaviour
     /// 左ガードレールの終端
     /// </summary>
     public Transform GurdrailLeft => gurdralis[0];
+    public Vector3 GurdrailLeftVector => gurdLeftVector;
+    public Vector2 GurdrailLeftNomal => haveLeftNomal ? gurdLeftNomal : MakeLeftNomal();
 
     /// <summary>
     /// 右ガードレールの終端
     /// </summary>
     public Transform GurdrailRight => gurdralis[1];
+    public Vector3 GurdrailRightVector => gurdRightVector;
+    public Vector2 GurdrailRightNomal => haveRightNomal ? gurdRightNomal : MakeRightNomal();
 
     /// <summary>
     /// ガードレールの終端
@@ -182,6 +189,45 @@ public class RoadChip : MonoBehaviour
         gurdralis[1] = new GameObject("rightGurd").transform;
         gurdralis[1].parent = this.transform;
         gurdralis[1].localPosition = points[3];
+
+        //ガードレールのベクトルを作成しておく
+        MakeGuardVectors();
+    }
+
+    /// <summary>
+    /// ガードレールの方向ベクトルを作成する
+    /// </summary>
+    private void MakeGuardVectors()
+    {
+        if (prevChip)
+        {
+            gurdLeftVector = gurdralis[0].position - prevChip.gurdralis[0].position;
+            gurdRightVector = gurdralis[1].position - prevChip.gurdralis[1].position;
+        }
+    }
+
+    /// <summary>
+    /// 左側のガードレールの法線ベクトルを作成する
+    /// </summary>
+    /// <returns></returns>
+    private Vector2 MakeLeftNomal()
+    {
+        Vector3 nomal = Vector3.Cross(Vector3.up, gurdLeftNomal).normalized;
+        Vector2 two = new Vector2(nomal.x, nomal.z);
+        haveRightNomal = true;
+        return two;
+    }
+
+    /// <summary>
+    /// 右側のガードレールの法線ベクトルを作成する
+    /// </summary>
+    /// <returns></returns>
+    private Vector2 MakeRightNomal()
+    {
+        Vector3 nomal = Vector3.Cross(gurdRightVector, Vector3.up).normalized;
+        Vector2 two = new Vector2(nomal.x, nomal.z);
+        haveRightNomal = true;
+        return two;
     }
 
     /// <summary>
