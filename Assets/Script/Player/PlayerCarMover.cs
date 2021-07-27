@@ -28,11 +28,6 @@ public class PlayerCarMover : MonoBehaviour
     private Transform leftFront;
     private Transform rightBack;
 
-    private Vector2Line frontLine;
-    private Vector2Line rightLine;
-    private Vector2Line leftLine;
-
-    private float centerToLrLength;
     private float centerToLrSqrLength;
 
     private float speed;
@@ -44,7 +39,7 @@ public class PlayerCarMover : MonoBehaviour
     public Transform Body => body;
 
     private Vector2 BodyPos => new Vector2(body.position.x, body.position.z);
-    private Vector2Line CenterToleftLine => new Vector2Line(BodyPos, new Vector2(leftFront.position.x, leftFront.position.z));
+    private Vector2Line CenterToLeftLine => new Vector2Line(BodyPos, new Vector2(leftFront.position.x, leftFront.position.z));
     private Vector2Line CenterToRightLine => new Vector2Line(BodyPos, new Vector2(rightFront.position.x, rightFront.position.z));
 
 
@@ -65,12 +60,12 @@ public class PlayerCarMover : MonoBehaviour
         DataUpdate();
         //入力更新
         driver.DriverUpdate();
-        //車回転
-        RollBody();
         //車の速度変更
         ChangeCarSpeed();
         //車の移動
         MoveCar();
+        //車回転
+        RollBody();
         //車の座標修正
         SwipeCarAndWorld();
     }
@@ -80,9 +75,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void DataUpdate()
     {
-        frontLine = MakeFrontLine();
-        rightLine = MakeRightLine();
-        leftLine = MakeLeftLine();
+        
     }
 
 
@@ -91,11 +84,20 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void RollBody()
     {
-        var roll = body.transform.localEulerAngles;
-
-        roll.y += driver.HandleInput * PlayerDataBase.PlayerCarData.RollSensitivity * Time.deltaTime;
-
+        Quaternion old = body.transform.rotation;
+        Vector3 roll = body.transform.localEulerAngles;
+        float y = driver.HandleInput * PlayerDataBase.PlayerCarData.RollSensitivity * Time.deltaTime;
+        roll.y += y;
         body.transform.localEulerAngles = roll;
+        GurdrailHit hit;
+        if (y < 0 && RoadManager.current.GurdrailHitCheck(true, MakeLine(leftFront, leftBack), out hit))
+        {
+            body.transform.rotation = old;
+        }
+        else if (y > 0 && RoadManager.current.GurdrailHitCheck(true, MakeLine(rightFront, rightBack), out hit))
+        {
+            body.transform.rotation = old;
+        }
     }
 
     /// <summary>
@@ -142,11 +144,11 @@ public class PlayerCarMover : MonoBehaviour
         if (RoadManager.current)
         {
             GurdrailHit hit;
-            if (RoadManager.current.GurdrailHitCheck(false, rightLine, out hit))
+            if (RoadManager.current.GurdrailHitCheck(false, CenterToRightLine, out hit))
             {
-                Debug.Log("hitR");
+                HittingToRight(hit);
             }
-            else if (RoadManager.current.GurdrailHitCheck(true, CenterToleftLine, out hit))
+            else if (RoadManager.current.GurdrailHitCheck(true, CenterToLeftLine, out hit))
             {
                 HittingToLeft(hit);
             }
@@ -171,38 +173,94 @@ public class PlayerCarMover : MonoBehaviour
         {
             //ぶつかっているが、回転だけでどうにかなるので回転だけでどうにかする
             Vector2 cornerHit;
-            if (KMath.LineToLineCollision(hit.hitLine, CenterToleftLine, out cornerHit))
+            if (KMath.LineToLineCollision(hit.hitLine, CenterToLeftLine, out cornerHit))
             {
                 float sqrKyori = kyori * kyori;
                 float nokori = Mathf.Sqrt(centerToLrSqrLength - sqrKyori);
-                if (nokori > 0)
+                if (nokori >= 0)
                 {
                     Vector2 rollTo = -hit.hitChip.GurdrailLeftNomal * kyori + hit.hitLine.vector.normalized * nokori;
-                    Vector2 from = CenterToleftLine.vector;
+                    Vector2 from = CenterToLeftLine.vector;
                     Quaternion quaternion = Quaternion.FromToRotation(new Vector3(from.x, 0, from.y), new Vector3(rollTo.x, 0, rollTo.y));
                     body.rotation *= quaternion;
+                    ZuriLeft(hit);
                 }
             }
         }
     }
 
     /// <summary>
-    /// 車体前方の当たり判定の線
+    /// 左のガードレールにぶつかった時の処理
     /// </summary>
-    /// <returns></returns>
-    private Vector2Line MakeFrontLine() => MakeLine(rightFront, leftFront);
+    /// <param name="hit">衝突地点の情報</param>
+    private void HittingToRight(GurdrailHit hit)
+    {
+        //ガードレールと車体の中心の距離が一定以下になっていないか調べる
+        float kyori = Vector2.Dot(hit.hitChip.GurdrailRightNomal, BodyPos - hit.hitLine.end);
+        if (kyori < bodyHalfWidth)
+        {
+            //車を一旦後ろ(ガードレールの中)に戻し、そこから戻した距離壁に沿って移動する
+            body.position += new Vector3(hit.hitChip.GurdrailRightNomal.x, 0, hit.hitChip.GurdrailRightNomal.y) * (-kyori + bodyHalfWidth);
+            body.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
+        }
+        else
+        {
+            //ぶつかっているが、回転だけでどうにかなるので回転だけでどうにかする
+            Vector2 cornerHit;
+            if (KMath.LineToLineCollision(hit.hitLine, CenterToRightLine, out cornerHit))
+            {
+                float sqrKyori = kyori * kyori;
+                float nokori = Mathf.Sqrt(centerToLrSqrLength - sqrKyori);
+                if (nokori >= 0)
+                {
+                    Vector2 rollTo = -hit.hitChip.GurdrailRightNomal * kyori + hit.hitLine.vector.normalized * nokori;
+                    Vector2 from = CenterToRightLine.vector;
+                    Quaternion quaternion = Quaternion.FromToRotation(new Vector3(from.x, 0, from.y), new Vector3(rollTo.x, 0, rollTo.y));
+                    body.rotation *= quaternion;
+                    ZuriRight(hit);
+                }
+            }
+        }
+    }
 
-    /// <summary>
-    /// 車体左の当たり判定の線
-    /// </summary>
-    /// <returns></returns>
-    private Vector2Line MakeLeftLine() => MakeLine(leftFront, leftBack);
+    private void ZuriLeft(GurdrailHit hit)
+    {
+        //道路が曲がっているときは角度を補完する
+        Transform center;
+        if (center = hit.hitChip.Center)
+        {
+            Vector3 vector = body.transform.position - center.position;
+            //センターと自身の位置から、角度の計算
+            float angle = Mathf.Atan2(vector.x, vector.z);
+            Quaternion rotate = Quaternion.AngleAxis(Mathf.Rad2Deg * angle, Vector3.up);
+            Quaternion rightLeft = hit.hitChip.IsCenterInRight ? Quaternion.AngleAxis(90, Vector3.up) : Quaternion.AngleAxis(-90, Vector3.up);
+            Quaternion result = rotate * rightLeft;
+            if (Vector3.Cross(body.forward, result * Vector3.forward).y >= 0)
+            {
+                body.rotation = result;
+            }
+        }
+    }
 
-    /// <summary>
-    /// 車体右の当たり判定の線
-    /// </summary>
-    /// <returns></returns>
-    private Vector2Line MakeRightLine() => MakeLine(rightFront, rightBack);
+    private void ZuriRight(GurdrailHit hit)
+    {
+        //道路が曲がっているときは角度を補完する
+        Transform center;
+        if (center = hit.hitChip.Center)
+        {
+            Vector3 vector = body.transform.position - center.position;
+            //センターと自身の位置から、角度の計算
+            float angle = Mathf.Atan2(vector.x, vector.z);
+            Quaternion rotate = Quaternion.AngleAxis(Mathf.Rad2Deg * angle, Vector3.up);
+            Quaternion rightLeft = hit.hitChip.IsCenterInRight ? Quaternion.AngleAxis(90, Vector3.up) : Quaternion.AngleAxis(-90, Vector3.up);
+            Quaternion result = rotate * rightLeft;
+            if (Vector3.Cross(body.forward, result * Vector3.forward).y <= 0)
+            {
+                body.rotation = result;
+            }
+        }
+    }
+
 
     /// <summary>
     /// 指定された２個のトランスフォームから線を作成する(x.z座標)
@@ -228,7 +286,6 @@ public class PlayerCarMover : MonoBehaviour
         rightBack.localPosition = new Vector3(rightFront.localPosition.x, 0, leftBack.localPosition.z);
 
         bodyHalfWidth = rightFront.localPosition.x;
-        centerToLrLength = rightFront.transform.localPosition.magnitude;
         centerToLrSqrLength = rightFront.transform.localPosition.sqrMagnitude;
     }
 }
