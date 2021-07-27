@@ -17,4 +17,9 @@ public struct Vector2Line
         this.start = new Vector2(sx, sy);
         this.end = new Vector2(ex, ey);
     }
+
+    /// <summary>
+    /// 始点から終点へのベクトル
+    /// </summary>
+    public Vector2 vector => end - start;
 }

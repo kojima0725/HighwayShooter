@@ -18,7 +18,9 @@ public class PlayerCarMover : MonoBehaviour
     [SerializeField]
     private Transform body;
 
-    
+    private float bodyHalfWidth;
+
+
     [SerializeField]
     private Transform rightFront;
     [SerializeField]
@@ -30,9 +32,9 @@ public class PlayerCarMover : MonoBehaviour
     private Vector2Line rightLine;
     private Vector2Line leftLine;
 
-    /// <summary>
-    /// 現在の車の速度
-    /// </summary>
+    private float centerToLrLength;
+    private float centerToLrSqrLength;
+
     private float speed;
 
     private float SpeedMS => KMath.KmHToMS(speed);
@@ -40,6 +42,12 @@ public class PlayerCarMover : MonoBehaviour
     public float Speed => speed;
 
     public Transform Body => body;
+
+    private Vector2 BodyPos => new Vector2(body.position.x, body.position.z);
+    private Vector2Line CenterToleftLine => new Vector2Line(BodyPos, new Vector2(leftFront.position.x, leftFront.position.z));
+    private Vector2Line CenterToRightLine => new Vector2Line(BodyPos, new Vector2(rightFront.position.x, rightFront.position.z));
+
+
 
     private void Awake()
     {
@@ -130,7 +138,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void MoveCar()
     {
-        
+        body.localPosition = body.forward * SpeedMS * Time.deltaTime;
         if (RoadManager.current)
         {
             GurdrailHit hit;
@@ -138,20 +146,44 @@ public class PlayerCarMover : MonoBehaviour
             {
                 Debug.Log("hitR");
             }
-            else if (RoadManager.current.GurdrailHitCheck(true, leftLine, out hit))
+            else if (RoadManager.current.GurdrailHitCheck(true, CenterToleftLine, out hit))
             {
-                Debug.Log("hitL");
-            }
-            else if (RoadManager.current.GurdrailHitCheck(false, frontLine, out hit))
-            {
-                Debug.Log("hitRF");
-            }
-            else if (RoadManager.current.GurdrailHitCheck(true, frontLine, out hit))
-            {
-                Debug.Log("hitLF");
+                HittingToLeft(hit);
             }
         }
-        body.localPosition = body.forward * SpeedMS * Time.deltaTime;
+    }
+
+    /// <summary>
+    /// 左のガードレールにぶつかった時の処理
+    /// </summary>
+    /// <param name="hit">衝突地点の情報</param>
+    private void HittingToLeft(GurdrailHit hit)
+    {
+        //ガードレールと車体の中心の距離が一定以下になっていないか調べる
+        float kyori = Vector2.Dot(hit.hitChip.GurdrailLeftNomal, BodyPos - hit.hitLine.end);
+        if (kyori < bodyHalfWidth)
+        {
+            //車を一旦後ろ(ガードレールの中)に戻し、そこから戻した距離壁に沿って移動する
+            body.position += new Vector3(hit.hitChip.GurdrailLeftNomal.x,0, hit.hitChip.GurdrailLeftNomal.y) * (-kyori + bodyHalfWidth);
+            body.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
+        }
+        else
+        {
+            //ぶつかっているが、回転だけでどうにかなるので回転だけでどうにかする
+            Vector2 cornerHit;
+            if (KMath.LineToLineCollision(hit.hitLine, CenterToleftLine, out cornerHit))
+            {
+                float sqrKyori = kyori * kyori;
+                float nokori = Mathf.Sqrt(centerToLrSqrLength - sqrKyori);
+                if (nokori > 0)
+                {
+                    Vector2 rollTo = -hit.hitChip.GurdrailLeftNomal * kyori + hit.hitLine.vector.normalized * nokori;
+                    Vector2 from = CenterToleftLine.vector;
+                    Quaternion quaternion = Quaternion.FromToRotation(new Vector3(from.x, 0, from.y), new Vector3(rollTo.x, 0, rollTo.y));
+                    body.rotation *= quaternion;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -188,11 +220,15 @@ public class PlayerCarMover : MonoBehaviour
     private void MakeData()
     {
         leftFront = new GameObject("LeftFront").transform;
-        leftFront.parent = this.transform;
+        leftFront.parent = body.transform;
         leftFront.localPosition = new Vector3(leftBack.localPosition.x, 0, rightFront.localPosition.z);
 
         rightBack = new GameObject("RightBack").transform;
-        rightBack.parent = this.transform;
+        rightBack.parent = body.transform;
         rightBack.localPosition = new Vector3(rightFront.localPosition.x, 0, leftBack.localPosition.z);
+
+        bodyHalfWidth = rightFront.localPosition.x;
+        centerToLrLength = rightFront.transform.localPosition.magnitude;
+        centerToLrSqrLength = rightFront.transform.localPosition.sqrMagnitude;
     }
 }
