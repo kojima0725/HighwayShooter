@@ -8,26 +8,12 @@ using UnityEngine;
 /// </summary>
 public class RoadChip : MonoBehaviour
 {
-
     /// <summary>
     /// 自身の最後端の位置
     /// </summary>
     [SerializeField]
     private Transform end;
-    /// <summary>
-    /// 右側のガードレール
-    /// </summary>
-    [SerializeField]
-    private Transform guardrailLeft;
-    /// <summary>
-    /// 左側のガードレール
-    /// </summary>
-    [SerializeField]
-    private Transform guardrailRight;
-
-    /// <summary>
-    /// メッシュフィルター
-    /// </summary>
+    
     [SerializeField]
     private MeshFilter meshFilter;
 
@@ -40,6 +26,19 @@ public class RoadChip : MonoBehaviour
     /// 自身がカーブしているときに描く円の中心点
     /// </summary>
     private Transform center;
+
+    /// <summary>
+    /// ガードレールの端の座標(左手前、右手前)
+    /// </summary>
+    private Transform[] gurdralis = new Transform[2];
+
+    private Vector3 gurdLeftVector;
+    private Vector3 gurdRightVector;
+
+    private Vector2 gurdLeftNomal;
+    private bool haveLeftNomal;
+    private Vector2 gurdRightNomal;
+    private bool haveRightNomal;
 
     /// <summary>
     /// 自身の次のチップ
@@ -71,6 +70,26 @@ public class RoadChip : MonoBehaviour
     public RoadChip Prev => prevChip;
 
     /// <summary>
+    /// 左ガードレールの終端
+    /// </summary>
+    public Transform GurdrailLeft => gurdralis[0];
+    public Vector3 GurdrailLeftVector => gurdLeftVector;
+    public Vector2 GurdrailLeftNomal => haveLeftNomal ? gurdLeftNomal : MakeLeftNomal();
+
+    /// <summary>
+    /// 右ガードレールの終端
+    /// </summary>
+    public Transform GurdrailRight => gurdralis[1];
+    public Vector3 GurdrailRightVector => gurdRightVector;
+    public Vector2 GurdrailRightNomal => haveRightNomal ? gurdRightNomal : MakeRightNomal();
+
+    /// <summary>
+    /// ガードレールの終端
+    /// </summary>
+    /// <param name="LR">true=左, false=右</param>
+    public Transform Gurdrail(bool LR) => LR ? GurdrailLeft : GurdrailRight;
+
+    /// <summary>
     /// カーブの中心点(直線の場合はnull)
     /// </summary>
     public Transform Center { get => center; set => center = value; }
@@ -96,27 +115,23 @@ public class RoadChip : MonoBehaviour
     /// <param name="lane">車線数</param>
     public void Init(Vector3 rotate, float length, float width, int lane, RoadChip prev = null)
     {
+        //ケツを設定
+        prevChip = prev;
+
         //End位置の設定
         end.localPosition = new Vector3(0,0,length);
         end.localRotation = Quaternion.identity;
 
         float halfWidth = width / 2;
-        float halfLength = length / 2;
 
         //道路のメッシュ作成
-        MakeMesh(rotate, length, halfWidth);
-
-        //ガードレールの設置
-        MakeGuardrail(halfLength, halfWidth, length);
+        MakeMeshAndGurdrail(rotate, length, halfWidth);
 
         //レーンに対応した位置を作成
         MakeLanes(lane, halfWidth, length);
 
         //自身を曲げる
         this.transform.Rotate(rotate);
-
-        //ケツを設定
-        prevChip = prev;
     }
 
     /// <summary>
@@ -125,7 +140,7 @@ public class RoadChip : MonoBehaviour
     /// <param name="rotate"></param>
     /// <param name="length"></param>
     /// <param name="halfWidth"></param>
-    private void MakeMesh(Vector3 rotate, float length, float halfWidth)
+    private void MakeMeshAndGurdrail(Vector3 rotate, float length, float halfWidth)
     {
         //メッシュ生成用意
         Mesh mesh = new Mesh();
@@ -138,8 +153,11 @@ public class RoadChip : MonoBehaviour
         vertices[1] = new Vector3(cosWidth, 0, sinWidth);
         vertices[2] = new Vector3(-halfWidth, 0, length);
         vertices[3] = new Vector3(halfWidth, 0, length);
-
         mesh.vertices = vertices;
+
+        //頂点情報を使ってガードレールも生成する
+        MakeGuardrail(vertices);
+
         //uv設定
         mesh.uv = new Vector2[] {
         new Vector2 (0, 0),
@@ -160,15 +178,57 @@ public class RoadChip : MonoBehaviour
     /// <summary>
     /// ガードレールの設定をする
     /// </summary>
-    /// <param name="halfLength"></param>
-    /// <param name="halfWidth"></param>
-    /// <param name="length"></param>
-    private void MakeGuardrail(float halfLength, float halfWidth, float length)
+    /// <param name="points">メッシュの四隅の座標</param>
+    private void MakeGuardrail(Vector3[] points)
     {
-        guardrailLeft.localPosition = new Vector3(-halfWidth, 0, halfLength);
-        guardrailLeft.localScale = new Vector3(1, 1, length);
-        guardrailRight.localPosition = new Vector3(halfWidth, 0, halfLength);
-        guardrailRight.localScale = new Vector3(1, 1, length);
+        gurdralis[0] = new GameObject("leftGurd").transform;
+        gurdralis[0].parent = this.transform;
+        gurdralis[0].localPosition = points[2];
+
+        gurdralis[1] = new GameObject("rightGurd").transform;
+        gurdralis[1].parent = this.transform;
+        gurdralis[1].localPosition = points[3];
+
+        //ガードレールのベクトルを作成しておく
+        MakeGuardVectors();
+    }
+
+    /// <summary>
+    /// ガードレールの方向ベクトルを作成する
+    /// </summary>
+    private void MakeGuardVectors()
+    {
+        if (prevChip)
+        {
+            gurdLeftVector = gurdralis[0].position - prevChip.gurdralis[0].position;
+            gurdRightVector = gurdralis[1].position - prevChip.gurdralis[1].position;
+        }
+    }
+
+    /// <summary>
+    /// 左側のガードレールの法線ベクトルを作成する
+    /// </summary>
+    /// <returns></returns>
+    private Vector2 MakeLeftNomal()
+    {
+        Vector3 nomal = Vector3.Cross(Vector3.up, gurdLeftVector).normalized;
+        Vector2 two = new Vector2(nomal.x, nomal.z);
+        gurdLeftNomal = two;
+        haveLeftNomal = true;
+        return two;
+    }
+
+    /// <summary>
+    /// 右側のガードレールの法線ベクトルを作成する
+    /// </summary>
+    /// <returns></returns>
+    private Vector2 MakeRightNomal()
+    {
+        Vector3 nomal = Vector3.Cross(gurdRightVector, Vector3.up).normalized;
+        Vector2 two = new Vector2(nomal.x, nomal.z);
+        gurdRightNomal = two;
+        haveRightNomal = true;
+        return two;
     }
 
     /// <summary>

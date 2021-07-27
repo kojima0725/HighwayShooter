@@ -282,7 +282,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 248730262}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.346722, y: -30.41549, z: -9.270093}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -295,11 +295,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1801747678963346808, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 1821322120126751200, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: gun
       value: 
       objectReference: {fileID: 1525640204}
+    - target: {fileID: 1821322120126751201, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: test
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1821322120126751202, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: m_Name
@@ -365,11 +375,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3755886890742718393, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3889202977942183039, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: handleTxt
       value: 
       objectReference: {fileID: 997244239}
+    - target: {fileID: 6336171835521304181, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7251631313305776707, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 388c48231e4ad034daa66b42350dc213, type: 3}
 --- !u!1 &567762942
@@ -754,8 +779,6 @@ MonoBehaviour:
   road: {fileID: 1383892033}
   world: {fileID: 1383892036}
   nomalCarContainer: {fileID: 59213341}
-  npcCarPrefab: {fileID: 2915093056513027541, guid: 55337cf6cc16e684b81eb57e5fe9b541,
-    type: 3}
 --- !u!114 &1383892038
 MonoBehaviour:
   m_ObjectHideFlags: 0

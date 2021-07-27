@@ -11,6 +11,11 @@ using UnityEngine;
 public class RoadManager : MonoBehaviour, ICanGetTransforms
 {
     /// <summary>
+    /// シングルトン
+    /// </summary>
+    public static RoadManager current;
+
+    /// <summary>
     /// 道路生成機
     /// </summary>
     [SerializeField]
@@ -78,8 +83,44 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     }
 
 
+    /// <summary>
+    /// ガードレールと線があたっているかどうか調べる
+    /// </summary>
+    /// <param name="LR">true=左, false=右</param>
+    /// <returns></returns>
+    public bool GurdrailHitCheck(bool LR, Vector2Line line, out GurdrailHit hit)
+    {
+        RoadChip chip = roadChips.FirstOrDefault();
+        if (!chip)
+        {
+            hit = new GurdrailHit();
+            return false;
+        } 
+
+        while (chip.Next != null)
+        {
+            Vector2Line rail = new Vector2Line(
+                new Vector2(chip.Gurdrail(LR).position.x, chip.Gurdrail(LR).position.z), 
+                new Vector2(chip.Next.Gurdrail(LR).position.x, chip.Next.Gurdrail(LR).position.z)
+                );
+            Vector2 hitPos;
+            if (KMath.LineToLineCollision(line, rail, out hitPos))
+            {
+                hit = new GurdrailHit(rail, chip.Next, hitPos);
+                return true;
+            }
+            chip = chip.Next;
+        }
+
+
+        hit = new GurdrailHit();
+        return false;
+    }
+
+
     private void Awake()
     {
+        current = this;
         //最初の道路を設定しておく
         roadChips.Add(roadMaker.GetFirstRoadChip());
         //距離計算用のメンバ変数の設定
@@ -110,7 +151,7 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
         {
             foreach (var item in roadMaker.MakeRoads())
             {
-                roadChips.Insert(0, item);
+                roadChips.Add(item);
             }
         }
     }
@@ -121,12 +162,12 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     private void DestroyOldRoads()
     {
         RoadChip a;
-        a = roadChips.Last();
+        a = roadChips.FirstOrDefault();
         while (sqrObjDistance < a.transform.position.sqrMagnitude)
         {
-            roadChips.RemoveAt(roadChips.Count - 1);
+            roadChips.RemoveAt(0);
             Destroy(a.gameObject);
-            a = roadChips.Last();
+            a = roadChips.FirstOrDefault();
         }
     }
 

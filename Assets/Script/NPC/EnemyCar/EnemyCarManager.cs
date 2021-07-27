@@ -116,6 +116,7 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
         maked.Init(spawnPoint, speedMS);
         cars.Add(maked);
         maked.OnRoadIsNull += DestroyBooking;
+        maked.transform.parent = enemyCarContainer;
         return maked;
     }
 
