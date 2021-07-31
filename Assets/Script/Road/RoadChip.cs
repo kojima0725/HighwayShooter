@@ -28,19 +28,6 @@ public class RoadChip : MonoBehaviour
     private Transform center;
 
     /// <summary>
-    /// ガードレールの端の座標(左手前、右手前)
-    /// </summary>
-    private Transform[] gurdralis = new Transform[2];
-
-    private Vector3 gurdLeftVector;
-    private Vector3 gurdRightVector;
-
-    private Vector2 gurdLeftNomal;
-    private bool haveLeftNomal;
-    private Vector2 gurdRightNomal;
-    private bool haveRightNomal;
-
-    /// <summary>
     /// 自身の次のチップ
     /// </summary>
     private RoadChip nextChip = null;
@@ -70,6 +57,42 @@ public class RoadChip : MonoBehaviour
     public RoadChip Prev => prevChip;
 
     /// <summary>
+    /// カーブの中心点(直線の場合はnull)
+    /// </summary>
+    public Transform Center { get => center; set => center = value; }
+
+    /// <summary>
+    /// カーブ時の中心点が右側にあるかどうか
+    /// </summary>
+    public bool IsCenterInRight { get; set; }
+
+    /// <summary>
+    /// 指定されたレーンの位置を返す
+    /// </summary>
+    /// <param name="lane">レーンの番号(0～)</param>
+    /// <returns></returns>
+    public Transform GetLanePos(int lane) => lanes[lane % lanes.Length];
+
+
+    private readonly List<ICar> cars = new List<ICar>();
+    public List<ICar> Cars => cars;
+
+    #region GURDRAIL
+
+    /// <summary>
+    /// ガードレールの端の座標(左手前、右手前)
+    /// </summary>
+    private Transform[] gurdralis = new Transform[2];
+
+    private Vector3 gurdLeftVector;
+    private Vector3 gurdRightVector;
+
+    private Vector2 gurdLeftNomal;
+    private bool haveLeftNomal;
+    private Vector2 gurdRightNomal;
+    private bool haveRightNomal;
+
+    /// <summary>
     /// 左ガードレールの終端
     /// </summary>
     public Transform GurdrailLeft => gurdralis[0];
@@ -89,22 +112,10 @@ public class RoadChip : MonoBehaviour
     /// <param name="LR">true=左, false=右</param>
     public Transform Gurdrail(bool LR) => LR ? GurdrailLeft : GurdrailRight;
 
-    /// <summary>
-    /// カーブの中心点(直線の場合はnull)
-    /// </summary>
-    public Transform Center { get => center; set => center = value; }
+    #endregion
 
-    /// <summary>
-    /// カーブ時の中心点が右側にあるかどうか
-    /// </summary>
-    public bool IsCenterInRight { get; set; }
-
-    /// <summary>
-    /// 指定されたレーンの位置を返す
-    /// </summary>
-    /// <param name="lane">レーンの番号(0～)</param>
-    /// <returns></returns>
-    public Transform GetLanePos(int lane) => lanes[lane % lanes.Length];
+   
+    
 
     /// <summary>
     /// 道路の初期化(メッシュの設置、各種調整)
@@ -132,6 +143,16 @@ public class RoadChip : MonoBehaviour
 
         //自身を曲げる
         this.transform.Rotate(rotate);
+    }
+
+    public void Join(ICar car)
+    {
+        cars.Add(car);
+    }
+
+    public void Leave(ICar car)
+    {
+        cars.Remove(car);
     }
 
     /// <summary>

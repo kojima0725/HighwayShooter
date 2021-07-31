@@ -7,7 +7,7 @@ using System;
 /// <summary>
 /// 一般車
 /// </summary>
-public class NomalCar : MonoBehaviour
+public class NomalCar : MonoBehaviour, ICar
 {
     /// <summary>
     /// 現在いる箇所のロードチップ
@@ -35,6 +35,10 @@ public class NomalCar : MonoBehaviour
     public RoadChip CurrentRoadChip => currentRoadChip;
 
     public int Lane => lane;
+
+    public int CurrentLane => lane;
+
+    public float SpeedMS => speedMS;
 
     /// <summary>
     /// 生成時の初期設定を行う
@@ -90,7 +94,7 @@ public class NomalCar : MonoBehaviour
             {
                 this.transform.position = moveTo.position;
                 moveDistance -= Mathf.Sqrt(sqrLength);
-                currentRoadChip = back ? currentRoadChip.Prev : currentRoadChip.Next;
+                currentRoadChip = GetNextRoadChip(currentRoadChip, back);
                 if (!currentRoadChip)
                 {
                     //次がない場合は削除
@@ -112,6 +116,17 @@ public class NomalCar : MonoBehaviour
 
         //車の角度を決定
         ChangeRotation();
+    }
+
+    private RoadChip GetNextRoadChip(RoadChip current, bool back)
+    {
+        current.Leave(this);
+        current = back ? current.Prev : current.Next;
+        if (current)
+        {
+            current.Join(this);
+        }
+        return current;
     }
 
     private void ChangeRotation()
