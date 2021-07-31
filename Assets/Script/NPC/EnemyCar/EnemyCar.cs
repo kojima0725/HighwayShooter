@@ -14,9 +14,6 @@ public class EnemyCar : MonoBehaviour
     /// </summary>
     public event Action<EnemyCar> OnRoadIsNull;
 
-    /// <summary>
-    /// 現在いる箇所のロードチップ
-    /// </summary>
     private RoadChip currentRoadChip;
 
     /// <summary>
@@ -28,6 +25,7 @@ public class EnemyCar : MonoBehaviour
 
     [SerializeField]
     private EnemyCarBody body;
+
 
     /// <summary>
     /// 現在いる箇所のロードチップ

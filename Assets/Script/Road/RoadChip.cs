@@ -262,8 +262,8 @@ public class RoadChip : MonoBehaviour
         lanes = new Transform[lane];
 
         float halfLaneWidth = halfWidth / (lane + 1);
-        float LaneWidth = halfLaneWidth * 2;
-        float pos = halfWidth - LaneWidth;
+        float laneWidth = halfLaneWidth * 2;
+        float pos = halfWidth - laneWidth;
 
         for (int i = 0; i < lane; i++)
         {
@@ -273,7 +273,7 @@ public class RoadChip : MonoBehaviour
             laneTransform.localRotation = Quaternion.identity;
             lanes[i] = laneTransform;
 
-            pos -= LaneWidth;
+            pos -= laneWidth;
         }
 
         //テクスチャの幅をレーンに合わせる

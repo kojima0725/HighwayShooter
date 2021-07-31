@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 /// <summary>
@@ -16,6 +17,8 @@ public class RoadData : ScriptableObject
     private int lane;  
     [SerializeField]
     private float limitDistance;
+    [SerializeField]
+    private float[] lanePos;
 
 
     /// <summary>
@@ -38,4 +41,31 @@ public class RoadData : ScriptableObject
     /// </summary>
     public float LimitDistance => limitDistance;
 
+    /// <summary>
+    /// 各レーンのオフセット値
+    /// </summary>
+    public float[] LanePos => lanePos;
+
+
+    private void OnValidate()
+    {
+        MakeLanePos();
+        EditorUtility.SetDirty(this);
+    }
+
+    private void MakeLanePos()
+    {
+        lanePos = new float[lane];
+        float halfWidth = width / 2;
+        float laneHalfWidth = halfWidth / (lane + 1);
+        float laneWidth = laneHalfWidth * 2;
+
+        float pos = halfWidth - laneWidth;
+
+        for (int i = 0; i < lane; i++)
+        {
+            lanePos[i] = pos;
+            pos -= laneWidth;
+        }
+    }
 }
