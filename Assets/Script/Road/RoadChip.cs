@@ -139,7 +139,7 @@ public class RoadChip : MonoBehaviour
         MakeMeshAndGurdrail(rotate, length, halfWidth);
 
         //レーンに対応した位置を作成
-        MakeLanes(lane, halfWidth, length);
+        MakeLanes(lane, length);
 
         //自身を曲げる
         this.transform.Rotate(rotate);
@@ -256,24 +256,18 @@ public class RoadChip : MonoBehaviour
     /// レーンを作る
     /// </summary>
     /// <param name="lane"></param>
-    private void MakeLanes(int lane, float halfWidth, float length)
+    private void MakeLanes(int lane, float length)
     {
         //レーン作成
         lanes = new Transform[lane];
-
-        float halfLaneWidth = halfWidth / (lane + 1);
-        float laneWidth = halfLaneWidth * 2;
-        float pos = halfWidth - laneWidth;
 
         for (int i = 0; i < lane; i++)
         {
             Transform laneTransform = new GameObject().transform;
             laneTransform.parent = this.transform;
-            laneTransform.localPosition = new Vector3(pos,0,length);
+            laneTransform.localPosition = new Vector3(StageDatabase.RoadData.LanePosOffsets[i],0,length);
             laneTransform.localRotation = Quaternion.identity;
             lanes[i] = laneTransform;
-
-            pos -= laneWidth;
         }
 
         //テクスチャの幅をレーンに合わせる
