@@ -44,7 +44,7 @@ public class RoadData : ScriptableObject
     /// <summary>
     /// 各レーンのオフセット値
     /// </summary>
-    public float[] LanePos => lanePos;
+    public float[] LanePosOffsets => lanePos;
 
 
     private void OnValidate()

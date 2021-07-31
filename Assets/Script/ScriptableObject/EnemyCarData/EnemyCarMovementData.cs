@@ -20,6 +20,9 @@ public class EnemyCarMovementData : ScriptableObject
     [SerializeField]
     private float stayLengthMax;
 
+    [SerializeField]
+    private float sarchLength;
+
     /// <summary>
     /// プレイヤーに追いつく時にどれぐらいスピードを上げるか
     /// </summary>
@@ -44,4 +47,9 @@ public class EnemyCarMovementData : ScriptableObject
     /// プレイヤーの前方に留まる距離の最大値
     /// </summary>
     public float StayLengthMax => stayLengthMax;
+
+    /// <summary>
+    /// 移動時にどのくらい前方まで探索するか
+    /// </summary>
+    public float SarchLength => sarchLength;
 }

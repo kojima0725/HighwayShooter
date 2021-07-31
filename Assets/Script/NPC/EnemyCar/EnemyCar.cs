@@ -34,6 +34,8 @@ public class EnemyCar : MonoBehaviour
 
     public void SetEnemyCarData(EnemyCarData data) => myData = data;
 
+    public EnemyCarData CarData => myData;
+
     /// <summary>
     /// 生成時の初期設定を行う
     /// </summary>
@@ -49,6 +51,9 @@ public class EnemyCar : MonoBehaviour
         Transform spawn = currentRoadChip.End;
         this.transform.position = spawn.position;
         this.transform.rotation = spawn.rotation;
+
+        //ボディの初期化
+        body.Init(this);
     }
 
     /// <summary>
@@ -61,6 +66,7 @@ public class EnemyCar : MonoBehaviour
     {
         ChangeSpeed();
         MoveBase(hasDistance, distance, back);
+        body.MoveBodyUpdate();
     }
 
     /// <summary>
