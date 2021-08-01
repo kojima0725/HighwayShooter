@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speedKmH: 180
   carSpawnLength: 250
-  betweenMax: 50
+  betweenMax: 25
   betweenMin: 10

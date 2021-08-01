@@ -16,3 +16,8 @@ MonoBehaviour:
   width: 20
   lane: 4
   limitDistance: 1500
+  lanePos:
+  - 6
+  - 2
+  - -2
+  - -6

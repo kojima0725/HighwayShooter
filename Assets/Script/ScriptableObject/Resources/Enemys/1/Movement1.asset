@@ -17,3 +17,4 @@ MonoBehaviour:
   stayAngle: 100
   stayLengthMin: 10
   stayLengthMax: 20
+  sarchLength: 50
