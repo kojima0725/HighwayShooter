@@ -15,5 +15,5 @@ MonoBehaviour:
   spawnBackLength: 25
   intervalTime: 3
   firstIntervalTime: 10
-  maxCount: 5
+  maxCount: 3
   firstAddSpeed: 50

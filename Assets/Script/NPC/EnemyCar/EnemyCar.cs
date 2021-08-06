@@ -7,7 +7,7 @@ using System;
 /// <summary>
 /// 敵の車
 /// </summary>
-public class EnemyCar : MonoBehaviour
+public class EnemyCar : MonoBehaviour , ICar
 {
     /// <summary>
     /// 移動先がNullのときに呼ばれる
@@ -26,6 +26,9 @@ public class EnemyCar : MonoBehaviour
     [SerializeField]
     private EnemyCarBody body;
 
+    public int CurrentLane => body.TargetLane;
+
+    public float SpeedMS => speedMS;
 
     /// <summary>
     /// 現在いる箇所のロードチップ
@@ -79,7 +82,7 @@ public class EnemyCar : MonoBehaviour
         float min = myData.MovementData.StayLengthMin;
         if (sqrDist < min * min)
         {
-            //距離が近すぎる場合は減速
+            //距離が近すぎる場合は加速
             SpeedUp();
             return;
         }
@@ -106,21 +109,31 @@ public class EnemyCar : MonoBehaviour
         speedMS = KMath.GetCloser(
             speedMS,
             PlayerCar.current.SpeedMS + myData.MovementData.AddSpeedMS,
-            10);
+            myData.MovementData.AcceleraratorPower);
     }
 
     private void SpeedDown()
     {
         speedMS = KMath.GetCloser(speedMS,
             PlayerCar.current.SpeedMS - myData.MovementData.RemoveSpeedMS,
-            10);
+            myData.MovementData.BrakePower);
     }
 
     private void SpeedKeep()
     {
-        speedMS = KMath.GetCloser(speedMS,
+        if (speedMS > PlayerCar.current.SpeedMS)
+        {
+            speedMS = KMath.GetCloser(speedMS,
             PlayerCar.current.SpeedMS,
-            3);
+            myData.MovementData.BrakePower);
+        }
+        else
+        {
+            speedMS = KMath.GetCloser(speedMS,
+            PlayerCar.current.SpeedMS,
+            myData.MovementData.AcceleraratorPower);
+        }
+        
     }
 
     /// <summary>
@@ -157,7 +170,7 @@ public class EnemyCar : MonoBehaviour
             {
                 this.transform.position = moveTo.position;
                 moveDistance -= Mathf.Sqrt(sqrLength);
-                currentRoadChip = back ? currentRoadChip.Prev : currentRoadChip.Next;
+                currentRoadChip = GetNextRoadChip(currentRoadChip, back);
                 if (!currentRoadChip)
                 {
                     //次がない場合は削除
@@ -179,6 +192,17 @@ public class EnemyCar : MonoBehaviour
 
         //車の角度を決定
         ChangeBaseRotation();
+    }
+
+    private RoadChip GetNextRoadChip(RoadChip current, bool back)
+    {
+        current.Leave(this);
+        current = back ? current.Prev : current.Next;
+        if (current)
+        {
+            current.Join(this);
+        }
+        return current;
     }
 
     /// <summary>

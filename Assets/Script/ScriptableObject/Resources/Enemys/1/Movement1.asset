@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: Movement1
   m_EditorClassIdentifier: 
   addSpeed: 50
+  acceleratorPower: 30
   removeSpeed: 50
+  brakePower: 50
   stayAngle: 100
   stayLengthMin: 10
   stayLengthMax: 20

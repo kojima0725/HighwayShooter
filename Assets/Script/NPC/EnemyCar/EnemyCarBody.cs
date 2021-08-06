@@ -21,6 +21,8 @@ public class EnemyCarBody : MonoBehaviour
     /// </summary>
     private int[] hitRisk;
 
+    public int TargetLane => targetLane;
+
     public void Init(EnemyCar car)
     {
         parent = car;

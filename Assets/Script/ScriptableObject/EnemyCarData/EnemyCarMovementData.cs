@@ -11,7 +11,12 @@ public class EnemyCarMovementData : ScriptableObject
     [SerializeField]
     private float addSpeed;
     [SerializeField]
+    private float acceleratorPower;
+
+    [SerializeField]
     private float removeSpeed;
+    [SerializeField]
+    private float brakePower;
 
     [SerializeField]
     private float stayAngle;
@@ -27,11 +32,19 @@ public class EnemyCarMovementData : ScriptableObject
     /// プレイヤーに追いつく時にどれぐらいスピードを上げるか
     /// </summary>
     public float AddSpeedMS => KMath.KmHToMS(addSpeed);
+    /// <summary>
+    /// アクセル力
+    /// </summary>
+    public float AcceleraratorPower => KMath.KmHToMS(acceleratorPower);
 
     /// <summary>
     /// プレイヤーに前から近づく時にどれぐらいスピードを下げるか
     /// </summary>
     public float RemoveSpeedMS => KMath.KmHToMS(removeSpeed);
+    /// <summary>
+    /// ブレーキ力
+    /// </summary>
+    public float BrakePower => KMath.KmHToMS(brakePower);
 
     /// <summary>
     /// プレイヤーの前方のどの角度以内に留まるか
