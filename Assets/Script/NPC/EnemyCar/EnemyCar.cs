@@ -26,7 +26,7 @@ public class EnemyCar : MonoBehaviour , ICar
     [SerializeField]
     private EnemyCarBody body;
 
-    public int CurrentLane => body.TargetLane;
+    public int CurrentLane => body.CurrentLane;
 
     public float SpeedMS => speedMS;
 

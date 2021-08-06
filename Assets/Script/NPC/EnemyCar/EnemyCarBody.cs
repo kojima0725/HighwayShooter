@@ -14,14 +14,18 @@ public class EnemyCarBody : MonoBehaviour
 
     private int targetLane;
 
+    private int currentLane;
+
     private int sarchChipCount;
+
+    private float handle;
 
     /// <summary>
     /// 衝突リスクの高い順のレーン
     /// </summary>
     private int[] hitRisk;
 
-    public int TargetLane => targetLane;
+    public int CurrentLane => currentLane;
 
     public void Init(EnemyCar car)
     {
@@ -132,9 +136,27 @@ public class EnemyCarBody : MonoBehaviour
 
     private void MoveBodyLR()
     {
-        Vector3 pos = Vector3.zero;
-        pos.x = StageDatabase.RoadData.LanePosOffsets[targetLane];
-        this.transform.localPosition = pos;
+        //現在いるレーンを計算する
+        MakeCurrentLane();
+        float xPos = transform.localPosition.x;
+    }
+
+    private void MakeCurrentLane()
+    {
+        float xPos = transform.localPosition.x;
+        float min = float.MaxValue;
+        currentLane = 0;
+        int lane = 0;
+        foreach (var item in StageDatabase.RoadData.LanePosOffsets)
+        {
+            float a = Mathf.Abs(xPos - item);
+            if (a < min)
+            {
+                min = a;
+                currentLane = lane;
+            }
+            lane++;
+        }
     }
     
 
