@@ -37,7 +37,7 @@ public class EnemyCarBody : MonoBehaviour
     {
         float before = this.transform.localPosition.x;
         ChangeTargetLane();
-        MoveBody();
+        MoveBodyLR();
         float after = this.transform.localPosition.x;
         return after - before;
     }
@@ -130,7 +130,7 @@ public class EnemyCarBody : MonoBehaviour
     BREAK:;
     }
 
-    private void MoveBody()
+    private void MoveBodyLR()
     {
         Vector3 pos = Vector3.zero;
         pos.x = StageDatabase.RoadData.LanePosOffsets[targetLane];

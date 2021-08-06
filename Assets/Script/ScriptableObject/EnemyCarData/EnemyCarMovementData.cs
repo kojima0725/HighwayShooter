@@ -28,6 +28,13 @@ public class EnemyCarMovementData : ScriptableObject
     [SerializeField]
     private float sarchLength;
 
+    [SerializeField]
+    private float laneChangePower;
+    [SerializeField]
+    private float handlePower;
+    [SerializeField]
+    private float laneChangeEndWidth;
+
     /// <summary>
     /// プレイヤーに追いつく時にどれぐらいスピードを上げるか
     /// </summary>
@@ -65,4 +72,18 @@ public class EnemyCarMovementData : ScriptableObject
     /// 移動時にどのくらい前方まで探索するか
     /// </summary>
     public float SarchLength => sarchLength;
+
+
+    /// <summary>
+    /// レーン変更時の角度のキツさの最大値
+    /// </summary>
+    public float LaneChangePower => laneChangePower;
+    /// <summary>
+    /// ハンドルのキレ
+    /// </summary>
+    public float HandlePower => handlePower;
+    /// <summary>
+    /// レーン変更終了判定をする時のしきい値(レーン幅の何％か)
+    /// </summary>
+    public float LaneChangeEndWidth => laneChangeEndWidth;
 }

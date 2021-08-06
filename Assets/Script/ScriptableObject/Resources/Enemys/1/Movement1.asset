@@ -20,3 +20,6 @@ MonoBehaviour:
   stayLengthMin: 10
   stayLengthMax: 20
   sarchLength: 50
+  laneChangePower: 5
+  handlePower: 10
+  laneChangeEndWidth: 0.3
