@@ -69,7 +69,9 @@ public class EnemyCar : MonoBehaviour , ICar
     {
         ChangeSpeed();
         MoveBase(hasDistance, distance, back);
-        body.MoveBodyUpdate();
+        float lr = body.MoveBodyUpdate();
+        Vector3 direction = Vector3.forward * speedMS * Time.deltaTime + Vector3.right * lr * 2;
+        body.transform.localRotation = Quaternion.LookRotation(direction);
     }
 
     /// <summary>
@@ -196,11 +198,11 @@ public class EnemyCar : MonoBehaviour , ICar
 
     private RoadChip GetNextRoadChip(RoadChip current, bool back)
     {
-        current.Leave(this);
+        //current.Leave(this);
         current = back ? current.Prev : current.Next;
         if (current)
         {
-            current.Join(this);
+            //current.Join(this);
         }
         return current;
     }

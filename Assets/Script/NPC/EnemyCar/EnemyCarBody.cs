@@ -36,12 +36,14 @@ public class EnemyCarBody : MonoBehaviour
     /// <summary>
     /// 車を左右に移動させる
     /// </summary>
-    /// <returns></returns>
+    /// <returns>左右に移動した結果</returns>
     public float MoveBodyUpdate()
     {
         float before = this.transform.localPosition.x;
         ChangeTargetLane();
         MoveBodyLR();
+        //現在いるレーンを計算する
+        MakeCurrentLane();
         float after = this.transform.localPosition.x;
         return after - before;
     }
@@ -53,16 +55,16 @@ public class EnemyCarBody : MonoBehaviour
     {
         CheckHitRisk();
         //現在のレーンにリスクがある場合はレーン変更を検討する
-        if (hitRisk[targetLane] != 0)
+        if (hitRisk[currentLane] != 0)
         {
-            int currentRisk = hitRisk[targetLane];
-            int rightRisk = RiskOf(targetLane - 1);
-            int leftRisk = RiskOf(targetLane + 1);
+            int currentRisk = hitRisk[currentLane];
+            int rightRisk = RiskOf(currentLane - 1);
+            int leftRisk = RiskOf(currentLane + 1);
             bool LR; //trueは左
             //左右のリスクが同じ場合は中央に寄るようにする
             if (rightRisk == leftRisk)
             {
-                LR = 1.0f * (hitRisk.Length / 2) > targetLane;
+                LR = 1.0f * (hitRisk.Length / 2) > currentLane;
             }
             else
             {
@@ -71,7 +73,7 @@ public class EnemyCarBody : MonoBehaviour
             if ((LR ? leftRisk : rightRisk) < currentRisk)
             {
                 //レーン変更
-                targetLane = LR ? targetLane + 1 : targetLane - 1;
+                targetLane = LR ? currentLane + 1 : currentLane - 1;
             }
         }
     }
@@ -100,7 +102,6 @@ public class EnemyCarBody : MonoBehaviour
         }
 
         RoadChip sarch = parent.CurrentRoadChip;
-        sarch = sarch.Prev ? sarch.Prev : sarch;
         
         int risk = hitRisk.Length - 1;
         //前方を探索
@@ -112,15 +113,10 @@ public class EnemyCarBody : MonoBehaviour
             {
                 //車のいるレーン取得
                 int lane = item.CurrentLane;
-                bool haveRisk = false;
                 //リスクが設定されていないレーンなら追加
                 if (hitRisk[lane] == 0)
                 {
                     hitRisk[lane] = risk;
-                    haveRisk = true;
-                }
-                if (haveRisk)
-                {
                     risk--;
                 }
                 if (risk <= 0)
@@ -136,9 +132,54 @@ public class EnemyCarBody : MonoBehaviour
 
     private void MoveBodyLR()
     {
-        //現在いるレーンを計算する
-        MakeCurrentLane();
         float xPos = transform.localPosition.x;
+        float xPosTo = StageDatabase.RoadData.LanePosOffsets[targetLane];
+        float ChangeEndWidth = StageDatabase.RoadData.LaneWidth * parent.CarData.MovementData.LaneChangeEndWidth / 2;
+        float halfWidth = StageDatabase.RoadData.LaneWidth / 2;
+        bool front = false;
+        if (xPosTo + halfWidth < xPos)
+        {
+            HandleToL();
+        }
+        else if (xPosTo - halfWidth > xPos)
+        {
+            HandleToR();
+        }
+        else
+        {
+            HandleToF();
+            if (xPosTo + ChangeEndWidth < xPos || xPosTo - ChangeEndWidth > xPos)
+            {
+                front = true;
+            }
+        }
+        Vector3 moved = Vector3.zero;
+        float movedX = xPos + handle * Time.deltaTime;
+        if (front)
+        {
+            if ((handle > 0 ^ xPosTo - movedX > 0) || handle == 0)
+            {
+                movedX = KMath.GetCloser(movedX, xPosTo, 1);
+            }
+        }
+        moved.x = movedX;
+        transform.localPosition = moved;
+    }
+
+    private void HandleToL()//L is Left
+    {
+        EnemyCarMovementData data = parent.CarData.MovementData;
+        handle = KMath.GetCloser(handle, -data.LaneChangePower, data.LaneChangePower);
+    }
+    private void HandleToR()//R is Right
+    {
+        EnemyCarMovementData data = parent.CarData.MovementData;
+        handle = KMath.GetCloser(handle, data.LaneChangePower, data.LaneChangePower);
+    }
+    private void HandleToF()//F is Front
+    {
+        EnemyCarMovementData data = parent.CarData.MovementData;
+        handle = KMath.GetCloser(handle, 0, data.LaneChangePower);
     }
 
     private void MakeCurrentLane()

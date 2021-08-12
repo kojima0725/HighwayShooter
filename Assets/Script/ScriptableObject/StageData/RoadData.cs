@@ -46,6 +46,11 @@ public class RoadData : ScriptableObject
     /// </summary>
     public float[] LanePosOffsets => lanePos;
 
+    /// <summary>
+    /// 位置レーンの幅
+    /// </summary>
+    public float LaneWidth => width / (lane + 1);
+
 
     private void OnValidate()
     {
@@ -57,8 +62,7 @@ public class RoadData : ScriptableObject
     {
         lanePos = new float[lane];
         float halfWidth = width / 2;
-        float laneHalfWidth = halfWidth / (lane + 1);
-        float laneWidth = laneHalfWidth * 2;
+        float laneWidth = width / (lane + 1);
 
         float pos = halfWidth - laneWidth;
 
