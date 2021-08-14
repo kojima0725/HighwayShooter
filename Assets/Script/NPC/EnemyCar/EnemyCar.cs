@@ -15,16 +15,11 @@ public class EnemyCar : MonoBehaviour , ICar
     public event Action<EnemyCar> OnRoadIsNull;
 
     private RoadChip currentRoadChip;
-
-    /// <summary>
-    /// スピード
-    /// </summary>
     private float speedMS;
-
     private EnemyCarData myData;
-
     [SerializeField]
     private EnemyCarBody body;
+    private EnemyCar stayTarget;
 
     public int CurrentLane => body.CurrentLane;
 
@@ -38,6 +33,8 @@ public class EnemyCar : MonoBehaviour , ICar
     public void SetEnemyCarData(EnemyCarData data) => myData = data;
 
     public EnemyCarData CarData => myData;
+    
+    public EnemyCar StayTarget { get => stayTarget; set => stayTarget = value; }
 
     /// <summary>
     /// 生成時の初期設定を行う
@@ -81,58 +78,67 @@ public class EnemyCar : MonoBehaviour , ICar
     {
         Vector3 thisPos = body.transform.position;
         float sqrDist = thisPos.sqrMagnitude;
+        if (stayTarget)
+        {
+            sqrDist = (stayTarget.transform.position - thisPos).sqrMagnitude;
+        }
+        else
+        {
+            sqrDist = thisPos.sqrMagnitude;
+        }
         float min = myData.MovementData.StayLengthMin;
         if (sqrDist < min * min)
         {
             //距離が近すぎる場合は加速
-            SpeedUp();
+            SpeedUp(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
             return;
         }
-        float angle = Vector3.Angle(PlayerCar.current.Body.forward, thisPos);
+        Transform target = stayTarget ? stayTarget.transform : PlayerCar.current.Body;
+        float angle = Vector3.Angle(target.forward, thisPos);
         if (angle > myData.MovementData.StayAngle / 2)
         {
             //プレイヤーの視界の外にいる場合は加速
-            SpeedUp();
+            SpeedUp(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
             return;
         }
         float max = myData.MovementData.StayLengthMax;
         if (sqrDist < max * max)
         {
             //視野内、一定の距離内にいる場合は速度維持して並走
-            SpeedKeep();
+            SpeedKeep(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
             return;
         }
         //プレイヤーの前方遠くにいる場合は減速
-        SpeedDown();
+        SpeedDown(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
     }
 
-    private void SpeedUp()
+    private void SpeedUp(float baseSpeed)
     {
         speedMS = KMath.GetCloser(
             speedMS,
-            PlayerCar.current.SpeedMS + myData.MovementData.AddSpeedMS,
+            baseSpeed + myData.MovementData.AddSpeedMS,
             myData.MovementData.AcceleraratorPower);
     }
 
-    private void SpeedDown()
+    private void SpeedDown(float baseSpeed)
     {
         speedMS = KMath.GetCloser(speedMS,
-            PlayerCar.current.SpeedMS - myData.MovementData.RemoveSpeedMS,
+            baseSpeed - myData.MovementData.RemoveSpeedMS,
             myData.MovementData.BrakePower);
     }
 
-    private void SpeedKeep()
+    private void SpeedKeep(float baseSpeed)
     {
         if (speedMS > PlayerCar.current.SpeedMS)
         {
             speedMS = KMath.GetCloser(speedMS,
-            PlayerCar.current.SpeedMS,
+            baseSpeed,
             myData.MovementData.BrakePower);
         }
         else
         {
             speedMS = KMath.GetCloser(speedMS,
-            PlayerCar.current.SpeedMS,
+            baseSpeed,
             myData.MovementData.AcceleraratorPower);
         }
         
