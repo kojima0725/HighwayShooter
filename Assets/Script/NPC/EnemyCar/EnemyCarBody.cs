@@ -104,6 +104,8 @@ public class EnemyCarBody : MonoBehaviour
         RoadChip sarch = parent.CurrentRoadChip;
         
         int risk = hitRisk.Length - 1;
+        //ステイターゲットとは違うレーンに行こうとする
+        bool haveTarget = parent.StayTarget;
         //前方を探索
         for (int i = 0; i < sarchChipCount && sarch; i++)
         {
@@ -111,6 +113,11 @@ public class EnemyCarBody : MonoBehaviour
             var cars = sarch.Cars;
             foreach (var item in cars)
             {
+                if (item.SpeedMS * 1.2 > parent.SpeedMS)
+                {
+                    //相手の方が速いので無視
+                    continue;
+                }
                 //車のいるレーン取得
                 int lane = item.CurrentLane;
                 //リスクが設定されていないレーンなら追加
@@ -118,6 +125,16 @@ public class EnemyCarBody : MonoBehaviour
                 {
                     hitRisk[lane] = risk;
                     risk--;
+                    //追従目標がいた場合
+                    if (haveTarget)
+                    {
+                        if (hitRisk[parent.StayTarget.CurrentLane] == 0)
+                        {
+                            hitRisk[parent.StayTarget.CurrentLane] = risk;
+                            risk--;
+                        }
+                        haveTarget = false;
+                    }
                 }
                 if (risk <= 0)
                 {

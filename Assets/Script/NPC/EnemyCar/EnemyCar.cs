@@ -77,14 +77,16 @@ public class EnemyCar : MonoBehaviour , ICar
     private void ChangeSpeed()
     {
         Vector3 thisPos = body.transform.position;
-        float sqrDist = thisPos.sqrMagnitude;
+        float sqrDist;
         if (stayTarget)
         {
             sqrDist = (stayTarget.transform.position - thisPos).sqrMagnitude;
+            thisPos = this.transform.position;
         }
         else
         {
             sqrDist = thisPos.sqrMagnitude;
+            thisPos = body.transform.position;
         }
         float min = myData.MovementData.StayLengthMin;
         if (sqrDist < min * min)
@@ -204,11 +206,11 @@ public class EnemyCar : MonoBehaviour , ICar
 
     private RoadChip GetNextRoadChip(RoadChip current, bool back)
     {
-        //current.Leave(this);
+        current.Leave(this);
         current = back ? current.Prev : current.Next;
         if (current)
         {
-            //current.Join(this);
+            current.Join(this);
         }
         return current;
     }

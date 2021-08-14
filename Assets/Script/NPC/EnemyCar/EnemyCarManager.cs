@@ -67,9 +67,12 @@ public class EnemyCarManager : MonoBehaviour,ICanGetTransforms
     /// </summary>
     private void MoveCars()
     {
+        EnemyCar target = null;
         foreach (var item in cars)
         {
+            item.StayTarget = target;
             item.Move();
+            target = item;
         }
         //道から溢れた車を削除
         DestroyBookedCars();
