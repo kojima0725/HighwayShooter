@@ -186,17 +186,17 @@ public class EnemyCarBody : MonoBehaviour
     private void HandleToL()//L is Left
     {
         EnemyCarMovementData data = parent.CarData.MovementData;
-        handle = KMath.GetCloser(handle, -data.LaneChangePower, data.LaneChangePower);
+        handle = KMath.GetCloser(handle, -data.LaneChangePower, data.HandlePower);
     }
     private void HandleToR()//R is Right
     {
         EnemyCarMovementData data = parent.CarData.MovementData;
-        handle = KMath.GetCloser(handle, data.LaneChangePower, data.LaneChangePower);
+        handle = KMath.GetCloser(handle, data.LaneChangePower, data.HandlePower);
     }
     private void HandleToF()//F is Front
     {
         EnemyCarMovementData data = parent.CarData.MovementData;
-        handle = KMath.GetCloser(handle, 0, data.LaneChangePower);
+        handle = KMath.GetCloser(handle, 0, data.HandlePower);
     }
 
     private void MakeCurrentLane()

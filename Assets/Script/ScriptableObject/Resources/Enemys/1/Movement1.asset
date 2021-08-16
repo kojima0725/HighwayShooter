@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Movement1
   m_EditorClassIdentifier: 
   addSpeed: 50
-  acceleratorPower: 30
+  acceleratorPower: 100
   removeSpeed: 50
   brakePower: 50
-  stayAngle: 100
+  stayAngle: 90
   stayLengthMin: 7
   stayLengthMax: 15
   sarchLength: 100
   laneChangePower: 10
-  handlePower: 50
+  handlePower: 20
   laneChangeEndWidth: 0.15

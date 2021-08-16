@@ -21,6 +21,8 @@ public class EnemyCar : MonoBehaviour , ICar
     private EnemyCarBody body;
     private EnemyCar stayTarget;
 
+    public bool debug;
+
     public int CurrentLane => body.CurrentLane;
 
     public float SpeedMS => speedMS;
@@ -78,40 +80,45 @@ public class EnemyCar : MonoBehaviour , ICar
     {
         Vector3 thisPos = body.transform.position;
         float sqrDist;
+        Transform target;
+        float baseSpeed;
         if (stayTarget)
         {
             sqrDist = (stayTarget.transform.position - thisPos).sqrMagnitude;
-            thisPos = this.transform.position;
+            thisPos = this.transform.position - stayTarget.transform.position;
+            target = stayTarget.transform;
+            baseSpeed = stayTarget.speedMS;
         }
         else
         {
             sqrDist = thisPos.sqrMagnitude;
             thisPos = body.transform.position;
+            target = PlayerCar.current.Body;
+            baseSpeed = PlayerCar.current.SpeedMS;
         }
         float min = myData.MovementData.StayLengthMin;
         if (sqrDist < min * min)
         {
             //距離が近すぎる場合は加速
-            SpeedUp(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
+            SpeedUp(baseSpeed);
             return;
         }
-        Transform target = stayTarget ? stayTarget.transform : PlayerCar.current.Body;
         float angle = Vector3.Angle(target.forward, thisPos);
         if (angle > myData.MovementData.StayAngle / 2)
         {
             //プレイヤーの視界の外にいる場合は加速
-            SpeedUp(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
+            SpeedUp(baseSpeed);
             return;
         }
         float max = myData.MovementData.StayLengthMax;
         if (sqrDist < max * max)
         {
             //視野内、一定の距離内にいる場合は速度維持して並走
-            SpeedKeep(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
+            SpeedKeep(baseSpeed);
             return;
         }
         //プレイヤーの前方遠くにいる場合は減速
-        SpeedDown(stayTarget ? stayTarget.speedMS : PlayerCar.current.SpeedMS);
+        SpeedDown(baseSpeed);
     }
 
     private void SpeedUp(float baseSpeed)
@@ -120,6 +127,10 @@ public class EnemyCar : MonoBehaviour , ICar
             speedMS,
             baseSpeed + myData.MovementData.AddSpeedMS,
             myData.MovementData.AcceleraratorPower);
+        if (debug)
+        {
+            Debug.Log("SpeedUp");
+        }
     }
 
     private void SpeedDown(float baseSpeed)
@@ -127,6 +138,10 @@ public class EnemyCar : MonoBehaviour , ICar
         speedMS = KMath.GetCloser(speedMS,
             baseSpeed - myData.MovementData.RemoveSpeedMS,
             myData.MovementData.BrakePower);
+        if (debug)
+        {
+            Debug.Log("SpeedDown");
+        }
     }
 
     private void SpeedKeep(float baseSpeed)
@@ -143,7 +158,10 @@ public class EnemyCar : MonoBehaviour , ICar
             baseSpeed,
             myData.MovementData.AcceleraratorPower);
         }
-        
+        if (debug)
+        {
+            Debug.Log("SpeedKeep");
+        }
     }
 
     /// <summary>
