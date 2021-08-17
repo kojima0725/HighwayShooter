@@ -186,12 +186,22 @@ public class EnemyCarBody : MonoBehaviour
     private void HandleToL()//L is Left
     {
         EnemyCarMovementData data = parent.CarData.MovementData;
-        handle = KMath.GetCloser(handle, -data.LaneChangePower, data.HandlePower);
+        float power = data.HandlePower;
+        if (handle > 0)
+        {
+            power *= 2;
+        }
+        handle = KMath.GetCloser(handle, -data.LaneChangePower, power);
     }
     private void HandleToR()//R is Right
     {
         EnemyCarMovementData data = parent.CarData.MovementData;
-        handle = KMath.GetCloser(handle, data.LaneChangePower, data.HandlePower);
+        float power = data.HandlePower;
+        if (handle < 0)
+        {
+            power *= 2;
+        }
+        handle = KMath.GetCloser(handle, data.LaneChangePower, power);
     }
     private void HandleToF()//F is Front
     {
