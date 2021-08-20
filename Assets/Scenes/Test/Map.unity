@@ -515,7 +515,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   world: {fileID: 526578208}
-  mapMaker: {fileID: 0}
+  mapMaker: {fileID: 526578211}
   mapChipContainer: {fileID: 713278750}
 --- !u!114 &526578211
 MonoBehaviour:

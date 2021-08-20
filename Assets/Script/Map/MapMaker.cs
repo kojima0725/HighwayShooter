@@ -10,7 +10,7 @@ public class MapMaker : MonoBehaviour
     public MapChip MakeChip()
     {
         MapChip maked = Instantiate(mapChipPrefab);
-        maked.Init();
+        maked.Init(100, 50, 5, 10);
         return maked;
     }
 }

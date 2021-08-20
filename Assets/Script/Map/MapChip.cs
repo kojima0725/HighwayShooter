@@ -7,44 +7,83 @@ public class MapChip : MonoBehaviour
     [SerializeField]
     MeshFilter meshFilter;
 
-    public void Init()
+    float width;
+    float height;
+    int splitX;
+    int splitY;
+    
+
+    public void Init(float width, float height, int splitX, int splitY)
     {
-        
+        this.width = width;
+        this.height = height;
+        this.splitX = splitX;
+        this.splitY = splitY;
+        MakeMesh();
     }
 
-    public void Init(float width, float height, float makeStartX, float makeStartY, int splitX, int splitY)
+    private void MakeMesh()
     {
-        MakeMesh(width, height, splitX, splitY);
-    }
-
-    private void MakeMesh(float width, float height, int splitX, int splitY)
-    {
-
         //メッシュ生成用意
         Mesh mesh = new Mesh();
+
         //頂点生成
-        //Vector3[] vertices = new Vector3[4];
-        //float cosWidth = Mathf.Cos(Mathf.Deg2Rad * rotate.y) * halfWidth;
-        //float sinWidth = Mathf.Sin(Mathf.Deg2Rad * rotate.y) * halfWidth;
+        int xCount = splitX * 2 + 1;
+        int yCount = splitY * 2 + 1;
+        float xSize = width / (splitX * 2);
+        float ySize = height / (splitY * 2);
+        int verticsCount = xCount * yCount;
+        Vector3[] vertices = new Vector3[verticsCount];
+        Vector2[] uvs = new Vector2[verticsCount];
+        float posX;
+        float posY = -height / 2;
 
-        //vertices[0] = new Vector3(-cosWidth, 0, -sinWidth);
-        //vertices[1] = new Vector3(cosWidth, 0, sinWidth);
-        //vertices[2] = new Vector3(-halfWidth, 0, length);
-        //vertices[3] = new Vector3(halfWidth, 0, length);
-        //mesh.vertices = vertices;
+        int index = 0;
+        bool p = false;
+        for (int y = 0; y < yCount; y++)
+        {
+            posX = -width / 2;
+            posX += p ? xSize / 2 : 0;
+            for (int x = 0; x < xCount; x++)
+            {
+                vertices[index] = new Vector3(posX, 0 ,posY);
+                uvs[index] = new Vector2((posX + width / 2) % 1, posY + height / 2);
+                posX += xSize;
+                index++;
+            }
+            posY += ySize;
+            p = !p;
+        }
+        mesh.vertices = vertices;
+        mesh.uv = uvs;
 
-        //頂点情報を使ってガードレールも生成する
-        //MakeGuardrail(vertices);
+        int doubleX = splitX * 2;
+        int doubleY = splitY * 2;
+        int[] triangles = new int[3 * doubleX * 2 * doubleY];
+        int tIndex = 0;
+        int bIndex = 0;
+        for (int y = 0; y < doubleY; y++)
+        {
+            for (int x = 0; x < doubleX; x++)
+            {
+                Inport(bIndex);
+                Inport(bIndex + doubleX + 1);
+                Inport(bIndex + 1);
+                Inport(bIndex + 1);
+                Inport(bIndex + doubleX + 1);
+                Inport(bIndex + doubleX + 2);
+                bIndex++;
+            }
+            bIndex++;
+        }
+        void Inport(int a)
+        {
+            triangles[tIndex] = a;
+            tIndex++;
+        }
 
-        //uv設定
-        mesh.uv = new Vector2[] {
-        new Vector2 (0, 0),
-        new Vector2 (1, 0),
-        new Vector2 (0, 1),
-        new Vector2 (1, 1),
-        };
 
-        mesh.triangles = new int[] { 0, 2, 1, 1, 2, 3 };
+        mesh.triangles = triangles;
 
         // 領域と法線を自動で再計算する
         mesh.RecalculateBounds();

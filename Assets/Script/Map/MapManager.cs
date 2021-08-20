@@ -27,4 +27,17 @@ public class MapManager : MonoBehaviour,ICanGetTransforms
             yield return item.transform;
         }
     }
+
+    private void Awake()
+    {
+        //世界に登録
+        world.JoinWorld(this);
+    }
+
+    private void Start()
+    {
+        MapChip make = mapMaker.MakeChip();
+        chips.Add(make);
+        make.transform.parent = mapChipContainer;
+    }
 }
