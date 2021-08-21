@@ -11,14 +11,18 @@ public class MapChip : MonoBehaviour
     float height;
     int splitX;
     int splitY;
+    float noiseLoop;
+    Vector2 noizeStartPos;
     
 
-    public void Init(float width, float height, int splitX, int splitY)
+    public void Init(float width, float height, int splitX, int splitY, float noiseLoop, float noizePosX, float noizePosY)
     {
         this.width = width;
         this.height = height;
         this.splitX = splitX;
         this.splitY = splitY;
+        this.noiseLoop = noiseLoop;
+        this.noizeStartPos = new Vector2(noizePosX, noizePosY);
         MakeMesh();
     }
 
@@ -46,8 +50,8 @@ public class MapChip : MonoBehaviour
             posX += p ? xSize / 2 : 0;
             for (int x = 0; x < xCount; x++)
             {
-                vertices[index] = new Vector3(posX, 0 ,posY);
-                uvs[index] = new Vector2((posX + width / 2) % 1, posY + height / 2);
+                vertices[index] = new Vector3(posX, Noize(posX, posY) ,posY);
+                uvs[index] = new Vector2((posX + width / 2) / width, (posY + height / 2) / height);
                 posX += xSize;
                 index++;
             }
@@ -90,5 +94,18 @@ public class MapChip : MonoBehaviour
         mesh.RecalculateNormals();
 
         meshFilter.mesh = mesh;
+    }
+
+    private Vector2 NoizePos(float x, float y)
+    {
+        float yoko = ((noizeStartPos.x + x / noiseLoop)) * 256;
+        float tate = ((noizeStartPos.y + y / noiseLoop)) * 256;
+        return new Vector2(yoko, tate);
+    }
+
+    private float Noize(float x, float y)
+    {
+        Vector2 pos = NoizePos(x, y);
+        return Mathf.PerlinNoise(pos.x, pos.y) * 50;
     }
 }

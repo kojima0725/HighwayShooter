@@ -9,8 +9,9 @@ public class MapMaker : MonoBehaviour
 
     public MapChip MakeChip()
     {
+        MapData d = StageDatabase.MapData;
         MapChip maked = Instantiate(mapChipPrefab);
-        maked.Init(100, 50, 5, 10);
+        maked.Init(d.ChipWidth, d.ChipHeight, d.SplitX, d.SplitY, d.NoiseLoopSize, 0, 0);
         return maked;
     }
 }
