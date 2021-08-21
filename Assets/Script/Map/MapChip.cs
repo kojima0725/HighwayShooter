@@ -30,7 +30,7 @@ public class MapChip : MonoBehaviour
         MakeMesh();
     }
 
-    public void Init(Vector2 front, float width, int split, Vector2 noizeStart, float noizeLoop, Vector2 sNomal, Vector3 eNomal)
+    public void Init(Vector2 front, float width, int split, Vector2 noizeStart, float noizeLoop, Vector2 sNomal, Vector3 eNomal, bool LR)
     {
         this.front = front;
         this.width = width;
@@ -39,10 +39,10 @@ public class MapChip : MonoBehaviour
         this.noiseLoop = noizeLoop;
         this.sNomal = sNomal;
         this.eNomal = eNomal;
-        MakeMesh(true);
+        MakeMesh(LR);
     }
 
-    private void MakeMesh(bool a)
+    private void MakeMesh(bool LR)
     {
         //メッシュ生成
         Mesh mesh = new Mesh();
@@ -68,6 +68,7 @@ public class MapChip : MonoBehaviour
         uvW = 0;
         for (int i = 0; i < xCount; i++)
         {
+            vertices[index] = new Vector3(pos.x, Noize(pos.x, pos.y), pos.y);
             uvs[index] = new Vector2(uvW, 1);
             pos += eNomal * polyWidth;
             uvW++;
@@ -80,12 +81,24 @@ public class MapChip : MonoBehaviour
         int tIndex = 0;
         for (int y = 0; y < split; y++)
         {
-            Inport(y);
-            Inport(y + split + 1);
-            Inport(y + 1);
-            Inport(y + 1);
-            Inport(y + split + 1);
-            Inport(y + split + 2);
+            if (LR)
+            {
+                Inport(y);
+                Inport(y + split + 2);
+                Inport(y + split + 1);
+                Inport(y);
+                Inport(y + 1);
+                Inport(y + split + 2);
+            }
+            else
+            {
+                Inport(y);
+                Inport(y + split + 1);
+                Inport(y + 1);
+                Inport(y + 1);
+                Inport(y + split + 1);
+                Inport(y + split + 2);
+            }
         }
         void Inport(int c)
         {
@@ -96,6 +109,11 @@ public class MapChip : MonoBehaviour
 
         mesh.triangles = triangles;
 
+        // 領域と法線を自動で再計算する
+        mesh.RecalculateBounds();
+        mesh.RecalculateNormals();
+
+        meshFilter.mesh = mesh;
     }
 
     private void MakeMesh()
@@ -173,8 +191,8 @@ public class MapChip : MonoBehaviour
 
     private Vector2 NoizePos(float x, float y)
     {
-        float yoko = (noizeStartPos.x + x / noiseLoop) % 1 * 256;
-        float tate = (noizeStartPos.y + y / noiseLoop) % 1 * 256;
+        float yoko = (noizeStartPos.x + x / noiseLoop * 256) % 256;
+        float tate = (noizeStartPos.y + y / noiseLoop * 256) % 256;
         return new Vector2(yoko, tate);
     }
 

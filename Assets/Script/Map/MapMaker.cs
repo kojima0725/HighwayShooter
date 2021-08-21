@@ -36,19 +36,19 @@ public class MapMaker : MonoBehaviour
 
             MapChip maked = Instantiate(mapChipPrefab);
             Vector2 leftGurd = new Vector2(item.GurdrailLeftVector.x, item.GurdrailLeftVector.z);
-            maked.Init(leftGurd, -d.ChipWidth, d.SplitX, noizeManager.noiseStartPos, d.NoiseLoopSize, l, -item.GurdrailLeftNomal);
+            maked.Init(leftGurd, -d.ChipWidth, d.SplitX, noizeManager.noiseStartPos, d.NoiseLoopSize, l, item.GurdrailLeftNomal, true);
             item.SetMap(true, maked);
-            l = -item.GurdrailLeftNomal;
+            l = item.GurdrailLeftNomal;
 
-            noizeManager.Move(wb[1] - wb[0]);
+            noizeManager.Move(wb[2] - wb[0]);
 
             maked = Instantiate(mapChipPrefab);
             Vector2 rightGurd = new Vector2(item.GurdrailRightVector.x, item.GurdrailRightVector.z);
-            maked.Init(rightGurd, d.ChipWidth, d.SplitX, noizeManager.noiseStartPos, d.NoiseLoopSize, r , -item.GurdrailRightNomal);
+            maked.Init(rightGurd, d.ChipWidth, d.SplitX, noizeManager.noiseStartPos, d.NoiseLoopSize, r , -item.GurdrailRightNomal, false);
             item.SetMap(false, maked);
             r = -item.GurdrailRightNomal;
 
-            noizeManager.Move(wb[2] - wb[1]);
+            //noizeManager.Move(wb[2] - wb[1]);
 
         }
     }

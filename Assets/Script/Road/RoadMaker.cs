@@ -21,6 +21,8 @@ public class RoadMaker : MonoBehaviour
     /// </summary>
     [SerializeField]
     private RoadChip roadChipPrefab;
+    [SerializeField]
+    private MapMaker mapMaker;
 
     /// <summary>
     /// 最初の道路(シーン上に道路の始まりを設置し、ここに設定しておく必要がある)
@@ -76,6 +78,7 @@ public class RoadMaker : MonoBehaviour
             center = new GameObject().transform;
         }
         //道路生成
+        List<RoadChip> chips = new List<RoadChip>();
         while (remaining >= 0)
         {
             //自身の子オブジェクトとして道路を生成
@@ -85,6 +88,7 @@ public class RoadMaker : MonoBehaviour
             DesignRoad();
 
             end = maked;
+            chips.Add(maked);
             yield return maked;
         }
         //カーブの場合は中心点の座標を計算
@@ -93,6 +97,10 @@ public class RoadMaker : MonoBehaviour
             MakeCenterPos(center, start, end);
             //生成した道路の終端に格納する(一緒に削除されるように)
             center.parent = end.transform;
+        }
+        if (chips.Count != 0)
+        {
+            mapMaker.MakeMap(chips);
         }
 
         //道路が設計の終端に達したため新しい設計を作成する
