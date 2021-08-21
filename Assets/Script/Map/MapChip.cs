@@ -8,81 +8,112 @@ public class MapChip : MonoBehaviour
     MeshFilter meshFilter;
 
     float width;
-    float height;
-    int splitX;
-    int splitY;
-    float noiseLoop;
+    int split;
     Vector2 noizeStartPos;
+    Vector2 front;
+    Vector2 sNomal;
+    Vector2 eNomal;
+    MapData data;
+    float bai;
     
 
-    public void Init(float width, float height, int splitX, int splitY, float noiseLoop, float noizePosX, float noizePosY)
+    public void Init(Vector2 front, MapData data, Vector2 sNomal, Vector3 eNomal, bool LR, MapNoizeManager noizeManager)
     {
-        this.width = width;
-        this.height = height;
-        this.splitX = splitX;
-        this.splitY = splitY;
-        this.noiseLoop = noiseLoop;
-        this.noizeStartPos = new Vector2(noizePosX, noizePosY);
-        MakeMesh();
+        this.front = front;
+        this.width = data.ChipWidth;
+        this.split = data.SplitX;
+        this.noizeStartPos = noizeManager.noiseStartPos;
+        this.sNomal = sNomal;
+        this.eNomal = eNomal;
+        this.data = data;
+        MakeMesh(LR, noizeManager);
     }
 
-    private void MakeMesh()
+    private void MakeMesh(bool LR, MapNoizeManager noize)
     {
-        //メッシュ生成用意
+        //メッシュ生成
         Mesh mesh = new Mesh();
 
         //頂点生成
-        int xCount = splitX * 2 + 1;
-        int yCount = splitY * 2 + 1;
-        float xSize = width / (splitX * 2);
-        float ySize = height / (splitY * 2);
-        int verticsCount = xCount * yCount;
+        int xCount = split + 1;
+        int verticsCount = xCount * 2;
+        float polyWidth = width / split;
+        float length = 0;
         Vector3[] vertices = new Vector3[verticsCount];
         Vector2[] uvs = new Vector2[verticsCount];
-        float posX;
-        float posY = -height / 2;
-
         int index = 0;
-        bool p = false;
-        for (int y = 0; y < yCount; y++)
+        Vector2 pos = Vector2.zero;
+        float uvW = 0;
+        for (int i = 0; i < xCount; i++)
         {
-            posX = -width / 2;
-            posX += p ? xSize / 2 : 0;
-            for (int x = 0; x < xCount; x++)
+            if (length <= data.Height.length)
             {
-                vertices[index] = new Vector3(posX, Noize(posX, posY) ,posY);
-                uvs[index] = new Vector2((posX + width / 2) / width, (posY + height / 2) / height);
-                posX += xSize;
-                index++;
+                bai = length / data.Height.length * data.Height.height;
             }
-            posY += ySize;
-            p = !p;
+            else
+            {
+                bai = data.Height.height + (length - data.Height.length) / width * (1.0f - data.Height.height);
+            }
+            vertices[index] = new Vector3(pos.x, Noize(pos.x, pos.y), pos.y);
+            uvs[index] = new Vector2(uvW, 0);
+            pos += sNomal * polyWidth;
+            length += polyWidth;
+            uvW++;
+            index++;
+        }
+        
+
+        noize.Move(front);
+
+        length = 0;
+        pos = front;
+        uvW = 0;
+        for (int i = 0; i < xCount; i++)
+        {
+            if (length <= data.Height.length)
+            {
+                bai = length / data.Height.length * data.Height.height;
+            }
+            else
+            {
+                bai = data.Height.height + (length - data.Height.length) / width * (1.0f - data.Height.height);
+            }
+            vertices[index] = new Vector3(pos.x, Noize(pos.x, pos.y), pos.y);
+            uvs[index] = new Vector2(uvW, 1);
+            pos += eNomal * polyWidth;
+            length += polyWidth;
+            uvW++;
+            index++;
         }
         mesh.vertices = vertices;
         mesh.uv = uvs;
 
-        int doubleX = splitX * 2;
-        int doubleY = splitY * 2;
-        int[] triangles = new int[3 * doubleX * 2 * doubleY];
+        int[] triangles = new int[6 * split];
         int tIndex = 0;
-        int bIndex = 0;
-        for (int y = 0; y < doubleY; y++)
+        for (int y = 0; y < split; y++)
         {
-            for (int x = 0; x < doubleX; x++)
+            if (LR)
             {
-                Inport(bIndex);
-                Inport(bIndex + doubleX + 1);
-                Inport(bIndex + 1);
-                Inport(bIndex + 1);
-                Inport(bIndex + doubleX + 1);
-                Inport(bIndex + doubleX + 2);
-                bIndex++;
+                Inport(y);
+                Inport(y + split + 2);
+                Inport(y + split + 1);
+                Inport(y);
+                Inport(y + 1);
+                Inport(y + split + 2);
             }
-            bIndex++;
+            else
+            {
+                Inport(y);
+                Inport(y + split + 1);
+                Inport(y + 1);
+                Inport(y + 1);
+                Inport(y + split + 1);
+                Inport(y + split + 2);
+            }
         }
-        void Inport(int a)
+        void Inport(int c)
         {
-            triangles[tIndex] = a;
+            triangles[tIndex] = c;
             tIndex++;
         }
 
@@ -96,16 +127,9 @@ public class MapChip : MonoBehaviour
         meshFilter.mesh = mesh;
     }
 
-    private Vector2 NoizePos(float x, float y)
+    private float Noize( float x, float y)
     {
-        float yoko = (noizeStartPos.x + x / noiseLoop) % 1 * 256;
-        float tate = (noizeStartPos.y + y / noiseLoop) % 1 * 256;
-        return new Vector2(yoko, tate);
-    }
-
-    private float Noize(float x, float y)
-    {
-        Vector2 pos = NoizePos(x, y);
-        return Mathf.PerlinNoise(pos.x, pos.y) * 50;
+        Vector2 pos = MapNoizeManager.NoizePos(noizeStartPos, x, y);
+        return (Mathf.PerlinNoise(pos.x, pos.y) - data.Down) * data.MaxHeight * bai;
     }
 }
