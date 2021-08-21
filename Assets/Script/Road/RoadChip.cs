@@ -114,8 +114,13 @@ public class RoadChip : MonoBehaviour
 
     #endregion
 
-   
-    
+
+    /// <summary>
+    /// 左下、右下、左上、右上
+    /// </summary>
+    public Vector3[] Vertices => meshFilter.mesh.vertices;
+
+
 
     /// <summary>
     /// 道路の初期化(メッシュの設置、各種調整)
@@ -145,6 +150,13 @@ public class RoadChip : MonoBehaviour
         this.transform.Rotate(rotate);
     }
 
+    public void SetMap(bool LR, MapChip chip)
+    {
+        chip.transform.parent = this.transform;
+        int lrIndex = LR ? 0 : 1;
+        chip.transform.localPosition = meshFilter.mesh.vertices[lrIndex];
+    }
+
     public void Join(ICar car)
     {
         cars.Add(car);
@@ -170,6 +182,7 @@ public class RoadChip : MonoBehaviour
         float cosWidth = Mathf.Cos(Mathf.Deg2Rad * rotate.y) * halfWidth;
         float sinWidth = Mathf.Sin(Mathf.Deg2Rad * rotate.y) * halfWidth;
 
+        //左下、右下、左上、右上
         vertices[0] = new Vector3(-cosWidth, 0, -sinWidth);
         vertices[1] = new Vector3(cosWidth, 0, sinWidth);
         vertices[2] = new Vector3(-halfWidth, 0, length);

@@ -11,8 +11,12 @@ public class MapChip : MonoBehaviour
     float height;
     int splitX;
     int splitY;
+    int split;
     float noiseLoop;
     Vector2 noizeStartPos;
+    Vector2 front;
+    Vector2 sNomal;
+    Vector2 eNomal;
     
 
     public void Init(float width, float height, int splitX, int splitY, float noiseLoop, float noizePosX, float noizePosY)
@@ -24,6 +28,74 @@ public class MapChip : MonoBehaviour
         this.noiseLoop = noiseLoop;
         this.noizeStartPos = new Vector2(noizePosX, noizePosY);
         MakeMesh();
+    }
+
+    public void Init(Vector2 front, float width, int split, Vector2 noizeStart, float noizeLoop, Vector2 sNomal, Vector3 eNomal)
+    {
+        this.front = front;
+        this.width = width;
+        this.split = split;
+        this.noizeStartPos = noizeStart;
+        this.noiseLoop = noizeLoop;
+        this.sNomal = sNomal;
+        this.eNomal = eNomal;
+        MakeMesh(true);
+    }
+
+    private void MakeMesh(bool a)
+    {
+        //メッシュ生成
+        Mesh mesh = new Mesh();
+
+        //頂点生成
+        int xCount = split + 1;
+        int verticsCount = xCount * 2;
+        float polyWidth = width / split;
+        Vector3[] vertices = new Vector3[verticsCount];
+        Vector2[] uvs = new Vector2[verticsCount];
+        int index = 0;
+        Vector2 pos = Vector2.zero;
+        float uvW = 0;
+        for (int i = 0; i < xCount; i++)
+        {
+            vertices[index] = new Vector3(pos.x, Noize(pos.x, pos.y), pos.y);
+            uvs[index] = new Vector2(uvW, 0);
+            pos += sNomal * polyWidth;
+            uvW++;
+            index++;
+        }
+        pos = front;
+        uvW = 0;
+        for (int i = 0; i < xCount; i++)
+        {
+            uvs[index] = new Vector2(uvW, 1);
+            pos += eNomal * polyWidth;
+            uvW++;
+            index++;
+        }
+        mesh.vertices = vertices;
+        mesh.uv = uvs;
+
+        int[] triangles = new int[6 * split];
+        int tIndex = 0;
+        for (int y = 0; y < split; y++)
+        {
+            Inport(y);
+            Inport(y + split + 1);
+            Inport(y + 1);
+            Inport(y + 1);
+            Inport(y + split + 1);
+            Inport(y + split + 2);
+        }
+        void Inport(int c)
+        {
+            triangles[tIndex] = c;
+            tIndex++;
+        }
+
+
+        mesh.triangles = triangles;
+
     }
 
     private void MakeMesh()
@@ -95,6 +167,9 @@ public class MapChip : MonoBehaviour
 
         meshFilter.mesh = mesh;
     }
+
+    
+
 
     private Vector2 NoizePos(float x, float y)
     {

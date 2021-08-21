@@ -27,30 +27,10 @@ public class RoadMaker : MonoBehaviour
     /// </summary>
     [SerializeField]
     private RoadChip firstRoadChip;
-
-    /// <summary>
-    /// 一番最初に生成されていた道路からどれぐらい違う方向を向いているか
-    /// </summary>
     private float currentAngle = 0;
-
-    /// <summary>
-    /// 現在の道路のステータス
-    /// </summary>
     private RoadType currentRoadType;
-
-    /// <summary>
-    /// チップ生成時にどれぐらい道を曲げるか
-    /// </summary>
     private float chipRotate;
-
-    /// <summary>
-    /// 生成の残り(角度や距離など、生成する道路の種類によって扱いは異なる)
-    /// </summary>
     private float remaining;
-
-    /// <summary>
-    /// 最後に生成された道路
-    /// </summary>
     private RoadChip latestRoadChip;
 
     private bool IsCurveToRight;

@@ -46,6 +46,5 @@ public class MapManager : MonoBehaviour,ICanGetTransforms
     {
         a++;
         a = a % 10;
-
     }
 }

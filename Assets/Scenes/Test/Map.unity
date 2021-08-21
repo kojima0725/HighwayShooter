@@ -407,8 +407,6 @@ GameObject:
   - component: {fileID: 526578206}
   - component: {fileID: 526578205}
   - component: {fileID: 526578204}
-  - component: {fileID: 526578210}
-  - component: {fileID: 526578211}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -502,35 +500,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &526578210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526578203}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70ea875188b7754469c2d7c0d5888669, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  world: {fileID: 526578208}
-  mapMaker: {fileID: 526578211}
-  mapChipContainer: {fileID: 713278750}
---- !u!114 &526578211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 526578203}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96d64d496b7ebb44ea20fbdfc11396c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mapChipPrefab: {fileID: -5628979076728986424, guid: 92db8c203405b8b4bae2b149e8d2adb4,
-    type: 3}
 --- !u!1001 &594412000
 PrefabInstance:
   m_ObjectHideFlags: 0
