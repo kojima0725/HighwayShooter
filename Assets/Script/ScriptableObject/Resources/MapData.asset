@@ -12,3 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4f5399599ba6a14280922a0ce45642d, type: 3}
   m_Name: MapData
   m_EditorClassIdentifier: 
+  chipWidth: 500
+  chipHeight: 500
+  splitX: 100
+  splitY: 100
+  noiseLoopSize: 15000

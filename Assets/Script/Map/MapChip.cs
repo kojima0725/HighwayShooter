@@ -98,8 +98,8 @@ public class MapChip : MonoBehaviour
 
     private Vector2 NoizePos(float x, float y)
     {
-        float yoko = ((noizeStartPos.x + x / noiseLoop)) * 256;
-        float tate = ((noizeStartPos.y + y / noiseLoop)) * 256;
+        float yoko = (noizeStartPos.x + x / noiseLoop) % 1 * 256;
+        float tate = (noizeStartPos.y + y / noiseLoop) % 1 * 256;
         return new Vector2(yoko, tate);
     }
 

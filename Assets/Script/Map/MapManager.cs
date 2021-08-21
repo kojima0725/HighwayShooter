@@ -40,4 +40,12 @@ public class MapManager : MonoBehaviour,ICanGetTransforms
         chips.Add(make);
         make.transform.parent = mapChipContainer;
     }
+
+    int a;
+    private void Update()
+    {
+        a++;
+        a = a % 10;
+
+    }
 }
