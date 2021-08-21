@@ -148,6 +148,9 @@ public class RoadChip : MonoBehaviour
 
         //自身を曲げる
         this.transform.Rotate(rotate);
+
+        //ガードレールのベクトルを作成しておく
+        MakeGuardVectors();
     }
 
     public void SetMap(bool LR, MapChip chip)
@@ -222,9 +225,6 @@ public class RoadChip : MonoBehaviour
         gurdralis[1] = new GameObject("rightGurd").transform;
         gurdralis[1].parent = this.transform;
         gurdralis[1].localPosition = points[3];
-
-        //ガードレールのベクトルを作成しておく
-        MakeGuardVectors();
     }
 
     /// <summary>

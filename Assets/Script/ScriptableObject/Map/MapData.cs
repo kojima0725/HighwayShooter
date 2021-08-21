@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 /// <summary>
@@ -12,19 +13,35 @@ public class MapData : ScriptableObject
     [SerializeField]
     float chipWidth;
     [SerializeField]
-    float chipHeight;
-    [SerializeField]
     int splitX;
-    [SerializeField]
-    int splitY;
     [SerializeField]
     float noiseLoopSize;
 
+    [SerializeField]
+    float maxHeight;
+    [SerializeField, Range(0.0f, 1.0f)]
+    float down;
+
+    [SerializeField]
+    LengthAndHeight height;
+
+    [Serializable]
+    public class LengthAndHeight
+    {
+        public float length;
+        [Range(0.0f, 1.0f)]
+        public float height;
+    }
+
     public float ChipWidth => chipWidth;
-    public float ChipHeight => chipHeight;
 
     public int SplitX => splitX;
-    public int SplitY => splitY;
 
     public float NoiseLoopSize => noiseLoopSize;
+
+    public float MaxHeight => maxHeight;
+
+    public float Down => down;
+
+    public LengthAndHeight Height => height;
 }

@@ -7,17 +7,16 @@ public class MapMaker : MonoBehaviour
     [SerializeField]
     private MapChip mapChipPrefab;
 
-    private MapNoizeManager noizeManager = new MapNoizeManager();
+    private MapNoizeManager noizeManagerL;
+    private MapNoizeManager noizeManagerR;
 
     private Vector2 l;
     private Vector2 r;
 
-    public MapChip MakeChip()
+    private void Awake()
     {
-        MapData d = StageDatabase.MapData;
-        MapChip maked = Instantiate(mapChipPrefab);
-        maked.Init(d.ChipWidth, d.ChipHeight, d.SplitX, d.SplitY, d.NoiseLoopSize, 1000, 1000);
-        return maked;
+        noizeManagerL = new MapNoizeManager();
+        noizeManagerR = new MapNoizeManager();
     }
 
     public void MakeMap(List<RoadChip> chips)
@@ -36,20 +35,15 @@ public class MapMaker : MonoBehaviour
 
             MapChip maked = Instantiate(mapChipPrefab);
             Vector2 leftGurd = new Vector2(item.GurdrailLeftVector.x, item.GurdrailLeftVector.z);
-            maked.Init(leftGurd, -d.ChipWidth, d.SplitX, noizeManager.noiseStartPos, d.NoiseLoopSize, l, item.GurdrailLeftNomal, true);
+            maked.Init(leftGurd, d, l, -item.GurdrailLeftNomal, true, noizeManagerL);
             item.SetMap(true, maked);
-            l = item.GurdrailLeftNomal;
-
-            noizeManager.Move(wb[2] - wb[0]);
+            l = -item.GurdrailLeftNomal;
 
             maked = Instantiate(mapChipPrefab);
             Vector2 rightGurd = new Vector2(item.GurdrailRightVector.x, item.GurdrailRightVector.z);
-            maked.Init(rightGurd, d.ChipWidth, d.SplitX, noizeManager.noiseStartPos, d.NoiseLoopSize, r , -item.GurdrailRightNomal, false);
+            maked.Init(rightGurd, d, r , -item.GurdrailRightNomal, false, noizeManagerR);
             item.SetMap(false, maked);
             r = -item.GurdrailRightNomal;
-
-            //noizeManager.Move(wb[2] - wb[1]);
-
         }
     }
 }
