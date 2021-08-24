@@ -701,6 +701,7 @@ GameObject:
   - component: {fileID: 1383892035}
   - component: {fileID: 1383892037}
   - component: {fileID: 1383892038}
+  - component: {fileID: 1383892039}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -751,6 +752,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roadChipPrefab: {fileID: 430224689477448097, guid: b1cb29b8ec0994948853adda98750216,
     type: 3}
+  mapMaker: {fileID: 1383892039}
   firstRoadChip: {fileID: 430224689349517244}
 --- !u!114 &1383892036
 MonoBehaviour:
@@ -794,6 +796,20 @@ MonoBehaviour:
   road: {fileID: 1383892033}
   world: {fileID: 1383892036}
   enemyCarContainer: {fileID: 248730263}
+--- !u!114 &1383892039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383892032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d64d496b7ebb44ea20fbdfc11396c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapChipPrefab: {fileID: -5628979076728986424, guid: 92db8c203405b8b4bae2b149e8d2adb4,
+    type: 3}
 --- !u!1 &1525640203
 GameObject:
   m_ObjectHideFlags: 0
