@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MapChip : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class MapChip : MonoBehaviour
     Vector2 eNomal;
     MapData data;
     float bai;
-    
+    Transform end;
+
+    /// <summary>
+    /// マップチップの一番端っこ
+    /// </summary>
+    public Transform End => end;
 
     public void Init(Vector2 front, MapData data, Vector2 sNomal, Vector3 eNomal, bool LR, MapNoizeManager noizeManager)
     {
@@ -125,6 +131,11 @@ public class MapChip : MonoBehaviour
         mesh.RecalculateNormals();
 
         meshFilter.mesh = mesh;
+
+        //チップの端の位置情報を作る
+        end = new GameObject("end").transform;
+        end.parent = this.transform;
+        end.localPosition = vertices[vertices.Length - 1];
     }
 
     private float Noize( float x, float y)

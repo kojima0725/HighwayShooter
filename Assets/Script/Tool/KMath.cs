@@ -117,4 +117,14 @@ public static class KMath
     {
         return LineToLineCollision(one.start, one.end, two.start, two.end, out hitPos);
     }
+
+    /// <summary>
+    /// Vector3のx,z座標をVector2に変換する拡張メソッド
+    /// </summary>
+    /// <param name="vector">変換元</param>
+    /// <returns></returns>
+    public static Vector2 ToVextor2XZ(this Vector3 vector)
+    {
+        return new Vector2(vector.x, vector.z);
+    }
 }

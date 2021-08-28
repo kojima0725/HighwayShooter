@@ -100,7 +100,9 @@ public class RoadMaker : MonoBehaviour
         }
         if (chips.Count != 0)
         {
-            mapMaker.MakeMap(chips);
+            bool haveLR = currentRoadType == RoadType.Curve;
+            bool LR = chipRotate <= 0;
+            mapMaker.MakeMap(chips, haveLR, LR);
         }
 
         //道路が設計の終端に達したため新しい設計を作成する

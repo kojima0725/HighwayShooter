@@ -8,34 +8,19 @@ using UnityEngine;
 /// </summary>
 public class RoadChip : MonoBehaviour
 {
-    /// <summary>
-    /// 自身の最後端の位置
-    /// </summary>
     [SerializeField]
     private Transform end;
-    
     [SerializeField]
     private MeshFilter meshFilter;
-
-    /// <summary>
-    /// 各レーンの位置
-    /// </summary>
     private Transform[] lanes;
-
-    /// <summary>
-    /// 自身がカーブしているときに描く円の中心点
-    /// </summary>
     private Transform center;
-
-    /// <summary>
-    /// 自身の次のチップ
-    /// </summary>
     private RoadChip nextChip = null;
-
-    /// <summary>
-    /// 自身の一個前のチップ
-    /// </summary>
     private RoadChip prevChip = null;
+
+    private Transform mapChipLEnd;
+    public Transform MapChipLEnd => mapChipLEnd;
+    private Transform mapChipREnd;
+    public Transform MapChipREnd => mapChipREnd;
 
 
     /// <summary>
@@ -43,37 +28,22 @@ public class RoadChip : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public Transform End => end;
-
-    /// <summary>
-    /// 次のチップ(ない場合はnull)
-    /// </summary>
     public RoadChip Next { get => nextChip; set => nextChip = value; }
-
-
-    /// <summary>
-    /// 一個前のチップ(ない場合はnull)
-    /// </summary>
-    /// <returns></returns>
     public RoadChip Prev => prevChip;
-
     /// <summary>
     /// カーブの中心点(直線の場合はnull)
     /// </summary>
     public Transform Center { get => center; set => center = value; }
-
     /// <summary>
     /// カーブ時の中心点が右側にあるかどうか
     /// </summary>
     public bool IsCenterInRight { get; set; }
-
     /// <summary>
     /// 指定されたレーンの位置を返す
     /// </summary>
     /// <param name="lane">レーンの番号(0～)</param>
     /// <returns></returns>
     public Transform GetLanePos(int lane) => lanes[lane % lanes.Length];
-
-
     private readonly List<ICar> cars = new List<ICar>();
     public List<ICar> Cars => cars;
 
@@ -158,6 +128,15 @@ public class RoadChip : MonoBehaviour
         chip.transform.parent = this.transform;
         int lrIndex = LR ? 0 : 1;
         chip.transform.localPosition = meshFilter.mesh.vertices[lrIndex];
+        switch (LR)
+        {
+            case true:
+                mapChipLEnd = chip.End;
+                break;
+            case false:
+                mapChipREnd = chip.End;
+                break;
+        }
     }
 
     public void Join(ICar car)
