@@ -6,4 +6,4 @@
 ゲームのリアルさは追求せず、とにかくプレイヤーが「楽しい」と思えるようなゲームを作っていきます
 
 # このリポジトリをクローンする場合
-クローン後に「ARCADE: FREE Racing Car」https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085 インポートしてください
+クローン後に「ARCADE: FREE Racing Car」https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085 をインポートしてください
