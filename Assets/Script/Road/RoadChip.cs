@@ -17,10 +17,10 @@ public class RoadChip : MonoBehaviour
     private RoadChip nextChip = null;
     private RoadChip prevChip = null;
 
-    private Transform mapChipLEnd;
-    public Transform MapChipLEnd => mapChipLEnd;
-    private Transform mapChipREnd;
-    public Transform MapChipREnd => mapChipREnd;
+    private MapChip mapChipL;
+    public Transform MapChipLEnd => mapChipL.End;
+    private MapChip mapChipRE;
+    public Transform MapChipREnd => mapChipRE.End;
 
 
     /// <summary>
@@ -131,10 +131,10 @@ public class RoadChip : MonoBehaviour
         switch (LR)
         {
             case true:
-                mapChipLEnd = chip.End;
+                mapChipL = chip;
                 break;
             case false:
-                mapChipREnd = chip.End;
+                mapChipRE = chip;
                 break;
         }
     }
