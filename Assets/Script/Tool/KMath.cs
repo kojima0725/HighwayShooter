@@ -123,8 +123,19 @@ public static class KMath
     /// </summary>
     /// <param name="vector">変換元</param>
     /// <returns></returns>
-    public static Vector2 ToVextor2XZ(this Vector3 vector)
+    public static Vector2 ToVector2XZ(this Vector3 vector)
     {
         return new Vector2(vector.x, vector.z);
+    }
+
+
+    /// <summary>
+    /// Vector2のx,y座標をVector3のx,z座標に変換する拡張メソッド
+    /// </summary>
+    /// <param name="vector"></param>
+    /// <returns></returns>
+    public static Vector3 ToVector3XZ(this Vector2 vector)
+    {
+        return new Vector3(vector.x, 0, vector.y);
     }
 }

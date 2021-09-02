@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   straightLengthMax: 250
   straightLengthMin: 75
-  curveMax: 100
+  curveMax: 90
   curveMin: 20
-  curveStrengthMax: 2.5
+  curveStrengthMax: 2
   curveStrengthMin: 0.5
   centerCheckLength: 2000

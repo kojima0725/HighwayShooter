@@ -61,13 +61,13 @@ public class MapMaker : MonoBehaviour
             MapChip maked = Instantiate(mapChipPrefab);
             item.SetMap(true, maked);
             Vector2 leftGurd = new Vector2(item.GurdrailLeftVector.x, item.GurdrailLeftVector.z);
-            maked.Init(leftGurd, d, lastChipLNomal, -item.GurdrailLeftNomal, true, noizeManagerL, makeEndLine);
+            maked.Init(leftGurd, d, lastChipLNomal, -item.GurdrailLeftNomal, true, noizeManagerL);
             lastChipLNomal = -item.GurdrailLeftNomal;
 
             maked = Instantiate(mapChipPrefab);
             item.SetMap(false, maked);
             Vector2 rightGurd = new Vector2(item.GurdrailRightVector.x, item.GurdrailRightVector.z);
-            maked.Init(rightGurd, d, lastChipRNomal , -item.GurdrailRightNomal, false, noizeManagerR, makeEndLine);
+            maked.Init(rightGurd, d, lastChipRNomal , -item.GurdrailRightNomal, false, noizeManagerR);
             lastChipRNomal = -item.GurdrailRightNomal;
         }
 
@@ -112,7 +112,7 @@ public class MapMaker : MonoBehaviour
         while (index != endIndex)
         {
             Vector2 hitPos;
-            if (KMath.LineToLineCollision(start.position.ToVextor2XZ(), end.position.ToVextor2XZ(), currentLine[index].position.ToVextor2XZ(), currentLine[index + next].position.ToVextor2XZ(), out hitPos))
+            if (KMath.LineToLineCollision(start.position.ToVector2XZ(), end.position.ToVector2XZ(), currentLine[index].position.ToVector2XZ(), currentLine[index + next].position.ToVector2XZ(), out hitPos))
             {
                 nothit = false;
                 makeEndLine = new List<Transform>();

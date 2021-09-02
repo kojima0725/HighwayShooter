@@ -26,7 +26,7 @@ public class MapChip : MonoBehaviour
     /// </summary>
     public Transform End => end;
 
-    public void Init(Vector2 front, MapData data, Vector2 sNomal, Vector3 eNomal, bool LR, MapNoizeManager noizeManager, List<Transform> makedLine)
+    public void Init(Vector2 front, MapData data, Vector2 sNomal, Vector3 eNomal, bool LR, MapNoizeManager noizeManager)
     {
         this.front = front;
         this.width = data.ChipWidth;
@@ -35,32 +35,18 @@ public class MapChip : MonoBehaviour
         this.sNomal = sNomal;
         this.eNomal = eNomal;
         this.data = data;
-        MakeMesh(LR, noizeManager, makedLine);
+        MakeMesh(LR, noizeManager);
     }
 
-    private void MakeMesh(bool LR, MapNoizeManager noize, List<Transform> makedLine)
+    private void MakeMesh(bool LR, MapNoizeManager noize)
     {
         //メッシュ生成
         Mesh mesh = new Mesh();
 
         //頂点生成開始
         int xCount = split + 1;
-        int verticsCount = xCount * 2;
         float polyWidth = width / split;
-
-        //すでに作成されている道路とかぶらないように長さを調節する
-        Vector2 start1 = this.transform.position.ToVextor2XZ();
-        Vector2 hit1 = start1;
-        Vector2 start2 = this.transform.position.ToVextor2XZ() + front;
-        Vector2 hit2 = start2;
-        if (HitCheck(hit1, hit1 + sNomal * width, makedLine, out hit1) || HitCheck(hit2, hit2 + eNomal * width, makedLine, out hit2))
-        {
-            float a = (start1 - hit1).sqrMagnitude;
-            float b = (start2 - hit2).sqrMagnitude;
-            width = Mathf.Sqrt(Mathf.Max(a,b));
-            xCount = (int)(width / polyWidth);
-            split = xCount - 1;
-        }
+        int verticsCount = xCount * 2;
 
 
         float length = 0;
@@ -154,24 +140,12 @@ public class MapChip : MonoBehaviour
         //チップの端の位置情報を作る
         end = new GameObject("end").transform;
         end.parent = this.transform;
-        end.localPosition = vertices[vertices.Length - 1];
+        end.localPosition = (front + eNomal * data.ChipWidth).ToVector3XZ();
     }
 
     private float Noize( float x, float y)
     {
         Vector2 pos = MapNoizeManager.NoizePos(noizeStartPos, x, y);
         return (Mathf.PerlinNoise(pos.x, pos.y) - data.Down) * data.MaxHeight * bai;
-    }
-
-    /// <summary>
-    /// 線と線の当たり判定をチェックする
-    /// </summary>
-    /// <param name="start"></param>
-    /// <param name="end"></param>
-    /// <param name="line"></param>
-    /// <returns></returns>
-    private bool HitCheck(Vector2 start, Vector2 end, List<Transform> line, out Vector2 hitPos)
-    {
-        hitPos = start;
     }
 }
