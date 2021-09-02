@@ -117,6 +117,22 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
         return false;
     }
 
+    private void WriteGurdrail()
+    {
+        RoadChip chip = roadChips.FirstOrDefault();
+        if (!chip)
+        {
+            return;
+        }
+        while (chip.Next)
+        {
+            Debug.DrawLine(chip.Gurdrail(true).position + Vector3.up, chip.Next.Gurdrail(true).position + Vector3.up, Color.red);
+            Debug.DrawLine(chip.Gurdrail(false).position + Vector3.up, chip.Next.Gurdrail(false).position + Vector3.up, Color.red);
+            chip = chip.Next;
+        }
+
+    }
+
 
     private void Awake()
     {
@@ -137,6 +153,8 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
         MakeNewRoads();
         //古い道路を削除
         DestroyOldRoads();
+        //デバッグ用のガードレイル描画
+        WriteGurdrail();
     }
 
     

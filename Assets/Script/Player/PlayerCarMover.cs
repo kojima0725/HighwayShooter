@@ -54,6 +54,13 @@ public class PlayerCarMover : MonoBehaviour
         speed = PlayerDataBase.PlayerCarData.FirstSpeed;
     }
 
+    private void Update()
+    {
+        //当たり判定の描画
+        Debug.DrawLine(transform.position + Vector3.up, transform.position + leftFront.position + Vector3.up, Color.blue);
+        Debug.DrawLine(transform.position + Vector3.up, transform.position + rightFront.position + Vector3.up, Color.blue);
+    }
+
     public void MoveUpdate()
     {
         //データ更新
