@@ -8,22 +8,18 @@ using UnityEngine.UI;
 /// </summary>
 public class PlayerGun : MonoBehaviour
 {
-    /// <summary>
-    /// レティクルの画像
-    /// </summary>
     [SerializeField]
     Image reticle;
-
-    /// <summary>
-    /// レティクルの移動速度
-    /// </summary>
     [SerializeField]
     float reticleSpeed;
+    [SerializeField]
+    int rpm;
+    [SerializeField]
+    float length;
 
-    /// <summary>
-    /// レティクルのトランスフォーム
-    /// </summary>
     RectTransform reticleTransform;
+    float interval;
+    float timer;
 
     [SerializeField]
     Text debugTxt;
@@ -32,10 +28,22 @@ public class PlayerGun : MonoBehaviour
     {
         reticleTransform = reticle.rectTransform;
         reticleTransform.position = new Vector3((float)Screen.width / 2, (float)Screen.height / 2);
+        interval = 60.0f / rpm;
     }
 
     private void Update()
     {
+        //発射処理
+        if (timer < interval)
+        {
+            timer += Time.deltaTime;
+        }
+        if (KInputManager.GetGunShootInput(true))
+        {
+            Shoot();
+            timer = 0;
+        }
+
         MoveReticle();
         if (debugTxt)
         {
@@ -102,5 +110,20 @@ public class PlayerGun : MonoBehaviour
         }
 
         reticleTransform.position = pos;
+    }
+
+    private void Shoot()
+    {
+        RaycastHit hit;
+        if (ShootRay(out hit))
+        {
+            Debug.Log("どんどんどん！");
+        }
+    }
+
+    private bool ShootRay(out RaycastHit hit)
+    {
+        Ray ray = Camera.main.ScreenPointToRay(reticleTransform.position);
+        return Physics.Raycast(ray, out hit, length);
     }
 }

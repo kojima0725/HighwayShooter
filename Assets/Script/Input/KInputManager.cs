@@ -80,6 +80,24 @@ public class KInputManager
         return 0f;
     }
 
+
+    /// <summary>
+    /// 銃の発射入力を取得する
+    /// </summary>
+    /// <param name="down"></param>
+    /// <returns></returns>
+    public static bool GetGunShootInput(bool down)
+    {
+        if (down)
+        {
+            return Input.GetKeyDown(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.Space);
+        }
+        else
+        {
+            return Input.GetKey(KeyCode.Joystick1Button5) || Input.GetKey(KeyCode.Space);
+        }
+    }
+
     /// <summary>
     /// アクセルの入力を取得する
     /// </summary>
