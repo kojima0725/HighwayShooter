@@ -22,20 +22,14 @@ public class EnemyCar : MonoBehaviour , ICar
     private EnemyCar stayTarget;
 
     public bool debug;
-
     public int CurrentLane => body.CurrentLane;
-
     public float SpeedMS => speedMS;
-
     /// <summary>
     /// 現在いる箇所のロードチップ
     /// </summary>
     public RoadChip CurrentRoadChip => currentRoadChip;
-
     public void SetEnemyCarData(EnemyCarData data) => myData = data;
-
     public EnemyCarData CarData => myData;
-    
     public EnemyCar StayTarget { get => stayTarget; set => stayTarget = value; }
 
     /// <summary>
@@ -56,6 +50,19 @@ public class EnemyCar : MonoBehaviour , ICar
 
         //ボディの初期化
         body.Init(this);
+
+        //タグ設定
+        KMath.SetTag(gameObject, "Enemy");
+    }
+
+    public void GetDamage(float damage)
+    {
+        Death();
+    }
+
+    private void Death()
+    {
+        Debug.Log("死");
     }
 
     /// <summary>

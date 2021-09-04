@@ -84,6 +84,19 @@ public static class KMath
         }
     }
 
+    public static Transform GetRoot(Transform transform, string tagName)
+    {
+        while (transform.parent)
+        {
+            if (transform.parent.tag != tagName)
+            {
+                return transform;
+            }
+            transform = transform.parent;
+        }
+        return transform;
+    }
+
     /// <summary>
     /// 確率生成器(UnityEngine.Randomを使用)
     /// </summary>

@@ -109,7 +109,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
             {
                 //一個前の車とレーンがかぶらないようにレーンを決定
                 int spawnLane = Random.Range(0,StageDatabase.RoadData.Lane - 1);
-                if (spawnLane >= car.Lane)
+                if (spawnLane >= car.CurrentLane)
                 {
                     spawnLane++;
                 }
@@ -148,7 +148,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
             {
                 //一個前の車とレーンがかぶらないようにレーンを決定
                 int spawnLane = Random.Range(0, StageDatabase.RoadData.Lane - 1);
-                if (spawnLane >= car.Lane)
+                if (spawnLane >= car.CurrentLane)
                 {
                     spawnLane++;
                 }

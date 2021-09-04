@@ -13,32 +13,28 @@ public class NomalCar : MonoBehaviour, ICar
     /// 現在いる箇所のロードチップ
     /// </summary>
     private RoadChip currentRoadChip;
-
-    /// <summary>
-    /// 走行中のレーン
-    /// </summary>
     private int lane;
-
-    /// <summary>
-    /// スピード
-    /// </summary>
     private float speedMS;
-
     /// <summary>
     /// 移動目標地点がNullのときに呼ばれる
     /// </summary>
     public event Action<NomalCar> OnRoadIsNull;
-
     /// <summary>
     /// 現在いる箇所のロードチップ
     /// </summary>
     public RoadChip CurrentRoadChip => currentRoadChip;
-
-    public int Lane => lane;
-
     public int CurrentLane => lane;
-
     public float SpeedMS => speedMS;
+
+    public void GetDamage(float damage)
+    {
+        Death();
+    }
+
+    private void Death()
+    {
+        Debug.Log("死");
+    }
 
     /// <summary>
     /// 生成時の初期設定を行う
@@ -57,6 +53,9 @@ public class NomalCar : MonoBehaviour, ICar
         Transform spawn = currentRoadChip.GetLanePos(lane);
         this.transform.position = spawn.position;
         this.transform.rotation = spawn.rotation;
+
+        //タグ設定
+        KMath.SetTag(gameObject, "NPC");
     }
 
     /// <summary>

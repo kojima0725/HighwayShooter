@@ -16,6 +16,8 @@ public class PlayerGun : MonoBehaviour
     int rpm;
     [SerializeField]
     float length;
+    [SerializeField]
+    float power;
 
     RectTransform reticleTransform;
     float interval;
@@ -117,7 +119,20 @@ public class PlayerGun : MonoBehaviour
         RaycastHit hit;
         if (ShootRay(out hit))
         {
-            Debug.Log("どんどんどん！");
+            if (hit.transform.tag == "Enemy")
+            {
+                Transform enemyTransform = KMath.GetRoot(hit.transform, "Enemy");
+                EnemyCar enemy = enemyTransform.GetComponent<EnemyCar>();
+                enemy?.GetDamage(power);
+                Debug.Log("敵！");
+            }
+            else if (hit.transform.tag == "NPC")
+            {
+                Transform npcTransform = KMath.GetRoot(hit.transform, "NPC");
+                NomalCar npc = npcTransform.GetComponent<NomalCar>();
+                npc?.GetDamage(power);
+                Debug.Log("NPC！");
+            }
         }
     }
 
