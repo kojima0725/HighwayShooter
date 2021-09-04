@@ -60,12 +60,27 @@ public static class KMath
     /// 子のすべてのレイヤーを変える
     /// </summary>
     /// <param name="obj">変えるオブジェ</param>
+    /// <param name="setLayer">設定するレイヤー</param>
     public static void SetLayer(GameObject obj, int setLayer)
     {
         obj.layer = setLayer;
         foreach (Transform transform in obj.transform)
         {
             SetLayer(transform.gameObject, setLayer);
+        }
+    }
+
+    /// <summary>
+    /// 子のすべてのタグを変える
+    /// </summary>
+    /// <param name="obj">変えるオブジェ</param>
+    /// <param name="setTag">設定するタグ</param>
+    public static void SetTag(GameObject obj, string setTag)
+    {
+        obj.tag = setTag;
+        foreach (Transform transform in obj.transform)
+        {
+            SetTag(transform.gameObject, setTag);
         }
     }
 
