@@ -95,6 +95,7 @@ public class PlayerCarMover : MonoBehaviour
         Vector3 roll = body.transform.localEulerAngles;
         float y = driver.HandleInput * PlayerDataBase.PlayerCarData.RollSensitivity * Time.deltaTime;
         roll.y += y;
+        roll.z = y / Time.deltaTime * 0.1f;
         body.transform.localEulerAngles = roll;
         GurdrailHit hit;
         if (y < 0 && RoadManager.current.GurdrailHitCheck(true, MakeLine(leftFront, leftBack), out hit))
@@ -105,6 +106,10 @@ public class PlayerCarMover : MonoBehaviour
         {
             body.transform.rotation = old;
         }
+
+        Vector3 pos = body.transform.position;
+        pos.y = 0;
+        body.transform.position = pos;
     }
 
     /// <summary>
