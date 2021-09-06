@@ -718,6 +718,7 @@ GameObject:
   - component: {fileID: 1383892037}
   - component: {fileID: 1383892038}
   - component: {fileID: 1383892039}
+  - component: {fileID: 1383892040}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -826,6 +827,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapChipPrefab: {fileID: -5628979076728986424, guid: 92db8c203405b8b4bae2b149e8d2adb4,
     type: 3}
+--- !u!65 &1383892040
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383892032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 200, y: 1, z: 200}
+  m_Center: {x: 0, y: -0.55, z: 0}
 --- !u!1 &1525640203
 GameObject:
   m_ObjectHideFlags: 0

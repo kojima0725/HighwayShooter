@@ -20,12 +20,19 @@ public class NomalCar : NCar, ICar
     /// 移動目標地点がNullのときに呼ばれる
     /// </summary>
     public event Action<NomalCar> OnRoadIsNull;
+    public event Action<NomalCar> OnDead;
     /// <summary>
     /// 現在いる箇所のロードチップ
     /// </summary>
     public RoadChip CurrentRoadChip => currentRoadChip;
     public int CurrentLane => lane;
     public float SpeedMS => speedMS;
+
+    protected override void Death()
+    {
+        base.Death();
+        OnDead(this);
+    }
 
     /// <summary>
     /// 生成時の初期設定を行う

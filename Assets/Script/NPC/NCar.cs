@@ -5,9 +5,13 @@ using UnityEngine;
 public class NCar : MonoBehaviour
 {
     protected float hp;
-
+    protected bool dead;
     public void GetDamage(float damage)
     {
+        if (dead)
+        {
+            return;
+        }
         hp -= damage;
         if (hp < 0)
         {
@@ -17,5 +21,6 @@ public class NCar : MonoBehaviour
 
     protected virtual void Death()
     {
+        dead = true;
     }
 }

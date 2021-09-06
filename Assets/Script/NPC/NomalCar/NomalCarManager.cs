@@ -187,6 +187,7 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
             cars.Add(maked);
         }
         maked.OnRoadIsNull += DestroyBooking;
+        maked.OnDead += RemoveDeadCar;
         maked.transform.parent = nomalCarContainer;
         return maked;
     }
@@ -198,6 +199,11 @@ public class NomalCarManager : MonoBehaviour, ICanGetTransforms
     private void DestroyBooking(NomalCar car)
     {
         destroyBookingCars.Add(car);
+    }
+
+    private void RemoveDeadCar(NomalCar car)
+    {
+        cars.Remove(car);
     }
 
     /// <summary>
