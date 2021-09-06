@@ -859,6 +859,7 @@ MonoBehaviour:
   reticleSpeed: 1
   rpm: 800
   length: 100
+  power: 1
   debugTxt: {fileID: 1767400409}
 --- !u!4 &1525640205
 Transform:
