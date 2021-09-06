@@ -12,8 +12,12 @@ public class EnemyCarData : ScriptableObject
     private EnemyCar carPrefab;
     [SerializeField]
     private EnemyCarMovementData movementData;
+    [SerializeField]
+    private float hp;
 
     public EnemyCarMovementData MovementData => movementData;
+
+    public float HP => hp;
 
     /// <summary>
     /// 車を生成する

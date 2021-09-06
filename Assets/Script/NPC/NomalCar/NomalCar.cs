@@ -15,6 +15,8 @@ public class NomalCar : MonoBehaviour, ICar
     private RoadChip currentRoadChip;
     private int lane;
     private float speedMS;
+    private NomalCarData myData;
+    private float hp;
     /// <summary>
     /// 移動目標地点がNullのときに呼ばれる
     /// </summary>
@@ -28,7 +30,11 @@ public class NomalCar : MonoBehaviour, ICar
 
     public void GetDamage(float damage)
     {
-        Death();
+        hp -= damage;
+        if (hp < 0)
+        {
+            Death();
+        }
     }
 
     private void Death()
@@ -48,6 +54,7 @@ public class NomalCar : MonoBehaviour, ICar
         currentRoadChip = spawnPoint;
         this.lane = lane;
         this.speedMS = speedMS;
+        hp = myData.HP;
 
         //車をスポーン位置に移動
         Transform spawn = currentRoadChip.GetLanePos(lane);
@@ -56,6 +63,11 @@ public class NomalCar : MonoBehaviour, ICar
 
         //タグ設定
         KMath.SetTag(gameObject, "NPC");
+    }
+
+    public void SetData(NomalCarData data)
+    {
+        myData = data;
     }
 
     /// <summary>

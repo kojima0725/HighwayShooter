@@ -20,6 +20,7 @@ public class EnemyCar : MonoBehaviour , ICar
     [SerializeField]
     private EnemyCarBody body;
     private EnemyCar stayTarget;
+    private float hp;
 
     public bool debug;
     public int CurrentLane => body.CurrentLane;
@@ -32,6 +33,7 @@ public class EnemyCar : MonoBehaviour , ICar
     public EnemyCarData CarData => myData;
     public EnemyCar StayTarget { get => stayTarget; set => stayTarget = value; }
 
+
     /// <summary>
     /// 生成時の初期設定を行う
     /// </summary>
@@ -42,6 +44,7 @@ public class EnemyCar : MonoBehaviour , ICar
         //各種ステータスを設定
         currentRoadChip = spawnPoint;
         this.speedMS = speedMS;
+        hp = myData.HP;
 
         //車をスポーン位置に移動
         Transform spawn = currentRoadChip.End;
@@ -57,7 +60,11 @@ public class EnemyCar : MonoBehaviour , ICar
 
     public void GetDamage(float damage)
     {
-        Death();
+        hp -= damage;
+        if (hp < 0)
+        {
+            Death();
+        }
     }
 
     private void Death()
@@ -76,8 +83,7 @@ public class EnemyCar : MonoBehaviour , ICar
         ChangeSpeed();
         MoveBase(hasDistance, distance, back);
         float lr = body.MoveBodyUpdate();
-        Vector3 direction = Vector3.forward * speedMS * Time.deltaTime + Vector3.right * lr * 2;
-        body.transform.localRotation = Quaternion.LookRotation(direction);
+        ChangeBodyRotation(lr);
     }
 
     /// <summary>
@@ -259,5 +265,13 @@ public class EnemyCar : MonoBehaviour , ICar
         {
             this.transform.rotation = currentRoadChip.End.rotation;
         }
+    }
+
+    private void ChangeBodyRotation(float lr)
+    {
+        Vector3 direction = Vector3.forward * speedMS * Time.deltaTime + Vector3.right * lr * 2;
+        Quaternion rotate = Quaternion.LookRotation(direction);
+        rotate = rotate * Quaternion.AngleAxis(body.Handle * 0.25f, Vector3.forward);
+        body.transform.localRotation = rotate;
     }
 }

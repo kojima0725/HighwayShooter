@@ -11,6 +11,10 @@ public class NomalCarData : ScriptableObject
 {
     [SerializeField]
     private NomalCar carPrefab;
+    [SerializeField]
+    private float hp;
+
+    public float HP => hp;
 
     /// <summary>
     /// 車を生成する
@@ -19,6 +23,7 @@ public class NomalCarData : ScriptableObject
     public NomalCar GeneratePlayerCar()
     {
         NomalCar maked = Instantiate(carPrefab);
+        maked.SetData(this);
         return maked;
     }
 }

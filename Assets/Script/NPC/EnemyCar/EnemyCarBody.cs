@@ -26,6 +26,7 @@ public class EnemyCarBody : MonoBehaviour
     private int[] hitRisk;
 
     public int CurrentLane => currentLane;
+    public float Handle => handle;
 
     public void Init(EnemyCar car)
     {
