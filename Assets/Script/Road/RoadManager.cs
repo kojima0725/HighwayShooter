@@ -59,26 +59,17 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     /// <returns></returns>
     public RoadChip GetPlayerRoadChip()
     {
-        RoadChip min = null;
-        float minMag = 0;
+        RoadChip min = roadChips.First();
+        float minMag = min.transform.position.sqrMagnitude;
         foreach (var item in roadChips)
         {
-            if (min is null)
+            float mag = item.transform.position.sqrMagnitude;
+            if (mag < minMag)
             {
                 min = item;
-                minMag = item.transform.position.sqrMagnitude;
-            }
-            else
-            {
-                float mag = item.transform.position.sqrMagnitude;
-                if (mag < minMag)
-                {
-                    min = item;
-                    minMag = mag;
-                }
+                minMag = mag;
             }
         }
-
         return min;
     }
 

@@ -7,7 +7,7 @@ using System;
 /// <summary>
 /// 一般車
 /// </summary>
-public class NomalCar : MonoBehaviour, ICar
+public class NomalCar : NCar, ICar
 {
     /// <summary>
     /// 現在いる箇所のロードチップ
@@ -16,7 +16,6 @@ public class NomalCar : MonoBehaviour, ICar
     private int lane;
     private float speedMS;
     private NomalCarData myData;
-    private float hp;
     /// <summary>
     /// 移動目標地点がNullのときに呼ばれる
     /// </summary>
@@ -27,20 +26,6 @@ public class NomalCar : MonoBehaviour, ICar
     public RoadChip CurrentRoadChip => currentRoadChip;
     public int CurrentLane => lane;
     public float SpeedMS => speedMS;
-
-    public void GetDamage(float damage)
-    {
-        hp -= damage;
-        if (hp < 0)
-        {
-            Death();
-        }
-    }
-
-    private void Death()
-    {
-        Debug.Log("死");
-    }
 
     /// <summary>
     /// 生成時の初期設定を行う

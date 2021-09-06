@@ -7,7 +7,7 @@ using System;
 /// <summary>
 /// 敵の車
 /// </summary>
-public class EnemyCar : MonoBehaviour , ICar
+public class EnemyCar : NCar , ICar
 {
     /// <summary>
     /// 移動先がNullのときに呼ばれる
@@ -20,7 +20,6 @@ public class EnemyCar : MonoBehaviour , ICar
     [SerializeField]
     private EnemyCarBody body;
     private EnemyCar stayTarget;
-    private float hp;
 
     public bool debug;
     public int CurrentLane => body.CurrentLane;
@@ -56,20 +55,6 @@ public class EnemyCar : MonoBehaviour , ICar
 
         //タグ設定
         KMath.SetTag(gameObject, "Enemy");
-    }
-
-    public void GetDamage(float damage)
-    {
-        hp -= damage;
-        if (hp < 0)
-        {
-            Death();
-        }
-    }
-
-    private void Death()
-    {
-        Debug.Log("死");
     }
 
     /// <summary>
