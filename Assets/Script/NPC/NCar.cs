@@ -15,8 +15,7 @@ public class NCar : MonoBehaviour
         }
     }
 
-    private void Death()
+    protected virtual void Death()
     {
-        Debug.Log("死");
     }
 }
