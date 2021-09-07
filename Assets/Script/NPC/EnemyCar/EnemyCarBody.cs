@@ -36,6 +36,7 @@ public class EnemyCarBody : MonoBehaviour
         Rigidbody body = GetComponent<Rigidbody>();
         body.useGravity = true;
         body.constraints = RigidbodyConstraints.None;
+        body.drag = 0.5f;
         body.velocity = move;
         body.AddTorque(rotate * 0.1f, ForceMode.VelocityChange);
     }
