@@ -22,7 +22,6 @@ public class EnemyCar : NCar , ICar
     private EnemyCarBody body;
     private EnemyCar stayTarget;
     private Vector3 deadSpeed;
-    private Quaternion deadRotate;
     private bool deadFirstFrame;
 
     public bool debug;
@@ -45,7 +44,7 @@ public class EnemyCar : NCar , ICar
             this.transform.parent = currentRoadChip.transform;
         }
         deadSpeed = body.transform.forward * speedMS + Vector3.up * Random.Range(2.0f, 10.0f);
-        deadRotate = Random.rotation;
+        body.DeadPush(deadSpeed,deadSpeed);
     }
 
     private void Update()
@@ -59,20 +58,6 @@ public class EnemyCar : NCar , ICar
             deadFirstFrame = true;
             return;
         }
-        body.transform.position += deadSpeed * Time.deltaTime;
-        body.transform.rotation *= deadRotate;
-        Vector2 deadXZ = deadSpeed.ToVector2XZ();
-        deadXZ -= deadXZ * 0.5f * Time.deltaTime;
-        float deadY = deadSpeed.y - 9.8f * Time.deltaTime;
-        if (body.transform.position.y < 0.05f)
-        {
-            deadY = Mathf.Abs(deadY) * Random.Range(0.2f, 2.0f);
-            deadXZ *= Random.Range(0.8f, 0.95f);
-            Vector3 pos = body.transform.position;
-            pos.y = 0.1f;
-            body.transform.position = pos;
-        }
-        deadSpeed = new Vector3(deadXZ.x, deadY, deadXZ.y);
     }
 
     /// <summary>

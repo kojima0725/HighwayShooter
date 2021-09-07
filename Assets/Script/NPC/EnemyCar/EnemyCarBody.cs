@@ -11,13 +11,9 @@ using System.Linq;
 public class EnemyCarBody : MonoBehaviour
 { 
     private EnemyCar parent;
-
     private int targetLane;
-
     private int currentLane;
-
     private int sarchChipCount;
-
     private float handle;
 
     /// <summary>
@@ -32,6 +28,14 @@ public class EnemyCarBody : MonoBehaviour
     {
         parent = car;
         MakeData();
+    }
+
+    public void DeadPush(Vector3 move, Vector3 rotate)
+    {
+        GetComponent<Collider>().isTrigger = false;
+        Rigidbody body = GetComponent<Rigidbody>();
+        body.velocity = move;
+        body.AddTorque(rotate * 0.1f, ForceMode.VelocityChange);
     }
 
     /// <summary>
