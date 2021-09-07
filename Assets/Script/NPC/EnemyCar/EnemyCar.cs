@@ -92,6 +92,10 @@ public class EnemyCar : NCar , ICar
     /// <param name="back">バックするか</param>
     public void Move(bool hasDistance = false, float distance = float.NaN, bool back = false)
     {
+        if (dead)
+        {
+            return;
+        }
         ChangeSpeed();
         MoveBase(hasDistance, distance, back);
         float lr = body.MoveBodyUpdate();

@@ -34,6 +34,8 @@ public class EnemyCarBody : MonoBehaviour
     {
         GetComponent<Collider>().isTrigger = false;
         Rigidbody body = GetComponent<Rigidbody>();
+        body.useGravity = true;
+        body.constraints = RigidbodyConstraints.None;
         body.velocity = move;
         body.AddTorque(rotate * 0.1f, ForceMode.VelocityChange);
     }

@@ -16,9 +16,3 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a617acf3e548ee943a0af90a2c45e7c6, type: 2}
   nomalCarList:
   - {fileID: 11400000, guid: a397d4f781886ec40b0b0837b326b24c, type: 2}
-  - {fileID: 11400000, guid: 1ed75e21b93f7f449828a2b3a0e87ab1, type: 2}
-  - {fileID: 11400000, guid: 30a21af151bb60f4cbe5180f846c2a63, type: 2}
-  - {fileID: 11400000, guid: 07a8155c950986349b582b602f2c66ec, type: 2}
-  - {fileID: 11400000, guid: 652d1ab6d157a8344a5273970afe5e36, type: 2}
-  - {fileID: 11400000, guid: 5c5aa797806fa3a4ab19c817bbc1b03b, type: 2}
-  - {fileID: 11400000, guid: 1deb76c87a92371499c238de6524d2c6, type: 2}
