@@ -8,5 +8,7 @@
 # このリポジトリをクローンする場合
 クローン後に
 「ARCADE: FREE Racing Car」https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085  
-「POLYGON City - Low Poly 3D Art by Synty」　https://assetstore.unity.com/packages/3d/environments/urban/polygon-city-low-poly-3d-art-by-synty-95214
+「POLYGON City - Low Poly 3D Art by Synty」　https://assetstore.unity.com/packages/3d/environments/urban/polygon-city-low-poly-3d-art-by-synty-95214  
+「Low Poly Cars」https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-cars-101798
+  
 をインポートしてください
