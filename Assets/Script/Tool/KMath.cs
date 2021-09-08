@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public static class KMath
 {
@@ -165,5 +166,10 @@ public static class KMath
     public static Vector3 ToVector3XZ(this Vector2 vector)
     {
         return new Vector3(vector.x, 0, vector.y);
+    }
+
+    public static Vector3 RandomVector(float min, float max)
+    {
+        return new Vector3(Random.Range(min, max), Random.Range(min, max), Random.Range(min, max));
     }
 }

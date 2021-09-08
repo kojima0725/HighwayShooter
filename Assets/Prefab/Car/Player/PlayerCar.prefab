@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1097483485874695263}
+  - component: {fileID: 5677843348293427511}
   - component: {fileID: 1097483485873925247}
   - component: {fileID: 1097483485872795327}
   - component: {fileID: 6822259714783559462}
@@ -38,6 +39,19 @@ Transform:
   m_Father: {fileID: 1823321953882841898}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5677843348293427511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097483485874794623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29193ec5318b20145ac3111975b50f91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 1821322120126751203}
 --- !u!33 &1097483485873925247
 MeshFilter:
   m_ObjectHideFlags: 0

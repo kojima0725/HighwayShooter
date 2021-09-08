@@ -14,9 +14,7 @@ public class NomalCarBody : MonoBehaviour
         body.constraints = RigidbodyConstraints.None;
         body.drag = 0.5f;
         body.velocity = move;
-        Vector3 rotate = new Vector3(Random10, Random10, Random10);
+        Vector3 rotate = KMath.RandomVector(-7.0f, 7.0f);
         body.AddTorque(rotate, ForceMode.VelocityChange);
     }
-
-    private float Random10 => Random.Range(-5.0f, 5.0f);
 }

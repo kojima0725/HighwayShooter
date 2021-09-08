@@ -37,7 +37,7 @@ public class EnemyCarBody : MonoBehaviour
         body.constraints = RigidbodyConstraints.None;
         body.drag = 0.5f;
         body.velocity = move;
-        body.AddTorque(rotate * 0.1f, ForceMode.VelocityChange);
+        body.AddTorque(KMath.RandomVector(-7.0f, 7.0f), ForceMode.VelocityChange);
     }
 
     /// <summary>
