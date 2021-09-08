@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using Random = UnityEngine.Random;
 
 /// <summary>
 /// 一般車
 /// </summary>
 public class NomalCar : NCar, ICar
 {
+    [SerializeField]
+    private NomalCarBody body;
+
     /// <summary>
     /// 現在いる箇所のロードチップ
     /// </summary>
@@ -16,6 +19,8 @@ public class NomalCar : NCar, ICar
     private int lane;
     private float speedMS;
     private NomalCarData myData;
+    private bool hited;
+    private Vector3 hitPower;
     /// <summary>
     /// 移動目標地点がNullのときに呼ばれる
     /// </summary>
@@ -32,7 +37,23 @@ public class NomalCar : NCar, ICar
     {
         base.Death();
         OnDead(this);
+        if (currentRoadChip)
+        {
+            this.transform.parent = currentRoadChip.transform;
+        }
+        Vector3 deadSpeed = hited ? hitPower : body.transform.forward * speedMS;
+        deadSpeed.y += Random.Range(2.0f, 10.0f);
+        body.DeadPush(deadSpeed);
     }
+
+    public void OnHit(Vector3 move)
+    {
+        hited = true;
+        hitPower = move;
+        Death();
+    }
+
+    
 
     /// <summary>
     /// 生成時の初期設定を行う

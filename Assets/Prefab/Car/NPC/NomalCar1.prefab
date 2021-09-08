@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b703dd0ba45f8b141baba529c75d46ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  body: {fileID: 2257103730035143135}
 --- !u!1 &2915093056546178116
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2915093056549932810}
+  - component: {fileID: 2257103730035143135}
   - component: {fileID: 2915093056549932814}
   - component: {fileID: 2915093056549932815}
   - component: {fileID: 8854959219172354457}
@@ -271,6 +273,19 @@ Transform:
   m_Father: {fileID: 2915093056513027540}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2257103730035143135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2915093056549932811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e92a25899dd8b954db25416c02c55224, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 2915093056513027541}
 --- !u!33 &2915093056549932814
 MeshFilter:
   m_ObjectHideFlags: 0

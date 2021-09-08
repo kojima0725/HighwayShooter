@@ -32,7 +32,6 @@ public class EnemyCarBody : MonoBehaviour
 
     public void DeadPush(Vector3 move, Vector3 rotate)
     {
-        GetComponent<Collider>().isTrigger = false;
         Rigidbody body = GetComponent<Rigidbody>();
         body.useGravity = true;
         body.constraints = RigidbodyConstraints.None;
