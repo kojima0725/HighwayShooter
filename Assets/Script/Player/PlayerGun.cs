@@ -138,7 +138,9 @@ public class PlayerGun : MonoBehaviour
 
     private bool ShootRay(out RaycastHit hit)
     {
+        Debug.Log("shoot!");
         Ray ray = Camera.main.ScreenPointToRay(reticleTransform.position);
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * length, Color.red);
         return Physics.Raycast(ray, out hit, length);
     }
 }

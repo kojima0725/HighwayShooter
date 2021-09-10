@@ -16,3 +16,8 @@ MonoBehaviour:
     type: 3}
   movementData: {fileID: 11400000, guid: f32c032ab4ee77547a6395c944840c22, type: 2}
   hp: 4
+  gunRange: 100
+  gunAccurate: 10
+  gunRPM: 800
+  gunShootInterval: 1.5
+  gunShootAtOnce: 5

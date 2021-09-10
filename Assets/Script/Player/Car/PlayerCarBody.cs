@@ -20,7 +20,6 @@ public class PlayerCarBody : MonoBehaviour
                 move.y += Random.Range(1.0f, 4.0f);
                 npc.OnHit(move);
             }
-            Debug.Log("NPC！");
         }
     }
 }
