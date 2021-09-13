@@ -11,13 +11,18 @@ public class EnemyGun : MonoBehaviour
     private EnemyCar car;
 
     private EnemyCarData data;
-
     private float IntervalTimer;
+    private GameObject muzzleFlash;
 
     private void Start()
     {
         data = car.CarData;
         IntervalTimer = FIRST_INTERVAL;
+        muzzleFlash = EfectManager.instance.MakeMuzzleFlash();
+        muzzleFlash.transform.parent = gunFrom;
+        muzzleFlash.transform.localPosition = Vector3.zero;
+        muzzleFlash.transform.localRotation = Quaternion.identity;
+        muzzleFlash.SetActive(false);
     }
 
     private void Update()
@@ -32,11 +37,13 @@ public class EnemyGun : MonoBehaviour
 
     private IEnumerator ShootGun()
     {
+        muzzleFlash.SetActive(true);
         for (int i = 0; i < data.GunShooAtOnce; i++)
         {
             Shoot();
             yield return new WaitForSeconds(data.GunSpeed);
         }
+        muzzleFlash.SetActive(false);
     }
 
     private void Shoot()
@@ -51,10 +58,24 @@ public class EnemyGun : MonoBehaviour
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * data.GunRange, Color.white);
         if (Physics.Raycast(ray, out hit, data.GunRange))
         {
+            GameObject hitEfect;
             if (hit.transform.tag == "Player")
             {
                 Debug.Log("playerHit");
+                hitEfect = EfectManager.instance.MakeBulletInpactCar();
             }
+            else
+            {
+                hitEfect = EfectManager.instance.MakeBulletInpactRoad();
+            }
+
+            if (hitEfect)
+            {
+                hitEfect.transform.parent = hit.transform;
+                hitEfect.transform.position = hit.point;
+                hitEfect.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
+
         }
     }
 

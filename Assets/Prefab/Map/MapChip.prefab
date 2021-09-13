@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -5628979076728986424}
   - component: {fileID: 5169525490642892542}
   - component: {fileID: 8110928353414581669}
+  - component: {fileID: 1068837570526881921}
   m_Layer: 0
   m_Name: MapChip
   m_TagString: Untagged
@@ -46,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshFilter: {fileID: 5169525490642892542}
+  meshCollider: {fileID: 1068837570526881921}
 --- !u!33 &5169525490642892542
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -93,3 +95,17 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &1068837570526881921
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2267017299692905243}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 0
+  m_Mesh: {fileID: 0}

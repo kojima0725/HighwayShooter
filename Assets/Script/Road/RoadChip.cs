@@ -12,6 +12,8 @@ public class RoadChip : MonoBehaviour
     private Transform end;
     [SerializeField]
     private MeshFilter meshFilter;
+    [SerializeField]
+    private MeshCollider meshCollider;
     private Transform[] lanes;
     private Transform center;
     private RoadChip nextChip = null;
@@ -189,6 +191,7 @@ public class RoadChip : MonoBehaviour
         mesh.RecalculateNormals();
 
         meshFilter.mesh = mesh;
+        meshCollider.sharedMesh = mesh;
     }
 
     /// <summary>

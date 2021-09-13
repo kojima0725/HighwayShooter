@@ -7,6 +7,8 @@ public class MapChip : MonoBehaviour
 {
     [SerializeField]
     MeshFilter meshFilter;
+    [SerializeField]
+    MeshCollider meshCollider;
 
     float width;
     int split;
@@ -136,6 +138,7 @@ public class MapChip : MonoBehaviour
         mesh.RecalculateNormals();
 
         meshFilter.mesh = mesh;
+        meshCollider.sharedMesh = mesh;
 
         //チップの端の位置情報を作る
         end = new GameObject("end").transform;
