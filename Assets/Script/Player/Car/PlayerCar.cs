@@ -18,6 +18,8 @@ public class PlayerCar : MonoBehaviour
 
     [SerializeField]
     PlayerCarMover mover;
+    [SerializeField]
+    WindZone windZone;
 
     public float SpeedMS => KMath.KmHToMS(mover.Speed);
 
@@ -32,5 +34,6 @@ public class PlayerCar : MonoBehaviour
     private void Update()
     {
         mover.MoveUpdate();
+        windZone.windMain = SpeedMS;
     }
 }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 
 
-public class EfectManager : MonoBehaviour
+public class EffectManager : MonoBehaviour
 {
-    public static EfectManager instance;
+    public static EffectManager instance;
 
     private void Awake()
     {
@@ -35,11 +35,25 @@ public class EfectManager : MonoBehaviour
         return Instantiate(bulletInpactCar);
     }
 
+    [SerializeField]
+    GameObject boom;
+    public GameObject MakeBoom()
+    {
+        return Instantiate(boom);
+    }
+
 
     [SerializeField]
     GameObject muzzleFlash;
     public GameObject MakeMuzzleFlash()
     {
         return Instantiate(muzzleFlash);
+    }
+
+    [SerializeField]
+    GameObject smoke;
+    public GameObject MakeSmoke()
+    {
+        return Instantiate(smoke);
     }
 }

@@ -119,12 +119,14 @@ public class PlayerGun : MonoBehaviour
         RaycastHit hit;
         if (ShootRay(out hit))
         {
+            GameObject hitEffect;
             if (hit.transform.tag == "Enemy")
             {
                 Transform enemyTransform = KMath.GetRoot(hit.transform, "Enemy");
                 EnemyCar enemy = enemyTransform.GetComponent<EnemyCar>();
                 enemy?.GetDamage(power);
                 Debug.Log("敵！");
+                hitEffect = EffectManager.instance.MakeBulletInpactCar();
             }
             else if (hit.transform.tag == "NPC")
             {
@@ -132,7 +134,21 @@ public class PlayerGun : MonoBehaviour
                 NomalCar npc = npcTransform.GetComponent<NomalCar>();
                 npc?.GetDamage(power);
                 Debug.Log("NPC！");
+                hitEffect = EffectManager.instance.MakeBulletInpactCar();
             }
+            else
+            {
+                hitEffect = EffectManager.instance.MakeBulletInpactRoad();
+            }
+
+            if (hitEffect)
+            {
+                hitEffect.transform.localScale *= 2;
+                hitEffect.transform.parent = hit.transform;
+                hitEffect.transform.position = hit.point;
+                hitEffect.transform.rotation = Quaternion.LookRotation(hit.normal);
+            }
+            
         }
     }
 

@@ -45,4 +45,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletInpactRoad: {fileID: 100002, guid: 99c73c92ac40473459640b165473206f, type: 3}
   bulletInpactCar: {fileID: 100002, guid: 00fedc70b62a31e448e8ccc298257b56, type: 3}
+  boom: {fileID: 100010, guid: 6dfb06215a4a6e44e832806d9fd2492c, type: 3}
   muzzleFlash: {fileID: 100006, guid: c888f0c922d622147bbdbe2ca794142b, type: 3}
+  smoke: {fileID: 100000, guid: b3ba3671aa160f54f8820f4e5d33ae2c, type: 3}

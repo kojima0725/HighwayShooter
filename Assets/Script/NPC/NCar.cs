@@ -6,6 +6,7 @@ public class NCar : MonoBehaviour
 {
     protected float hp;
     protected bool dead;
+    protected RoadChip currentRoadChip;
     public void GetDamage(float damage)
     {
         if (dead)

@@ -12,10 +12,6 @@ public class NomalCar : NCar, ICar
     [SerializeField]
     private NomalCarBody body;
 
-    /// <summary>
-    /// 現在いる箇所のロードチップ
-    /// </summary>
-    private RoadChip currentRoadChip;
     private int lane;
     private float speedMS;
     private NomalCarData myData;
@@ -44,6 +40,17 @@ public class NomalCar : NCar, ICar
         Vector3 deadSpeed = hited ? hitPower : body.transform.forward * speedMS;
         deadSpeed.y += Random.Range(2.0f, 10.0f);
         body.DeadPush(deadSpeed);
+
+        //エフェクト再生
+        if (currentRoadChip)
+        {
+            GameObject boom = EffectManager.instance.MakeBoom();
+            boom.transform.parent = currentRoadChip.transform;
+            boom.transform.position = body.transform.position;
+            GameObject smoke = EffectManager.instance.MakeSmoke();
+            smoke.transform.parent = body.transform;
+            smoke.transform.localPosition = Vector3.zero;
+        }
     }
 
     public void OnHit(Vector3 move)

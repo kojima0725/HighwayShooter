@@ -15,7 +15,6 @@ public class EnemyCar : NCar , ICar
     public event Action<EnemyCar> OnRoadIsNull;
     public event Action<EnemyCar> OnDead;
 
-    private RoadChip currentRoadChip;
     private float speedMS;
     private EnemyCarData myData;
     [SerializeField]
@@ -45,6 +44,17 @@ public class EnemyCar : NCar , ICar
         }
         deadSpeed = body.transform.forward * speedMS + Vector3.up * Random.Range(2.0f, 10.0f);
         body.DeadPush(deadSpeed,deadSpeed);
+
+        //エフェクト再生
+        if (currentRoadChip)
+        {
+            GameObject boom = EffectManager.instance.MakeBoom();
+            boom.transform.parent = currentRoadChip.transform;
+            boom.transform.position = body.transform.position;
+            GameObject smoke = EffectManager.instance.MakeSmoke();
+            smoke.transform.parent = body.transform;
+            smoke.transform.localPosition = Vector3.zero;
+        }
     }
 
     private void Update()

@@ -18,7 +18,7 @@ public class EnemyGun : MonoBehaviour
     {
         data = car.CarData;
         IntervalTimer = FIRST_INTERVAL;
-        muzzleFlash = EfectManager.instance.MakeMuzzleFlash();
+        muzzleFlash = EffectManager.instance.MakeMuzzleFlash();
         muzzleFlash.transform.parent = gunFrom;
         muzzleFlash.transform.localPosition = Vector3.zero;
         muzzleFlash.transform.localRotation = Quaternion.identity;
@@ -62,11 +62,11 @@ public class EnemyGun : MonoBehaviour
             if (hit.transform.tag == "Player")
             {
                 Debug.Log("playerHit");
-                hitEfect = EfectManager.instance.MakeBulletInpactCar();
+                hitEfect = EffectManager.instance.MakeBulletInpactCar();
             }
             else
             {
-                hitEfect = EfectManager.instance.MakeBulletInpactRoad();
+                hitEfect = EffectManager.instance.MakeBulletInpactRoad();
             }
 
             if (hitEfect)
