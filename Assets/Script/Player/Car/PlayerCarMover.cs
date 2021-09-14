@@ -82,7 +82,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void DataUpdate()
     {
-        
+        //処理なし
     }
 
 
@@ -91,25 +91,26 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void RollBody()
     {
-        Quaternion old = body.transform.rotation;
-        Vector3 roll = body.transform.localEulerAngles;
+        Quaternion old = transform.rotation;
+        Vector3 roll = transform.localEulerAngles;
         float y = driver.HandleInput * PlayerDataBase.PlayerCarData.RollSensitivity * Time.deltaTime;
         roll.y += y;
-        roll.z = y / Time.deltaTime * 0.1f;
-        body.transform.localEulerAngles = roll;
+        float rollZ = y / Time.deltaTime * 0.1f;
+        body.transform.localEulerAngles = new Vector3(0, 0, rollZ);
+        transform.localEulerAngles = roll;
         GurdrailHit hit;
         if (y < 0 && RoadManager.current.GurdrailHitCheck(true, MakeLine(leftFront, leftBack), out hit))
         {
-            body.transform.rotation = old;
+            transform.rotation = old;
         }
         else if (y > 0 && RoadManager.current.GurdrailHitCheck(true, MakeLine(rightFront, rightBack), out hit))
         {
-            body.transform.rotation = old;
+            transform.rotation = old;
         }
 
-        Vector3 pos = body.transform.position;
+        Vector3 pos = transform.position;
         pos.y = 0;
-        body.transform.position = pos;
+        transform.position = pos;
     }
 
     /// <summary>
@@ -145,6 +146,7 @@ public class PlayerCarMover : MonoBehaviour
     private void SwipeCarAndWorld()
     {
         Vector3 swipe = -body.transform.localPosition;
+        swipe.y = 0;
         World.current?.SwipeWorld(swipe);
         body.transform.localPosition = Vector3.zero;
     }
@@ -154,7 +156,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void MoveCar()
     {
-        body.localPosition = body.forward * SpeedMS * Time.deltaTime;
+        body.localPosition = transform.forward * SpeedMS * Time.deltaTime;
         if (RoadManager.current)
         {
             GurdrailHit hit;
@@ -181,7 +183,7 @@ public class PlayerCarMover : MonoBehaviour
         {
             //車を一旦後ろ(ガードレールの中)に戻し、そこから戻した距離壁に沿って移動する
             body.position += new Vector3(hit.hitChip.GurdrailLeftNomal.x,0, hit.hitChip.GurdrailLeftNomal.y) * (-kyori + bodyHalfWidth);
-            body.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
+            transform.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
         }
         else
         {
@@ -196,7 +198,7 @@ public class PlayerCarMover : MonoBehaviour
                     Vector2 rollTo = -hit.hitChip.GurdrailLeftNomal * kyori + hit.hitLine.vector.normalized * nokori;
                     Vector2 from = CenterToLeftLine.vector;
                     Quaternion quaternion = Quaternion.FromToRotation(new Vector3(from.x, 0, from.y), new Vector3(rollTo.x, 0, rollTo.y));
-                    body.rotation *= quaternion;
+                    transform.rotation *= quaternion;
                     ZuriLeft(hit);
                 }
             }
@@ -215,7 +217,7 @@ public class PlayerCarMover : MonoBehaviour
         {
             //車を一旦後ろ(ガードレールの中)に戻し、そこから戻した距離壁に沿って移動する
             body.position += new Vector3(hit.hitChip.GurdrailRightNomal.x, 0, hit.hitChip.GurdrailRightNomal.y) * (-kyori + bodyHalfWidth);
-            body.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
+            transform.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
         }
         else
         {
@@ -230,7 +232,7 @@ public class PlayerCarMover : MonoBehaviour
                     Vector2 rollTo = -hit.hitChip.GurdrailRightNomal * kyori + hit.hitLine.vector.normalized * nokori;
                     Vector2 from = CenterToRightLine.vector;
                     Quaternion quaternion = Quaternion.FromToRotation(new Vector3(from.x, 0, from.y), new Vector3(rollTo.x, 0, rollTo.y));
-                    body.rotation *= quaternion;
+                    transform.rotation *= quaternion;
                     ZuriRight(hit);
                 }
             }
