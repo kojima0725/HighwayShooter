@@ -4,15 +4,50 @@ using UnityEngine;
 
 public class SoundEffectManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static SoundEffectManager instance;
+
+    private void Awake()
     {
-        
+        if (instance)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+            changeableSounds.Add(BGMAudioSource);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    AudioSource UIAudioSource;
+    [SerializeField]
+    AudioSource BGMAudioSource;
+    [SerializeField]
+    AudioSource EffectAudioSource;
+
+    readonly List<AudioSource> changeableSounds = new List<AudioSource>();
+
+    public void Join(AudioSource source)
     {
-        
+        changeableSounds.Add(source);
     }
+
+    public void Leave(AudioSource source)
+    {
+        changeableSounds.Remove(source);
+    }
+
+    public void SetSoundPitchToAll(float pitch)
+    {
+        foreach (var item in changeableSounds)
+        {
+            if (item)
+            {
+                item.pitch = pitch;
+            }
+        }
+    }
+
 }

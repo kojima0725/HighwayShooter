@@ -1214,5 +1214,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9003970513497628315, guid: 1b0e4fb6ab9289f47b37bffeff9c871e,
+        type: 3}
+      propertyPath: m_Name
+      value: UISound
+      objectReference: {fileID: 0}
+    - target: {fileID: 9003970513497628315, guid: 1b0e4fb6ab9289f47b37bffeff9c871e,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b0e4fb6ab9289f47b37bffeff9c871e, type: 3}
