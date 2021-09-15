@@ -20,6 +20,8 @@ public class PlayerCar : MonoBehaviour
     PlayerCarMover mover;
     [SerializeField]
     WindZone windZone;
+    [SerializeField]
+    Image speedGauge;
 
     public float SpeedMS => KMath.KmHToMS(mover.Speed);
 
@@ -35,5 +37,6 @@ public class PlayerCar : MonoBehaviour
     {
         mover.MoveUpdate();
         windZone.windMain = SpeedMS;
+        speedGauge.fillAmount = mover.Speed / PlayerDataBase.PlayerCarData.MaxSpeed;
     }
 }

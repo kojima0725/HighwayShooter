@@ -65,7 +65,6 @@ public class EnemyGun : MonoBehaviour
             GameObject hitEfect;
             if (hit.transform.tag == "Player")
             {
-                Debug.Log("playerHit");
                 hitEfect = EffectManager.instance.MakeBulletInpactCar();
             }
             else

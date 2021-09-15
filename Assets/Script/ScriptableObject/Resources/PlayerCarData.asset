@@ -15,8 +15,8 @@ MonoBehaviour:
   rollSensitivity: 45
   handleInputSensitivity: 5
   maxSpeed: 300
-  accelerationPower: 10
-  brakePower: 25
+  accelerationPower: 50
+  brakePower: 75
   firstSpeed: 200
   cameraRotateX: 15
   cameraRotateY: 5
