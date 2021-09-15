@@ -9,14 +9,14 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class ChangeableSound : MonoBehaviour
 {
-    AudioSource source;
-    private void Awake()
+    protected AudioSource source;
+    protected virtual void Awake()
     {
         source = GetComponent<AudioSource>();
         SoundEffectManager.instance?.Join(source);
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         SoundEffectManager.instance?.Leave(source);
     }

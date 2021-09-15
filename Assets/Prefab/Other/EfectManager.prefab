@@ -193,7 +193,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UIAudioSource: {fileID: 4753458076157895528}
   BGMAudioSource: {fileID: 4376896054168038469}
-  EffectAudioSource: {fileID: 0}
+  EffectAudioSource: {fileID: 613121700799306561}
+  ShootSoundPrefab: {fileID: 0}
 --- !u!1 &3996370313507863302
 GameObject:
   m_ObjectHideFlags: 0
