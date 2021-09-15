@@ -12,3 +12,9 @@
 「Low Poly Cars」https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-cars-101798
   
 をインポートしてください
+
+
+
+###使用した効果音
+https://soundeffect-lab.info/sound/battle/battle2.html  
+https://taira-komori.jpn.org/arms01.html
