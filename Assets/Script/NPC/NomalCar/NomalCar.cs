@@ -37,7 +37,7 @@ public class NomalCar : NCar, ICar
         {
             this.transform.parent = currentRoadChip.transform;
         }
-        Vector3 deadSpeed = hited ? hitPower : body.transform.forward * speedMS;
+        Vector3 deadSpeed = hited ? hitPower : transform.forward * speedMS;
         deadSpeed.y += Random.Range(2.0f, 10.0f);
         body.DeadPush(deadSpeed);
 
