@@ -138,6 +138,7 @@ GameObject:
   - component: {fileID: 4645822177156155281}
   - component: {fileID: 6746183469178938764}
   - component: {fileID: 5721537792191760656}
+  - component: {fileID: 4324434997218969473}
   m_Layer: 0
   m_Name: EfectManager
   m_TagString: Untagged
@@ -194,8 +195,21 @@ MonoBehaviour:
   UIAudioSource: {fileID: 4753458076157895528}
   BGMAudioSource: {fileID: 4376896054168038469}
   EffectAudioSource: {fileID: 613121700799306561}
+  pitch: 1
   playerShootSound: {fileID: 8300000, guid: 7405758ee197ef347ae8f135eb73847a, type: 3}
   playerShootSoundVolume: 0.025
+--- !u!114 &4324434997218969473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1508951589262054685}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2140fb96b2a6f8640859f12bca3ad5ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3996370313507863302
 GameObject:
   m_ObjectHideFlags: 0

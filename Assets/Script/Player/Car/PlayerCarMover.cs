@@ -31,6 +31,7 @@ public class PlayerCarMover : MonoBehaviour
     private float centerToLrSqrLength;
 
     private float speed;
+    private PlayerCarJumper jumper = new PlayerCarJumper();
 
     private float SpeedMS => KMath.KmHToMS(speed);
 
@@ -42,7 +43,7 @@ public class PlayerCarMover : MonoBehaviour
     private Vector2Line CenterToLeftLine => new Vector2Line(BodyPos, new Vector2(leftFront.position.x, leftFront.position.z));
     private Vector2Line CenterToRightLine => new Vector2Line(BodyPos, new Vector2(rightFront.position.x, rightFront.position.z));
 
-
+    
 
     private void Awake()
     {
@@ -75,6 +76,11 @@ public class PlayerCarMover : MonoBehaviour
         RollBody();
         //車の座標修正
         SwipeCarAndWorld();
+    }
+
+    public void Jump(float power)
+    {
+        jumper.Jump(power);
     }
 
     /// <summary>
@@ -146,7 +152,7 @@ public class PlayerCarMover : MonoBehaviour
     {
         Vector3 swipe = -body.transform.localPosition;
         World.current?.SwipeWorld(swipe);
-        body.transform.localPosition = Vector3.zero;
+        body.transform.localPosition = new Vector3(0, jumper.YPosUpdate(), 0);
     }
 
     /// <summary>
@@ -301,5 +307,33 @@ public class PlayerCarMover : MonoBehaviour
 
         bodyHalfWidth = rightFront.localPosition.x;
         centerToLrSqrLength = rightFront.transform.localPosition.sqrMagnitude;
+    }
+}
+
+public class PlayerCarJumper
+{
+    private float ySpeed;
+    private float yPos;
+    private bool jumping;
+
+    public void Jump(float power)
+    {
+        ySpeed = power;
+        jumping = true;
+    }
+
+    public float YPosUpdate()
+    {
+        if (jumping)
+        {
+            ySpeed -= 15f * Time.deltaTime;
+            yPos += ySpeed * Time.deltaTime;
+            if (yPos < 0)
+            {
+                yPos = 0;
+                jumping = false;
+            }
+        }
+        return yPos;
     }
 }

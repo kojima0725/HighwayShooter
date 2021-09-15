@@ -27,6 +27,11 @@ public class PlayerCar : MonoBehaviour
 
     public Transform Body => mover.Body;
 
+    public void Jump(float power)
+    {
+        mover.Jump(power);
+    }
+
     private void Awake()
     {
         current = this;

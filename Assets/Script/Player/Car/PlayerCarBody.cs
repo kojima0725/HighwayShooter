@@ -22,5 +22,10 @@ public class PlayerCarBody : MonoBehaviour
                 npc.OnHit(move);
             }
         }
+        if (collision.transform.tag == "Jumper")
+        {
+            car.Jump(10);
+            TimeManager.instance.SetTimeScale(0.25f, 0.7f);
+        }
     }
 }

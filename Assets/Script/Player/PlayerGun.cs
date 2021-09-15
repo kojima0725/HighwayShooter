@@ -136,6 +136,13 @@ public class PlayerGun : MonoBehaviour
                 npc?.GetDamage(power);
                 hitEffect = EffectManager.instance.MakeBulletInpactCar();
             }
+            else if (hit.transform.tag == "Jumper")
+            {
+                Transform npcTransform = KMath.GetRoot(hit.transform, "Jumper");
+                NomalCar npc = npcTransform.GetComponent<NomalCar>();
+                npc?.GetDamage(power);
+                hitEffect = EffectManager.instance.MakeBulletInpactCar();
+            }
             else
             {
                 hitEffect = EffectManager.instance.MakeBulletInpactRoad();
