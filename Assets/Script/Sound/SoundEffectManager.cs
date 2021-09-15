@@ -62,10 +62,12 @@ public class SoundEffectManager : MonoBehaviour
     #region SOUNDS
     [Header("各効果音")]
     [SerializeField]
-    AudioSource ShootSoundPrefab;
-    public AudioSource MakeShootSound()
+    AudioClip playerShootSound;
+    [SerializeField]
+    float playerShootSoundVolume;
+    public void PlayShootSound()
     {
-        return Instantiate(ShootSoundPrefab);
+        EffectAudioSource.PlayOneShot(playerShootSound, playerShootSoundVolume);
     }
     #endregion
 

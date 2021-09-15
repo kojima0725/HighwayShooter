@@ -127,7 +127,6 @@ public class PlayerGun : MonoBehaviour
                 Transform enemyTransform = KMath.GetRoot(hit.transform, "Enemy");
                 EnemyCar enemy = enemyTransform.GetComponent<EnemyCar>();
                 enemy?.GetDamage(power);
-                Debug.Log("敵！");
                 hitEffect = EffectManager.instance.MakeBulletInpactCar();
             }
             else if (hit.transform.tag == "NPC")
@@ -135,7 +134,6 @@ public class PlayerGun : MonoBehaviour
                 Transform npcTransform = KMath.GetRoot(hit.transform, "NPC");
                 NomalCar npc = npcTransform.GetComponent<NomalCar>();
                 npc?.GetDamage(power);
-                Debug.Log("NPC！");
                 hitEffect = EffectManager.instance.MakeBulletInpactCar();
             }
             else
@@ -152,11 +150,12 @@ public class PlayerGun : MonoBehaviour
             }
             
         }
+
+        SoundEffectManager.instance?.PlayShootSound();
     }
 
     private bool ShootRay(out RaycastHit hit)
     {
-        Debug.Log("shoot!");
         Ray ray = Camera.main.ScreenPointToRay(reticleTransform.position);
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * length, Color.red);
         return Physics.Raycast(ray, out hit, length);

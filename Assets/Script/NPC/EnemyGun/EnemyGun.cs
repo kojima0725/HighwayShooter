@@ -27,11 +27,15 @@ public class EnemyGun : MonoBehaviour
 
     private void Update()
     {
+        if (car.IsDead)
+        {
+            return;
+        }
         IntervalTimer -= Time.deltaTime;
         if (IntervalTimer < 0)
         {
             StartCoroutine(ShootGun());
-            IntervalTimer = data.GunShootInterval;
+            IntervalTimer = Random.Range(data.GunShootInterval, data.GunShootInterval + 4);
         }
     }
 
