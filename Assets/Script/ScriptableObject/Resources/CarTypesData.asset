@@ -17,3 +17,8 @@ MonoBehaviour:
   nomalCarList:
   - {fileID: 11400000, guid: a397d4f781886ec40b0b0837b326b24c, type: 2}
   - {fileID: 11400000, guid: a629dca77a7ae3a4991c6ea38018d322, type: 2}
+  - {fileID: 11400000, guid: cd4da3fba29043e4fa3722fd836d3c0f, type: 2}
+  - {fileID: 11400000, guid: 610c5b4dbfa816b4b87d2a56218348c2, type: 2}
+  - {fileID: 11400000, guid: 05f97144f87736e4eaf7edc192be734a, type: 2}
+  - {fileID: 11400000, guid: 6c7280b22ca3c5f469cd315eee5d8f96, type: 2}
+  - {fileID: 11400000, guid: b7f2c184b9fdf314d8eae21224714cf8, type: 2}

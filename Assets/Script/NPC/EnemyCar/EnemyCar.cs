@@ -56,7 +56,7 @@ public class EnemyCar : NCar , ICar
             smoke.transform.localPosition = Vector3.zero;
         }
         //スローモーション
-        TimeManager.instance.SetTimeScale(0.3f, 0.5f, 10);
+        TimeManager.instance.SetTimeScale(0.25f, 0.25f, 1000);
     }
 
     private void Update()

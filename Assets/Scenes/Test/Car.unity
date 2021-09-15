@@ -1440,6 +1440,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: EfectManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4376896054168038469, guid: 1b0e4fb6ab9289f47b37bffeff9c871e,
+        type: 3}
+      propertyPath: m_Volume
+      value: 0.035
+      objectReference: {fileID: 0}
+    - target: {fileID: 4376896054168038469, guid: 1b0e4fb6ab9289f47b37bffeff9c871e,
+        type: 3}
+      propertyPath: Loop
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4645822177156155281, guid: 1b0e4fb6ab9289f47b37bffeff9c871e,
         type: 3}
       propertyPath: m_LocalPosition.x

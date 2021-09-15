@@ -40,6 +40,11 @@ public class TimeManager : MonoBehaviour
         timeSpeedTarget = scale;
     }
 
+    public void SetTimeScaleForse(float scale)
+    {
+        timeSpeed = scale;
+    }
+
     private void Update()
     {
         if (isSrowDown)
