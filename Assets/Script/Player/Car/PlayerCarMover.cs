@@ -82,7 +82,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void DataUpdate()
     {
-
+        
     }
 
 
@@ -180,7 +180,7 @@ public class PlayerCarMover : MonoBehaviour
         if (kyori < bodyHalfWidth)
         {
             //車を一旦後ろ(ガードレールの中)に戻し、そこから戻した距離壁に沿って移動する
-            body.position += new Vector3(hit.hitChip.GurdrailLeftNomal.x, 0, hit.hitChip.GurdrailLeftNomal.y) * (-kyori + bodyHalfWidth);
+            body.position += new Vector3(hit.hitChip.GurdrailLeftNomal.x,0, hit.hitChip.GurdrailLeftNomal.y) * (-kyori + bodyHalfWidth);
             body.rotation = Quaternion.LookRotation(new Vector3(hit.hitLine.vector.x, 0, hit.hitLine.vector.y), Vector3.up);
         }
         else

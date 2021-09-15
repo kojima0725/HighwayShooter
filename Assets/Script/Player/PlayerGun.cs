@@ -18,6 +18,8 @@ public class PlayerGun : MonoBehaviour
     float length;
     [SerializeField]
     float power;
+    [SerializeField]
+    bool isSemiAuto;
 
     RectTransform reticleTransform;
     float interval;
@@ -40,7 +42,7 @@ public class PlayerGun : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
-        if (KInputManager.GetGunShootInput(true))
+        if (KInputManager.GetGunShootInput(isSemiAuto) && timer > interval)
         {
             Shoot();
             timer = 0;
