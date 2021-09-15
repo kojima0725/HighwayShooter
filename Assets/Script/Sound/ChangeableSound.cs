@@ -14,6 +14,7 @@ public class ChangeableSound : MonoBehaviour
     {
         source = GetComponent<AudioSource>();
         SoundEffectManager.instance?.Join(source);
+        source.pitch = SoundEffectManager.instance.pitch;
     }
 
     protected virtual void OnDestroy()

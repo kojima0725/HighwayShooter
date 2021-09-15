@@ -7,6 +7,7 @@ public class PlayerCarBody : MonoBehaviour
     [SerializeField]
     PlayerCar car;
 
+    public PlayerCar Car => car;
 
     private void OnCollisionEnter(Collision collision)
     {

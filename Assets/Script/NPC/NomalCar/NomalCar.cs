@@ -80,7 +80,15 @@ public class NomalCar : NCar, ICar
         Transform spawn = currentRoadChip.GetLanePos(lane);
         this.transform.position = spawn.position;
         this.transform.rotation = spawn.rotation;
+    }
 
+    private void Awake()
+    {
+        SetTag();
+    }
+
+    protected virtual void SetTag()
+    {
         //タグ設定
         KMath.SetTag(gameObject, "NPC");
     }

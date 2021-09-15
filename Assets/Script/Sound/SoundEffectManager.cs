@@ -17,6 +17,7 @@ public class SoundEffectManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
             changeableSounds.Add(BGMAudioSource);
+            changeableSounds.Add(EffectAudioSource);
         }
     }
 
@@ -29,8 +30,8 @@ public class SoundEffectManager : MonoBehaviour
 
     readonly List<AudioSource> changeableSounds = new List<AudioSource>();
 
-    float pitch;
-    float pitchOld;
+    public float pitch = 1;
+    private float pitchOld;
 
     public float Pitch { get => pitch; set => pitch = value; }
 
