@@ -57,6 +57,8 @@ public class EnemyCar : NCar , ICar
         }
         //スローモーション
         TimeManager.instance.SetTimeScale(0.25f, 0.25f, 1000);
+        //スコアアップ
+        ScoreManager.ScoreUp();
     }
 
     private void Update()
