@@ -41,11 +41,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 9d475ea3d9fb5e746b8bc7a4e9517668, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 576d4b5fa3e484449a44e92f26bdb50b, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.035
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -196,7 +196,7 @@ MonoBehaviour:
   BGMAudioSource: {fileID: 4376896054168038469}
   EffectAudioSource: {fileID: 613121700799306561}
   pitch: 1
-  playerShootSound: {fileID: 8300000, guid: 7405758ee197ef347ae8f135eb73847a, type: 3}
+  playerShootSound: {fileID: 8300000, guid: 3a5b3e29b2d9ef1429fe9f8424b16493, type: 3}
   playerShootSoundVolume: 0.025
 --- !u!114 &4324434997218969473
 MonoBehaviour:
