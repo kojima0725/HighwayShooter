@@ -55,7 +55,7 @@ public class RoadData : ScriptableObject
     private void OnValidate()
     {
         MakeLanePos();
-        EditorUtility.SetDirty(this);
+        //EditorUtility.SetDirty(this);
     }
 
     private void MakeLanePos()
