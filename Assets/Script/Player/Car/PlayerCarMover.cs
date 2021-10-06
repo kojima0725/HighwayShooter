@@ -123,7 +123,7 @@ public class PlayerCarMover : MonoBehaviour
     /// </summary>
     private void ChangeCarSpeed()
     {
-        speed = KMath.GetCloser(speed, 0f,
+        speed = KMath.GetCloser(speed, 150f,
                 PlayerDataBase.PlayerCarData.AccelerationPower * 0.25f);
         float a = driver.Acceleration;
         if (a == 0)
@@ -140,7 +140,7 @@ public class PlayerCarMover : MonoBehaviour
         else if (driver.Acceleration <= 0)
         {
             a = -a;
-            speed = KMath.GetCloser(speed, 0f,
+            speed = KMath.GetCloser(speed, 150f,
                 PlayerDataBase.PlayerCarData.BrakePower * a);
         }
     }
