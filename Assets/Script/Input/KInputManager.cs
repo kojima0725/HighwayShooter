@@ -6,7 +6,7 @@ using UnityEngine;
 /// <summary>
 /// 入力の管理
 /// </summary>
-public class KInputManager
+public static class KInputManager
 {
 
     /// <summary>
@@ -14,6 +14,9 @@ public class KInputManager
     /// </summary>
     public static float GetCarMoveInput()
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        return Input.acceleration.x * 0.8f;
+#endif
         float a = Input.GetAxis("LStickH");
         if (a != 0)
         {
@@ -104,6 +107,10 @@ public class KInputManager
     /// <returns></returns>
     public static float GetCerAcceleratorInput()
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        //モバイル端末は常に加速する
+        return 0.8f;
+#endif
         float a = Input.GetAxis("LT");
         if (a != 0)
         {
