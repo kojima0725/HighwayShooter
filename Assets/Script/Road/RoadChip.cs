@@ -14,6 +14,8 @@ public class RoadChip : MonoBehaviour
     private MeshFilter meshFilter;
     [SerializeField]
     private MeshCollider meshCollider;
+    [SerializeField]
+    private GuardRail guardRailPrefab;
     private Transform[] lanes;
     private Transform center;
     private RoadChip nextChip = null;
@@ -174,7 +176,7 @@ public class RoadChip : MonoBehaviour
         mesh.vertices = vertices;
 
         //頂点情報を使ってガードレールも生成する
-        MakeGuardrail(vertices);
+        MakeGuardrail(vertices, length);
 
         //uv設定
         mesh.uv = new Vector2[] {
@@ -198,8 +200,9 @@ public class RoadChip : MonoBehaviour
     /// ガードレールの設定をする
     /// </summary>
     /// <param name="points">メッシュの四隅の座標</param>
-    private void MakeGuardrail(Vector3[] points)
+    private void MakeGuardrail(Vector3[] points, float length)
     {
+        //ガードレールの当たり判定を作成
         gurdralis[0] = new GameObject("leftGurd").transform;
         gurdralis[0].parent = this.transform;
         gurdralis[0].localPosition = points[2];
@@ -207,6 +210,14 @@ public class RoadChip : MonoBehaviour
         gurdralis[1] = new GameObject("rightGurd").transform;
         gurdralis[1].parent = this.transform;
         gurdralis[1].localPosition = points[3];
+        //ガードレールのオブジェクトを作成
+        MakeGurdrailObj(points, length);
+    }
+
+    private void MakeGurdrailObj(Vector3[] points, float length)
+    {
+        GuardRail rail = Instantiate(guardRailPrefab,this.transform);
+        //途中！
     }
 
     /// <summary>
