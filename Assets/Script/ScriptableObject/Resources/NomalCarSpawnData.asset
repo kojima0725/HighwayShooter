@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: NomalCarSpawnData
   m_EditorClassIdentifier: 
   speedKmH: 180
-  carSpawnLength: 250
+  carSpawnLength: 1500
   betweenMax: 25
   betweenMin: 15

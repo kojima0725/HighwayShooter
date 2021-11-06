@@ -32,6 +32,7 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     /// 道路の生成限界距離(二乗)
     /// </summary>
     private float sqrObjDistance;
+    private float sqrDeadDistance;
 
     /// <summary>
     /// ロードチップ達
@@ -133,6 +134,8 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
         //距離計算用のメンバ変数の設定
         float limit = StageDatabase.RoadData.LimitDistance;
         sqrObjDistance = limit * limit;
+        limit = StageDatabase.RoadData.DeathDistance;
+        sqrDeadDistance = limit * limit;
 
         world.JoinWorld(this);
     }
@@ -172,7 +175,7 @@ public class RoadManager : MonoBehaviour, ICanGetTransforms
     {
         RoadChip a;
         a = roadChips.FirstOrDefault();
-        while (sqrObjDistance < a.transform.position.sqrMagnitude)
+        while (sqrDeadDistance < a.transform.position.sqrMagnitude)
         {
             roadChips.RemoveAt(0);
             Destroy(a.gameObject);

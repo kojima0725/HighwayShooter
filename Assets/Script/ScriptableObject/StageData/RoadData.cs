@@ -18,6 +18,8 @@ public class RoadData : ScriptableObject
     [SerializeField]
     private float limitDistance;
     [SerializeField]
+    private float deathDistance;
+    [SerializeField]
     private float[] lanePos;
 
 
@@ -40,6 +42,11 @@ public class RoadData : ScriptableObject
     /// 道路の生成限界
     /// </summary>
     public float LimitDistance => limitDistance;
+
+    /// <summary>
+    /// マップがこの距離以上離れたら破棄する
+    /// </summary>
+    public float DeathDistance => deathDistance;
 
     /// <summary>
     /// 各レーンのオフセット値

@@ -16,6 +16,7 @@ MonoBehaviour:
   width: 20
   lane: 4
   limitDistance: 1500
+  deathDistance: 500
   lanePos:
   - 6
   - 2
