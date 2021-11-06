@@ -59,6 +59,40 @@ public static class KInputManager
         return 0f;
     }
 
+    static int mobileFingerIndex = 99;
+    static Vector2 mobileFingerPos = Vector2.zero;
+
+    public static Vector2 GetGunMoveInputMobile()
+    {
+        if (mobileFingerIndex != 99)
+        {
+            foreach (var item in Input.touches)
+            {
+                if (item.fingerId == mobileFingerIndex && item.phase != TouchPhase.Canceled)
+                {
+                    Vector2 pre = mobileFingerPos;
+                    mobileFingerPos = item.position;
+                    return  item.position - pre;
+                }
+            }
+            mobileFingerIndex = 99;
+            mobileFingerPos = Vector2.zero;
+        }
+        else
+        {
+            foreach (var item in Input.touches)
+            {
+                if (item.phase == TouchPhase.Began)
+                {
+                    mobileFingerIndex = item.fingerId;
+                    mobileFingerPos = item.position;
+                    break;
+                }
+            }
+        }
+        return Vector2.zero;
+    }
+
     /// <summary>
     /// 銃の移動入力を取得する(上下方向)
     /// </summary>
@@ -91,6 +125,10 @@ public static class KInputManager
     /// <returns></returns>
     public static bool GetGunShootInput(bool down)
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
+        //モバイル端末は常に加速する
+        return mobileFingerIndex != 99;
+#endif
         if (down)
         {
             return Input.GetKeyDown(KeyCode.Joystick1Button5) || Input.GetKeyDown(KeyCode.Space);

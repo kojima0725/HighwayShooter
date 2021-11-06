@@ -75,17 +75,16 @@ public class PlayerGun : MonoBehaviour
     {
         Vector3 move;
 #if UNITY_ANDROID && !UNITY_EDITOR
-        move = new Vector2(KInputManager.GetGunMoveInputX(), KInputManager.GetGunMoveInputY());
+        move = KInputManager.GetGunMoveInputMobile();
+        reticleTransform.position += move;
 #else
         move = new Vector2(KInputManager.GetGunMoveInputX(), KInputManager.GetGunMoveInputY());
         move.x *= reticleSpeed;
         move.y *= reticleSpeed;
-#endif
         move.z = 0;
-
         //レティクル移動(時間、スクリーン解像度を考慮)
         reticleTransform.position += move * Time.deltaTime * Screen.height;
-
+#endif
         DoNotGoToOutSide();
     }
 
