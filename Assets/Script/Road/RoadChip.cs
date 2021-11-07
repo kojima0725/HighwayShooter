@@ -176,7 +176,7 @@ public class RoadChip : MonoBehaviour
         mesh.vertices = vertices;
 
         //頂点情報を使ってガードレールも生成する
-        MakeGuardrail(vertices, length);
+        MakeGuardrail(vertices);
 
         //uv設定
         mesh.uv = new Vector2[] {
@@ -200,24 +200,22 @@ public class RoadChip : MonoBehaviour
     /// ガードレールの設定をする
     /// </summary>
     /// <param name="points">メッシュの四隅の座標</param>
-    private void MakeGuardrail(Vector3[] points, float length)
+    private void MakeGuardrail(Vector3[] points)
     {
         //ガードレールの当たり判定を作成
-        gurdralis[0] = new GameObject("leftGurd").transform;
+        GuardRail rail = Instantiate(guardRailPrefab);
+        gurdralis[0] = rail.transform;
         gurdralis[0].parent = this.transform;
         gurdralis[0].localPosition = points[2];
+        gurdralis[0].localRotation = Quaternion.identity;
+        rail.Init(1, (points[0] - points[2]).magnitude);
 
-        gurdralis[1] = new GameObject("rightGurd").transform;
+        rail = Instantiate(guardRailPrefab);
+        gurdralis[1] = rail.transform;
         gurdralis[1].parent = this.transform;
         gurdralis[1].localPosition = points[3];
-        //ガードレールのオブジェクトを作成
-        MakeGurdrailObj(points, length);
-    }
-
-    private void MakeGurdrailObj(Vector3[] points, float length)
-    {
-        GuardRail rail = Instantiate(guardRailPrefab,this.transform);
-        //途中！
+        gurdralis[1].localRotation = Quaternion.identity;
+        rail.Init(1, (points[1] - points[3]).magnitude);
     }
 
     /// <summary>
