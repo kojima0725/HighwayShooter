@@ -16,6 +16,11 @@ public enum RoadType
 /// </summary>
 public class RoadMaker : MonoBehaviour
 {
+    [SerializeField]
+    private GameObject streetLightPrefab;
+    [SerializeField]
+    private float streetLightRotate;
+
     /// <summary>
     /// 生成される道路のプレファブ
     /// </summary>
