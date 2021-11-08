@@ -143,6 +143,24 @@ public class RoadChip : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 街灯などのオブジェクトを設置する
+    /// </summary>
+    public void SetProp(GameObject prop, bool lr, float rotate)
+    {
+        prop.transform.parent = this.transform;
+        if (lr)
+        {
+            prop.transform.position = gurdralis[0].position;
+            prop.transform.localRotation = Quaternion.Euler(0, rotate, 0);
+        }
+        else
+        {
+            prop.transform.position = gurdralis[1].position;
+            prop.transform.localRotation = Quaternion.Euler(0, rotate + 180, 0);
+        }
+    }
     public void Join(ICar car)
     {
         cars.Add(car);

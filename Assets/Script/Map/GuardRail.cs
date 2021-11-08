@@ -44,8 +44,5 @@ public class GuardRail : MonoBehaviour
         // 領域と法線を自動で再計算する
         mesh.RecalculateBounds();
         mesh.RecalculateNormals();
-
-        meshFilter.mesh = mesh;
-        meshCollider.sharedMesh = mesh;
     }
 }

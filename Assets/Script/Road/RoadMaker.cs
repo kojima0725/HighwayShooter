@@ -20,6 +20,9 @@ public class RoadMaker : MonoBehaviour
     private GameObject streetLightPrefab;
     [SerializeField]
     private float streetLightRotate;
+    [SerializeField]
+    private int lightCount;
+    private int lightCounter;
 
     /// <summary>
     /// 生成される道路のプレファブ
@@ -235,6 +238,9 @@ public class RoadMaker : MonoBehaviour
         //作った道路が終端となる
         latestRoadChip = maked;
 
+        //Propを生成する
+        MakeProp(maked);
+
         return maked;
     }
 
@@ -268,6 +274,19 @@ public class RoadMaker : MonoBehaviour
         else
         {
             Debug.LogError("NO HIT!!!(円の中心座標算出時)");
+        }
+    }
+
+    private void MakeProp(RoadChip chip)
+    {
+        lightCounter++;
+        lightCounter = lightCounter % lightCount;
+        if (lightCounter == 0)
+        {
+            GameObject light = Instantiate(streetLightPrefab);
+            chip.SetProp(light, true, streetLightRotate);
+            light = Instantiate(streetLightPrefab);
+            chip.SetProp(light, false, streetLightRotate);
         }
     }
 }

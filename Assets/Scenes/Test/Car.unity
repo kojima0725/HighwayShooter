@@ -1270,6 +1270,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38e92b9441371bf4a9a658e05264c39f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  streetLightPrefab: {fileID: 4697056367909843437, guid: 35f41b6cdf11b7c4799505d2a9664562,
+    type: 3}
+  streetLightRotate: 90
+  lightCount: 3
   roadChipPrefab: {fileID: 430224689477448097, guid: b1cb29b8ec0994948853adda98750216,
     type: 3}
   mapMaker: {fileID: 1383892039}
