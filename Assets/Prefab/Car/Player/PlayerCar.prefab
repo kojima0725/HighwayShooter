@@ -437,6 +437,8 @@ MonoBehaviour:
   length: 150
   power: 1
   isSemiAuto: 0
+  cameraAnimator: {fileID: 7088474849141092521}
+  gunAnimator: {fileID: 3066402720166295561}
   debugTxt: {fileID: 0}
 --- !u!1 &3575146347122843213
 GameObject:
@@ -1228,13 +1230,35 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3872644565937139461, guid: 53a712a39fb9a3248880a8b5657af838,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872644565937139461, guid: 53a712a39fb9a3248880a8b5657af838,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3872644565937139461, guid: 53a712a39fb9a3248880a8b5657af838,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3883302985497339121, guid: 53a712a39fb9a3248880a8b5657af838,
         type: 3}
       propertyPath: m_Name
       value: GUN
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8435590001054411651, guid: 53a712a39fb9a3248880a8b5657af838, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 53a712a39fb9a3248880a8b5657af838, type: 3}
+--- !u!95 &3066402720166295561 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4389108532353269617, guid: 53a712a39fb9a3248880a8b5657af838,
+    type: 3}
+  m_PrefabInstance: {fileID: 1614316113129162616}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4068780606186710916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3319159061848596732, guid: 53a712a39fb9a3248880a8b5657af838,

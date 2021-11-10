@@ -20,6 +20,10 @@ public class PlayerGun : MonoBehaviour
     float power;
     [SerializeField]
     bool isSemiAuto;
+    [SerializeField]
+    Animator cameraAnimator;
+    [SerializeField]
+    Animator gunAnimator;
 
     RectTransform reticleTransform;
     float interval;
@@ -162,6 +166,8 @@ public class PlayerGun : MonoBehaviour
         }
 
         SoundEffectManager.instance?.PlayShootSound();
+        PlayAnimationEffect();
+
     }
 
     private bool ShootRay(out RaycastHit hit)
@@ -169,5 +175,15 @@ public class PlayerGun : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(reticleTransform.position);
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * length, Color.red);
         return Physics.Raycast(ray, out hit, length);
+    }
+
+
+    int count;
+    private void PlayAnimationEffect()
+    {
+        count++;
+        count %= 2;
+        cameraAnimator.CrossFade($"GunShock{count}", 0.04f, 1);
+        gunAnimator.CrossFade($"Shot{count}", 0.04f, 0);
     }
 }
