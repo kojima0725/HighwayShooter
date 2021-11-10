@@ -15,6 +15,12 @@ public class PlayerGun : MonoBehaviour
     [SerializeField]
     int rpm;
     [SerializeField]
+    int bulletsCount;
+    int bulletCounter;
+    [SerializeField]
+    float reloadTime;
+
+    [SerializeField]
     float length;
     [SerializeField]
     float power;
@@ -37,19 +43,23 @@ public class PlayerGun : MonoBehaviour
         reticleTransform = reticle.rectTransform;
         reticleTransform.position = new Vector3((float)Screen.width / 2, (float)Screen.height / 2);
         interval = 60.0f / rpm;
+        bulletCounter = bulletsCount;
     }
 
     private void Update()
     {
-        //発射処理
-        if (timer < interval)
+        timer += Time.deltaTime;
+        bool canShoot = timer > interval;
+        if (canShoot)
         {
-            timer += Time.deltaTime;
+            if (bulletCounter == 0)
+            {
+                bulletCounter = bulletsCount;
+            }
         }
-        if (KInputManager.GetGunShootInput(isSemiAuto) && timer > interval)
+        if (KInputManager.GetGunShootInput(isSemiAuto) && canShoot)
         {
             Shoot();
-            timer = 0;
         }
 
         MoveReticle();
@@ -164,6 +174,15 @@ public class PlayerGun : MonoBehaviour
             }
             
         }
+        timer = 0;
+
+        bulletCounter--;
+        if (bulletCounter <= 0)
+        {
+            bulletCounter = 0;
+            PlayReroadAnimation();
+            timer = -reloadTime;
+        }
 
         SoundEffectManager.instance?.PlayShootSound();
         PlayAnimationEffect();
@@ -185,5 +204,10 @@ public class PlayerGun : MonoBehaviour
         count %= 2;
         cameraAnimator.CrossFade($"GunShock{count}", 0.04f, 1);
         gunAnimator.CrossFade($"Shot{count}", 0.04f, 1);
+    }
+
+    private void PlayReroadAnimation()
+    {
+        gunAnimator.CrossFade("Reload", 0.04f, 0);
     }
 }

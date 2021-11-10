@@ -434,6 +434,8 @@ MonoBehaviour:
   reticle: {fileID: 0}
   reticleSpeed: 1
   rpm: 500
+  bulletsCount: 30
+  reloadTime: 1.25
   length: 150
   power: 1
   isSemiAuto: 0
@@ -1046,6 +1048,8 @@ GameObject:
   - component: {fileID: 7251631314189688808}
   - component: {fileID: 7088474849141092521}
   - component: {fileID: 393387636631538666}
+  - component: {fileID: 2209949321229567397}
+  - component: {fileID: 5522324147164595030}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1153,6 +1157,83 @@ MonoBehaviour:
   animator: {fileID: 7088474849141092521}
   nomalWeight: 0.1
   slowWeight: 0.8
+--- !u!114 &2209949321229567397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7251631314189688811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 7251631314189688814}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!114 &5522324147164595030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7251631314189688811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: 78b9e06f13bd1d244a14f75036cdbd27, type: 2}
+  isGlobal: 1
+  blendDistance: 0
+  weight: 1
+  priority: 0
 --- !u!1 &7418881727773909750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1266,23 +1347,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: GUN
       objectReference: {fileID: 0}
-    - target: {fileID: 6487102780752712084, guid: 53a712a39fb9a3248880a8b5657af838,
-        type: 3}
-      propertyPath: nomalWeight
-      value: 0.6
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8435590001054411651, guid: 53a712a39fb9a3248880a8b5657af838, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 53a712a39fb9a3248880a8b5657af838, type: 3}
---- !u!95 &3066402720166295561 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 4389108532353269617, guid: 53a712a39fb9a3248880a8b5657af838,
-    type: 3}
-  m_PrefabInstance: {fileID: 1614316113129162616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4068780606186710916 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3319159061848596732, guid: 53a712a39fb9a3248880a8b5657af838,
+    type: 3}
+  m_PrefabInstance: {fileID: 1614316113129162616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &3066402720166295561 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4389108532353269617, guid: 53a712a39fb9a3248880a8b5657af838,
     type: 3}
   m_PrefabInstance: {fileID: 1614316113129162616}
   m_PrefabAsset: {fileID: 0}
