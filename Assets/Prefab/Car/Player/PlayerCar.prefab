@@ -433,7 +433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reticle: {fileID: 0}
   reticleSpeed: 1
-  rpm: 400
+  rpm: 500
   length: 150
   power: 1
   isSemiAuto: 0
@@ -1045,6 +1045,7 @@ GameObject:
   - component: {fileID: 7251631314189688809}
   - component: {fileID: 7251631314189688808}
   - component: {fileID: 7088474849141092521}
+  - component: {fileID: 393387636631538666}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1137,6 +1138,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &393387636631538666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7251631314189688811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb2b7156b737084d8250b9d87d0e40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 7088474849141092521}
+  nomalWeight: 0.1
+  slowWeight: 0.5
 --- !u!1 &7418881727773909750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1265,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GUN
+      objectReference: {fileID: 0}
+    - target: {fileID: 6487102780752712084, guid: 53a712a39fb9a3248880a8b5657af838,
+        type: 3}
+      propertyPath: nomalWeight
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8435590001054411651, guid: 53a712a39fb9a3248880a8b5657af838, type: 3}

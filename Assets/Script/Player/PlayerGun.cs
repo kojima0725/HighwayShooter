@@ -184,6 +184,6 @@ public class PlayerGun : MonoBehaviour
         count++;
         count %= 2;
         cameraAnimator.CrossFade($"GunShock{count}", 0.04f, 1);
-        gunAnimator.CrossFade($"Shot{count}", 0.04f, 0);
+        gunAnimator.CrossFade($"Shot{count}", 0.04f, 1);
     }
 }

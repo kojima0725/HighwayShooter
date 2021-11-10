@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3319159061848596732}
   - component: {fileID: 4389108532353269617}
+  - component: {fileID: 6487102780752712084}
   m_Layer: 0
   m_Name: GUN
   m_TagString: Untagged
@@ -51,6 +52,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &6487102780752712084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3883302985497339121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbb2b7156b737084d8250b9d87d0e40c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4389108532353269617}
+  nomalWeight: 0.5
+  slowWeight: 1
 --- !u!1 &4763082589329968903
 GameObject:
   m_ObjectHideFlags: 0
@@ -60,7 +76,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3872644565937139461}
-  - component: {fileID: 8435590001054411651}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -83,14 +98,6 @@ Transform:
   m_Father: {fileID: 3319159061848596732}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -1.78, y: 0, z: -0.57}
---- !u!33 &8435590001054411651
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4763082589329968903}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1001 &7568162262270129050
 PrefabInstance:
   m_ObjectHideFlags: 0
