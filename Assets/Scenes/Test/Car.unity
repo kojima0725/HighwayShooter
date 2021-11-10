@@ -618,6 +618,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7251631314189688809, guid: 388c48231e4ad034daa66b42350dc213,
+        type: 3}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7263149144357409724, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: m_Enabled
