@@ -34,7 +34,16 @@ public class PlayerCarData : ScriptableObject
     /// <summary>
     /// ハンドルの入力感度(入力にどれだけ素直に反応するか)
     /// </summary>
-    public float HandleInputSensitivity => handleInputSensitivity;
+    public float HandleInputSensitivity 
+    {
+        get 
+        {
+#if UNITY_ANDROID && !UNITY_EDITOR
+            return 100; 
+#endif
+            return handleInputSensitivity;
+        }
+    }
 
     /// <summary>
     /// 最大速度
