@@ -15,7 +15,7 @@ public static class KInputManager
     public static float GetCarMoveInput()
     {
 #if UNITY_ANDROID && !UNITY_EDITOR
-        return Input.acceleration.x * 0.8f;
+        return Input.acceleration.x * 1.5f;
 #endif
         float a = Input.GetAxis("LStickH");
         if (a != 0)
