@@ -276,18 +276,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 91419398}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &91419400 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5423802493363298025, guid: 22886b74925bc7f4b9bab5a707457af8,
-    type: 3}
-  m_PrefabInstance: {fileID: 91419398}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &132310917
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +524,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 714fd78e8c76ffe44a9f42c350040f90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &434223173 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3772447573922379547, guid: 22886b74925bc7f4b9bab5a707457af8,
+    type: 3}
+  m_PrefabInstance: {fileID: 91419398}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72b7aeded3b15c54084cde556c0b16e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &446607687
 GameObject:
   m_ObjectHideFlags: 0
@@ -605,7 +605,7 @@ PrefabInstance:
         type: 3}
       propertyPath: reticle
       value: 
-      objectReference: {fileID: 91419400}
+      objectReference: {fileID: 434223173}
     - target: {fileID: 301873404488241430, guid: 388c48231e4ad034daa66b42350dc213,
         type: 3}
       propertyPath: debugTxt

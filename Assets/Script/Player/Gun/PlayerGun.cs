@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class PlayerGun : MonoBehaviour
 {
     [SerializeField]
-    Image reticle;
+    ReticleUI reticle;
     [SerializeField]
     float reticleSpeed;
     [SerializeField]
@@ -40,7 +40,7 @@ public class PlayerGun : MonoBehaviour
 
     private void Awake()
     {
-        reticleTransform = reticle.rectTransform;
+        reticleTransform = reticle.GetComponent<RectTransform>();
         reticleTransform.position = new Vector3((float)Screen.width / 2, (float)Screen.height / 2);
         interval = 60.0f / rpm;
         bulletCounter = bulletsCount;
@@ -204,6 +204,7 @@ public class PlayerGun : MonoBehaviour
         count %= 2;
         cameraAnimator.CrossFade($"GunShock{count}", 0.04f, 1);
         gunAnimator.CrossFade($"Shot{count}", 0.04f, 1);
+        reticle.PlayShootEffect();
     }
 
     private void PlayReroadAnimation()
