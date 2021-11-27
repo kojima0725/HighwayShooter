@@ -226,14 +226,14 @@ public class RoadChip : MonoBehaviour
         gurdralis[0].parent = this.transform;
         gurdralis[0].localPosition = points[2];
         gurdralis[0].localRotation = Quaternion.identity;
-        rail.Init(1, (points[0] - points[2]).magnitude);
+        rail.Init(1.5f, (points[0] - points[2]).magnitude);
 
         rail = Instantiate(guardRailPrefab);
         gurdralis[1] = rail.transform;
         gurdralis[1].parent = this.transform;
         gurdralis[1].localPosition = points[3];
         gurdralis[1].localRotation = Quaternion.identity;
-        rail.Init(1, (points[1] - points[3]).magnitude);
+        rail.Init(1.5f, (points[1] - points[3]).magnitude);
     }
 
     /// <summary>

@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carPrefab: {fileID: 2915093056513027541, guid: 4ef5f896762e09f4cb9738f7b08afad7,
     type: 3}
-  hp: 2
+  hp: 1

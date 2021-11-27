@@ -15,7 +15,7 @@ MonoBehaviour:
   carPrefab: {fileID: 5220089833429797709, guid: 43fed5ee4471a934caec609cb09d580c,
     type: 3}
   movementData: {fileID: 11400000, guid: f32c032ab4ee77547a6395c944840c22, type: 2}
-  hp: 4
+  hp: 2
   gunRange: 100
   gunAccurate: 10
   gunRPM: 800
