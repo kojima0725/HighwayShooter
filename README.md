@@ -1,7 +1,8 @@
 # タイトル「ハイウェイシューター」
 アクション映画によくある「高速道路での銃撃戦」をゲームに落とし込んだ作品になります。
 ## テーマ「左手はハンドル、右手に銃」
-コントローラー(XboxOne)の左側で車の操作、右側で銃の操作をします。
+~~コントローラー(XboxOne)の左側で車の操作、右側で銃の操作をします。~~  
+モバイルアプリとしてリリースする予定です
 ## イメージ「リッジレーサー+タイムクライシス」
 ゲームのリアルさは追求せず、とにかくプレイヤーが「楽しい」と思えるようなゲームを作っていきます
 
@@ -9,7 +10,8 @@
 クローン後に
 「ARCADE: FREE Racing Car」https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085  
 「POLYGON City - Low Poly 3D Art by Synty」　https://assetstore.unity.com/packages/3d/environments/urban/polygon-city-low-poly-3d-art-by-synty-95214  
-「Low Poly Cars」https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-cars-101798
+「Low Poly Cars」https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-cars-101798  
+「Personnel Transport Helicopter」https://assetstore.unity.com/packages/3d/vehicles/air/personnel-transport-helicopter-13448
   
 をインポートしてください
 
