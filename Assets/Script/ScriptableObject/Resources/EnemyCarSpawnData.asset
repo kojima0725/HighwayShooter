@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: EnemyCarSpawnData
   m_EditorClassIdentifier: 
   spawnBackLength: 25
-  intervalTime: 1
+  intervalTime: 10
   firstIntervalTime: 10
-  maxCount: 4
-  firstAddSpeed: 50
+  maxCount: 15
+  firstAddSpeed: 100

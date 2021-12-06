@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01761e61101290419250294b3407432, type: 3}
   m_Name: Movement1
   m_EditorClassIdentifier: 
-  addSpeed: 50
+  addSpeed: 30
   acceleratorPower: 100
   removeSpeed: 50
   brakePower: 50
-  stayAngle: 90
+  stayAngle: 0
   stayLengthMin: 5
   stayLengthMax: 15
   sarchLength: 100
