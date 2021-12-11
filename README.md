@@ -14,7 +14,8 @@
 「Personnel Transport Helicopter」https://assetstore.unity.com/packages/3d/vehicles/air/personnel-transport-helicopter-13448
 「Street Lights Pack」https://assetstore.unity.com/packages/3d/props/exterior/street-lights-pack-31644  
 「Submachine Gun」https://assetstore.unity.com/packages/3d/props/guns/submachine-gun-20746  
-「War FX」https://assetstore.unity.com/packages/vfx/particles/war-fx-5669
+「War FX」https://assetstore.unity.com/packages/vfx/particles/war-fx-5669  
+「Fantasy Skybox FREE」https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-free-18353  
 をインポートしてください
 
 
