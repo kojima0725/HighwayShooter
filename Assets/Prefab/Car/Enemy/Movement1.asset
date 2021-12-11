@@ -16,7 +16,7 @@ MonoBehaviour:
   acceleratorPower: 100
   removeSpeed: 50
   brakePower: 50
-  stayAngle: 0
+  stayAngle: 90
   stayLengthMin: 5
   stayLengthMax: 15
   sarchLength: 100
