@@ -12,14 +12,17 @@
 「POLYGON City - Low Poly 3D Art by Synty」　https://assetstore.unity.com/packages/3d/environments/urban/polygon-city-low-poly-3d-art-by-synty-95214  
 「Low Poly Cars」https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-cars-101798  
 「Personnel Transport Helicopter」https://assetstore.unity.com/packages/3d/vehicles/air/personnel-transport-helicopter-13448
-  
+「Street Lights Pack」https://assetstore.unity.com/packages/3d/props/exterior/street-lights-pack-31644  
+「Submachine Gun」https://assetstore.unity.com/packages/3d/props/guns/submachine-gun-20746  
+「War FX」https://assetstore.unity.com/packages/vfx/particles/war-fx-5669
 をインポートしてください
 
 
 
 ### 使用した素材サイト
-https://soundeffect-lab.info/sound/battle/battle2.html 
-https://taira-komori.jpn.org/arms01.html
+https://soundeffect-lab.info/sound/battle/battle2.html  
+https://taira-komori.jpn.org/arms01.html  
+
 
 
 
