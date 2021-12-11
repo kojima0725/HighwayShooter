@@ -23,6 +23,7 @@
 ### 使用した素材サイト
 https://soundeffect-lab.info/sound/battle/battle2.html  
 https://taira-komori.jpn.org/arms01.html  
+https://dova-s.jp/bgm/play3259.html  
 
 
 
