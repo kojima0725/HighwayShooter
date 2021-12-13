@@ -9,7 +9,7 @@ using System.Linq;
 /// 敵車の本体にあたる部分
 /// </summary>
 public class EnemyCarBody : MonoBehaviour
-{ 
+{
     private EnemyCar parent;
     private int targetLane;
     private int currentLane;
