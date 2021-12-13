@@ -16,6 +16,7 @@
 「Submachine Gun」https://assetstore.unity.com/packages/3d/props/guns/submachine-gun-20746  
 「War FX」https://assetstore.unity.com/packages/vfx/particles/war-fx-5669  
 「Fantasy Skybox FREE」https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-free-18353  
+「Survival stylized characters + 5 Weapons」https://assetstore.unity.com/packages/3d/characters/survival-stylized-characters-5-weapons-115559  
 をインポートしてください
 
 
