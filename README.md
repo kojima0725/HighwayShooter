@@ -26,13 +26,3 @@ https://soundeffect-lab.info/sound/battle/battle2.html
 https://taira-komori.jpn.org/arms01.html  
 https://dova-s.jp/bgm/play3259.html  
 
-
-
-
-メモ  
-このゲームのルールが定まってきた  
-とにかく打ちまくってポイント(お金にしようかな、お金で銃を買う)を稼ぐゲーム  
-敵はプレイヤーの前に滞在せず過ぎ去っていく、倒すと高ポイントゲット  
-ガードレールに当たると大幅に減速する  
-一般車にあたってもそこまで減速しない  
-制限時間内にどれだけポイントを稼げるかというルール  
