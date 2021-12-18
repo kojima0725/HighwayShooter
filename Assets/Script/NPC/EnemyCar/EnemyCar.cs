@@ -16,7 +16,7 @@ public class EnemyCar : NCar , ICar
     public event Action<EnemyCar> OnDead;
 
     private float speedMS;
-    private EnemyCarData myData;
+    protected EnemyCarData myData;
     [SerializeField]
     private EnemyCarBody body;
     private EnemyCar stayTarget;
@@ -164,7 +164,7 @@ public class EnemyCar : NCar , ICar
         SpeedDown(baseSpeed);
     }
 
-    private void SpeedUp(float baseSpeed)
+    protected void SpeedUp(float baseSpeed)
     {
         speedMS = KMath.GetCloser(
             speedMS,
@@ -176,7 +176,7 @@ public class EnemyCar : NCar , ICar
         }
     }
 
-    private void SpeedDown(float baseSpeed)
+    protected void SpeedDown(float baseSpeed)
     {
         speedMS = KMath.GetCloser(speedMS,
             baseSpeed - myData.MovementData.RemoveSpeedMS,
@@ -187,7 +187,7 @@ public class EnemyCar : NCar , ICar
         }
     }
 
-    private void SpeedKeep(float baseSpeed)
+    protected void SpeedKeep(float baseSpeed)
     {
         if (speedMS > PlayerCar.current.SpeedMS)
         {

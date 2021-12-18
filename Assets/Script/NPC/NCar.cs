@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// NPC車両のインターフェース
+/// </summary>
 public class NCar : MonoBehaviour
 {
     protected float hp;
