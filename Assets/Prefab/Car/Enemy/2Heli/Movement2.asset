@@ -17,8 +17,8 @@ MonoBehaviour:
   removeSpeed: 50
   brakePower: 50
   stayAngle: 90
-  stayLengthMin: 5
-  stayLengthMax: 15
+  stayLengthMin: 30
+  stayLengthMax: 40
   sarchLength: 100
   laneChangePower: 10
   handlePower: 20

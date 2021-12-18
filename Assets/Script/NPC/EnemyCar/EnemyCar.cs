@@ -9,6 +9,15 @@ using Random = UnityEngine.Random;
 /// </summary>
 public class EnemyCar : NCar , ICar
 {
+    public enum Type
+    {
+        Car,
+        Heli,
+    }
+
+    [SerializeField]
+    Type type;
+
     /// <summary>
     /// 移動先がNullのときに呼ばれる
     /// </summary>
