@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carPrefab: {fileID: 3395777118926834965, guid: 9ae400173e073fb4a88ec9403824cc07,
     type: 3}
-  movementData: {fileID: 11400000, guid: f32c032ab4ee77547a6395c944840c22, type: 2}
+  movementData: {fileID: 11400000, guid: 0174d06be71955d4aa03d743cdc35b64, type: 2}
   hp: 2
   gunRange: 100
   gunAccurate: 10

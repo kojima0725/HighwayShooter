@@ -11,7 +11,7 @@ using System.Linq;
 public class EnemyCarBody : MonoBehaviour
 {
     private EnemyCar parent;
-    private int targetLane;
+    protected int targetLane;
     private int currentLane;
     private int sarchChipCount;
     private float handle;
@@ -24,15 +24,19 @@ public class EnemyCarBody : MonoBehaviour
     public int CurrentLane => currentLane;
     public float Handle => handle;
 
-    public void Init(EnemyCar car)
+    public virtual void Init(EnemyCar car)
     {
         parent = car;
         MakeData();
     }
 
-    public void DeadPush(Vector3 move, Vector3 rotate)
+    public virtual void DeadPush(Vector3 move, Vector3 rotate, Rigidbody rb = null)
     {
-        Rigidbody body = GetComponent<Rigidbody>();
+        Rigidbody body = rb;
+        if (rb == null)
+        {
+            body = GetComponent<Rigidbody>();
+        }
         body.useGravity = true;
         body.constraints = RigidbodyConstraints.None;
         body.drag = 0.5f;
@@ -58,7 +62,7 @@ public class EnemyCarBody : MonoBehaviour
     /// <summary>
     /// 周りの車の走行情報から移動先レーンを決定
     /// </summary>
-    private void ChangeTargetLane()
+    protected virtual void ChangeTargetLane()
     {
         CheckHitRisk();
         //現在のレーンにリスクがある場合はレーン変更を検討する

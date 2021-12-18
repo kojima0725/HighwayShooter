@@ -4,5 +4,15 @@ using UnityEngine;
 
 public class Heli : EnemyCar
 {
+    enum State
+    {
+        CatchUp,
+        Stay,
+        Leave,
+    }
 
+    protected override void ChangeSpeed()
+    {
+        base.ChangeSpeed();
+    }
 }

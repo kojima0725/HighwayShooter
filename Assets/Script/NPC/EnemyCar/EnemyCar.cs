@@ -55,7 +55,7 @@ public class EnemyCar : NCar , ICar
             smoke.transform.parent = body.transform;
             smoke.transform.localPosition = Vector3.zero;
         }
-        //スローモーション ナシにする
+        //スローモーション ナシにするのでコメントアウト
         //TimeManager.instance.SetTimeScale(0.25f, 0.25f, 1000);
         //スコアアップ
         ScoreManager.ScoreUp();
@@ -119,7 +119,7 @@ public class EnemyCar : NCar , ICar
     /// <summary>
     /// プレイヤーとの相対位置応じて加減速を行う
     /// </summary>
-    private void ChangeSpeed()
+    protected virtual  void ChangeSpeed()
     {
         Vector3 thisPos = body.transform.position;
         float sqrDist;
