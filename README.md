@@ -6,7 +6,7 @@
 ## イメージ「リッジレーサー+タイムクライシス」
 ゲームのリアルさは追求せず、とにかくプレイヤーが「楽しい」と思えるようなゲームを作っていきます
 
-# このリポジトリをクローンする場合
+# 使用アセット
 クローン後に
 「ARCADE: FREE Racing Car」https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085  
 「POLYGON City - Low Poly 3D Art by Synty」　https://assetstore.unity.com/packages/3d/environments/urban/polygon-city-low-poly-3d-art-by-synty-95214  
