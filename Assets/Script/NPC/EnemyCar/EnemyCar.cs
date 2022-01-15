@@ -15,8 +15,7 @@ public class EnemyCar : NCar , ICar
         Heli,
     }
 
-    [SerializeField]
-    Type type;
+    public virtual Type CarType => Type.Car;
 
     /// <summary>
     /// 移動先がNullのときに呼ばれる

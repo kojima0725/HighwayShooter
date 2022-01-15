@@ -11,6 +11,8 @@ public class Heli : EnemyCar
         Leave,
     }
 
+    public override Type CarType => Type.Heli;
+
     [SerializeField]
     float stayTime;
     private float timer;
