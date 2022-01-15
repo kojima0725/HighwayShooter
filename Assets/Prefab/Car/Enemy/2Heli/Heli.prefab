@@ -520,7 +520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 198fad92b789fa347ba7df88691a4acd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
   body: {fileID: 1164738433171277618}
   debug: 0
-  stayTime: 1
+  stayTime: 2
