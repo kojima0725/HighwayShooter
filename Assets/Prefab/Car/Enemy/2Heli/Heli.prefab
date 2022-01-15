@@ -522,4 +522,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 1164738433171277618}
   debug: 0
-  stayTime: 2
+  stayTime: 0.5

@@ -14,14 +14,27 @@ public class EnemyCar : NCar , ICar
         Car,
         Heli,
     }
+    public enum State
+    {
+        CatchUp,
+        Stay,
+        Leave,
+    }
 
     public virtual Type CarType => Type.Car;
+
+    /// <summary>
+    /// 銃が撃てるか
+    /// </summary>
+    public bool CanShoot => state == State.Stay;
 
     /// <summary>
     /// 移動先がNullのときに呼ばれる
     /// </summary>
     public event Action<EnemyCar> OnRoadIsNull;
     public event Action<EnemyCar> OnDead;
+
+    protected State state = State.CatchUp;
 
     private float speedMS;
     protected EnemyCarData myData;
@@ -152,6 +165,7 @@ public class EnemyCar : NCar , ICar
         {
             //距離が近すぎる場合は加速
             SpeedUp(baseSpeed);
+            ChangeState(State.CatchUp);
             return;
         }
         float angle = Vector3.Angle(target.forward, thisPos);
@@ -159,6 +173,7 @@ public class EnemyCar : NCar , ICar
         {
             //プレイヤーの視界の外にいる場合は加速
             SpeedUp(baseSpeed);
+            ChangeState(State.CatchUp);
             return;
         }
         float max = myData.MovementData.StayLengthMax;
@@ -166,10 +181,12 @@ public class EnemyCar : NCar , ICar
         {
             //視野内、一定の距離内にいる場合は速度維持して並走
             SpeedKeep(baseSpeed);
+            ChangeState(State.Stay);
             return;
         }
         //プレイヤーの前方遠くにいる場合は減速
         SpeedDown(baseSpeed);
+        ChangeState(State.Leave);
     }
 
     protected void SpeedUp(float baseSpeed)
@@ -311,5 +328,10 @@ public class EnemyCar : NCar , ICar
         Quaternion rotate = Quaternion.LookRotation(direction);
         rotate = rotate * Quaternion.AngleAxis(body.Handle * 0.25f, Vector3.forward);
         body.transform.localRotation = rotate;
+    }
+
+    private void ChangeState(State s)
+    {
+        state = s;
     }
 }

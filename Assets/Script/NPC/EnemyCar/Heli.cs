@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class Heli : EnemyCar
 {
-    enum State
-    {
-        CatchUp,
-        Stay,
-        Leave,
-    }
-
     public override Type CarType => Type.Heli;
 
     [SerializeField]
     float stayTime;
     private float timer;
     
-    private State state = State.CatchUp;
 
     protected override void ChangeSpeed()
     {

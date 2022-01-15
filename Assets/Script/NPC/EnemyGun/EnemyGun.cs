@@ -34,8 +34,11 @@ public class EnemyGun : MonoBehaviour
         IntervalTimer -= Time.deltaTime;
         if (IntervalTimer < 0)
         {
-            StartCoroutine(ShootGun());
-            IntervalTimer = Random.Range(data.GunShootInterval, data.GunShootInterval + 4);
+            if (car.CanShoot)
+            {
+                StartCoroutine(ShootGun());
+                IntervalTimer = Random.Range(data.GunShootInterval, data.GunShootInterval + 4);
+            }
         }
     }
 

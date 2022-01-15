@@ -19,5 +19,5 @@ MonoBehaviour:
   gunRange: 100
   gunAccurate: 10
   gunRPM: 800
-  gunShootInterval: 1.5
-  gunShootAtOnce: 5
+  gunShootInterval: 1
+  gunShootAtOnce: 10

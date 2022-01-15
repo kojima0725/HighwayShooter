@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f01761e61101290419250294b3407432, type: 3}
   m_Name: Movement2
   m_EditorClassIdentifier: 
-  addSpeed: 50
-  acceleratorPower: 150
-  removeSpeed: 50
-  brakePower: 150
+  addSpeed: 100
+  acceleratorPower: 200
+  removeSpeed: 200
+  brakePower: 200
   stayAngle: 90
-  stayLengthMin: 75
-  stayLengthMax: 100
-  sarchLength: 100
+  stayLengthMin: 50
+  stayLengthMax: 50
+  sarchLength: 75
   laneChangePower: 10
   handlePower: 20
   laneChangeEndWidth: 0.15
