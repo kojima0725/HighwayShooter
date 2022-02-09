@@ -11,12 +11,14 @@
 「ARCADE: FREE Racing Car」https://assetstore.unity.com/packages/3d/vehicles/land/arcade-free-racing-car-161085  
 「POLYGON City - Low Poly 3D Art by Synty」　https://assetstore.unity.com/packages/3d/environments/urban/polygon-city-low-poly-3d-art-by-synty-95214  
 「Low Poly Cars」https://assetstore.unity.com/packages/3d/vehicles/land/low-poly-cars-101798  
-「Personnel Transport Helicopter」https://assetstore.unity.com/packages/3d/vehicles/air/personnel-transport-helicopter-13448
+「Personnel Transport Helicopter」https://assetstore.unity.com/packages/3d/vehicles/air/personnel-transport-helicopter-13448  
 「Street Lights Pack」https://assetstore.unity.com/packages/3d/props/exterior/street-lights-pack-31644  
 「Submachine Gun」https://assetstore.unity.com/packages/3d/props/guns/submachine-gun-20746  
 「War FX」https://assetstore.unity.com/packages/vfx/particles/war-fx-5669  
 「Fantasy Skybox FREE」https://assetstore.unity.com/packages/2d/textures-materials/sky/fantasy-skybox-free-18353  
 「Survival stylized characters + 5 Weapons」https://assetstore.unity.com/packages/3d/characters/survival-stylized-characters-5-weapons-115559  
+「Epic Toon FX」https://assetstore.unity.com/packages/vfx/particles/epic-toon-fx-57772  
+「Low Poly Ultimate Pack」 https://assetstore.unity.com/packages/3d/props/low-poly-ultimate-pack-54733  
 をインポートしてください
 
 
